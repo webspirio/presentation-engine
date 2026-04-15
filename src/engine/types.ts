@@ -7,6 +7,7 @@ export interface SlideConfig {
   notes?: string
   transition?: TransitionType
   background?: string
+  showCenterLogo?: boolean
 }
 
 export interface SlideProps {

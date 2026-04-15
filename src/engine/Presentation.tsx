@@ -3,6 +3,7 @@ import type { SlideConfig } from './types'
 import { useActiveSlide } from './useActiveSlide'
 import { useNavigation } from './useNavigation'
 import { Navigation } from './Navigation'
+import { PersistentStage } from './PersistentStage'
 import { PresenterOverlay } from './PresenterOverlay'
 import { Slide } from './Slide'
 
@@ -24,8 +25,6 @@ export function Presentation({ slides }: PresentationProps) {
     scrollToSlide,
   })
 
-  const containerElement = containerRef.current
-
   // Attach wheel/touch listeners with passive: false
   useEffect(() => {
     const el = containerRef.current
@@ -40,14 +39,17 @@ export function Presentation({ slides }: PresentationProps) {
       el.removeEventListener('touchstart', handleTouchStart)
       el.removeEventListener('touchend', handleTouchEnd)
     }
-  }, [handleWheel, handleTouchStart, handleTouchEnd, containerElement])
+  }, [handleWheel, handleTouchStart, handleTouchEnd, containerRef])
 
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-cyan-950">
+      {/* Persistent background + center logo — sits behind scroll container */}
+      <PersistentStage slides={slides} activeSlide={activeSlide} />
+
       {/* Scroll-snap container */}
       <div
         ref={containerRef}
-        className="h-full w-full snap-y snap-mandatory overflow-y-auto"
+        className="relative z-10 h-full w-full snap-y snap-mandatory overflow-y-auto"
       >
         {slides.map((slide, index) => {
           const SlideComponent = slide.component

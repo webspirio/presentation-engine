@@ -17,9 +17,9 @@ export const Slide = forwardRef<HTMLDivElement, SlideWrapperProps>(
         style={{ background: background || 'transparent' }}
       >
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0 }}
+          animate={isActive ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="flex h-full w-full items-center justify-center"
         >
           {children}
