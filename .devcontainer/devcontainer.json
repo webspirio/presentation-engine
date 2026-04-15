@@ -5,6 +5,7 @@
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
   "forwardPorts": [5173],
+  "runArgs": ["--shm-size=1g"],
   "postCreateCommand": "bash .devcontainer/post-create.sh",
   "customizations": {
     "vscode": {

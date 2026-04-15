@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--executable-path=/usr/bin/chromium",
+        "--headless=true",
+        "--isolated=true",
+        "--chrome-arg=--no-sandbox",
+        "--chrome-arg=--disable-dev-shm-usage"
+      ],
+      "env": {
+        "CI": "1"
+      }
+    },
+    "shadcn": {
+      "command": "npx",
+      "args": [
+        "shadcn@latest",
+        "mcp"
+      ]
+    }
+  }
+}
