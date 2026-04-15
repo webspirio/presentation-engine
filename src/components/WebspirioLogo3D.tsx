@@ -3,6 +3,11 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { useReducedMotion } from 'motion/react'
 import * as THREE from 'three'
 import { SVGLoader } from 'three-stdlib'
+import polygonClipping, {
+  type MultiPolygon,
+  type Polygon as PCPolygon,
+  type Ring as PCRing,
+} from 'polygon-clipping'
 
 const FILL_PATH_DS: string[] = [
   'M163.822 117.235C164.603 116.471 165.322 115.546 165.981 114.459C163.857 114.602 161.741 114.788 159.633 115.016L153.82 115.643C141.639 116.843 129.46 118.071 117.283 119.327C113.015 119.765 108.835 120.471 104.744 121.444C103.98 121.672 103.235 121.874 102.508 122.051C101.649 122.262 100.909 122.481 100.287 122.707C93.805 125.061 87.8451 128.088 82.4073 131.786C77.5565 135.086 72.9894 139.185 68.7061 144.082C67.3876 145.588 66.0918 147.274 64.8187 149.139C62.0027 153.256 59.9657 156.7 58.7077 159.472C56.4528 164.441 54.9088 168.663 54.0759 172.138C53.0056 176.603 52.3421 180.096 52.0853 182.617C51.8026 185.389 51.658 187.837 51.6516 189.959C51.6106 200.201 51.617 214.881 51.671 234.001C51.6818 237.75 51.6947 241.496 51.7098 245.236C53.3239 242.034 69.7149 215.862 72.3927 212.031C74.3909 209.17 76.7613 206.312 79.5039 203.457L79.1997 202.252C79.1759 202.15 79.1986 202.061 79.2676 201.983C82.1829 198.735 84.768 195.785 87.0229 193.13C88.3629 191.552 89.8011 189.984 91.3375 188.424C92.3992 187.344 94.0122 185.716 96.1765 183.541C103.112 176.564 109.112 170.707 114.176 165.97C115.911 164.347 117.444 162.865 118.776 161.523C122.72 157.546 126.727 153.53 130.797 149.475C132.696 147.58 134.219 146.085 135.367 144.99C139.435 141.106 143.004 137.648 146.074 134.616C147.703 133.011 149.923 131.027 151.645 129.302C155.682 125.26 159.741 121.237 163.822 117.235Z',
@@ -18,27 +23,11 @@ const SKETCH_PATH_DS: string[] = [
   'M79.5106 203.436L79.2064 202.23C79.1826 202.129 79.2053 202.039 79.2743 201.961C82.1896 198.714 84.7747 195.763 87.0296 193.109C88.3697 191.531 89.8079 189.962 91.3442 188.403C92.4059 187.323 94.0189 185.695 96.1832 183.52C103.119 176.542 109.118 170.685 114.183 165.948C115.918 164.326 117.451 162.844 118.782 161.502C122.727 157.525 126.734 153.508 130.804 149.453C132.703 147.559 134.226 146.064 135.374 144.969C139.441 141.084 143.011 137.626 146.081 134.594C147.709 132.99 149.93 131.005 151.652 129.281C155.689 125.238 159.748 121.216 163.828 117.213C164.609 116.449 165.329 115.524 165.987 114.438',
 ]
 
-type LayerConfig = {
-  color: string
-  metalness: number
-  roughness: number
-  zOffset: number
-  clearcoat?: number
-  clearcoatRoughness?: number
-}
-
-const LAYER_CONFIGS: LayerConfig[] = [
-  { color: '#007595', metalness: 0.35, roughness: 0.42, zOffset: 0 },
-  { color: '#00a5c7', metalness: 0.4, roughness: 0.35, zOffset: 0.08 },
-  { color: '#00b8db', metalness: 0.4, roughness: 0.32, zOffset: 0.16 },
-  {
-    color: '#8df5ff',
-    metalness: 0.25,
-    roughness: 0.25,
-    zOffset: 0.24,
-    clearcoat: 0.4,
-    clearcoatRoughness: 0.18,
-  },
+const PAINT_ORDER: Array<[number, string]> = [
+  [3, '#A2F4FD'],
+  [1, '#00B8DB'],
+  [2, '#00B8DB'],
+  [0, '#007595'],
 ]
 
 const LAYER_ENTRANCE = [1.1, 1.28, 1.46, 1.64]
@@ -47,8 +36,13 @@ const SKETCH_DRAW_DURATION = 0.9
 const MESH_MATERIALIZE_DURATION = 0.8
 const SKETCH_FADE_START = 2.3
 const SKETCH_FADE_DURATION = 0.8
+const PAINT_STOP_TIME =
+  LAYER_ENTRANCE[LAYER_ENTRANCE.length - 1] + MESH_MATERIALIZE_DURATION + 0.1
 
 const SKETCH_BASE_OPACITY = { core: 1, glow: 0.8, halo: 0.45 }
+const LOGO_TEXTURE_SIZE = 1024
+const VIEWBOX_SIZE = 256
+const EXTRUDE_DEPTH = 6
 
 function parseFirstPath(d: string): THREE.ShapePath | null {
   const loader = new SVGLoader()
@@ -57,21 +51,87 @@ function parseFirstPath(d: string): THREE.ShapePath | null {
   return result.paths[0] ?? null
 }
 
-function buildExtrudeGeometry(d: string): THREE.ExtrudeGeometry {
+const UNION_CURVE_SAMPLES = 256
+const EXTRUDE_CURVE_SEGMENTS = 24
+const EXTRUDE_BEVEL_SEGMENTS = 4
+const EXTRUDE_BEVEL_THICKNESS = 0.8
+const EXTRUDE_BEVEL_SIZE = 0.6
+
+function samplePathAsPolygon(d: string): PCPolygon {
   const path = parseFirstPath(d)
-  const shapes = path ? SVGLoader.createShapes(path) : []
+  const rings: PCRing[] = []
+  if (path) {
+    for (const sub of path.subPaths) {
+      const pts = sub.getSpacedPoints(UNION_CURVE_SAMPLES)
+      if (pts.length < 3) continue
+      const ring: PCRing = pts.map((p) => [p.x, p.y])
+      const first = ring[0]
+      const last = ring[ring.length - 1]
+      if (first[0] !== last[0] || first[1] !== last[1]) {
+        ring.push([first[0], first[1]])
+      }
+      rings.push(ring)
+    }
+  }
+  return rings
+}
+
+function ringToVec2(ring: PCRing): THREE.Vector2[] {
+  const len = ring.length
+  const closed =
+    len > 1 &&
+    ring[0][0] === ring[len - 1][0] &&
+    ring[0][1] === ring[len - 1][1]
+  const slice = closed ? ring.slice(0, -1) : ring
+  return slice.map(([x, y]) => new THREE.Vector2(x, y))
+}
+
+function multiPolygonToShapes(mp: MultiPolygon): THREE.Shape[] {
+  return mp.map((polygon) => {
+    const [outer, ...holes] = polygon
+    const shape = new THREE.Shape(ringToVec2(outer))
+    shape.holes = holes.map((h) => new THREE.Path(ringToVec2(h)))
+    return shape
+  })
+}
+
+function buildUnionGeometry(): THREE.BufferGeometry {
+  const polygons = FILL_PATH_DS.map(samplePathAsPolygon).filter(
+    (p) => p.length > 0,
+  )
+  if (polygons.length === 0) {
+    return new THREE.BufferGeometry()
+  }
+  const [first, ...rest] = polygons
+  const unioned: MultiPolygon =
+    rest.length > 0 ? polygonClipping.union(first, ...rest) : [first]
+  const shapes = multiPolygonToShapes(unioned)
   const geom = new THREE.ExtrudeGeometry(shapes, {
-    depth: 6,
+    depth: EXTRUDE_DEPTH,
     bevelEnabled: true,
-    bevelThickness: 0.8,
-    bevelSize: 0.6,
-    bevelSegments: 8,
-    curveSegments: 72,
+    bevelThickness: EXTRUDE_BEVEL_THICKNESS,
+    bevelSize: EXTRUDE_BEVEL_SIZE,
+    bevelSegments: EXTRUDE_BEVEL_SEGMENTS,
+    curveSegments: EXTRUDE_CURVE_SEGMENTS,
   })
   geom.scale(1, -1, 1)
   geom.translate(-128, 128, 0)
+  assignPlanarUVs(geom)
   geom.computeVertexNormals()
   return geom
+}
+
+function assignPlanarUVs(geom: THREE.BufferGeometry) {
+  const positions = geom.attributes.position
+  const uv = new Float32Array(positions.count * 2)
+  const half = VIEWBOX_SIZE / 2
+  for (let i = 0; i < positions.count; i++) {
+    const x = positions.getX(i)
+    const y = positions.getY(i)
+    uv[i * 2] = (x + half) / VIEWBOX_SIZE
+    uv[i * 2 + 1] = (y + half) / VIEWBOX_SIZE
+  }
+  geom.setAttribute('uv', new THREE.BufferAttribute(uv, 2))
 }
 
 function buildLineGeometry(d: string, samplesPerSub = 240): THREE.BufferGeometry {
@@ -105,6 +165,44 @@ function buildEnvMap(): THREE.DataTexture {
   return tex
 }
 
+interface LogoArt {
+  canvas: HTMLCanvasElement
+  ctx: CanvasRenderingContext2D
+  texture: THREE.CanvasTexture
+  path2Ds: Path2D[]
+}
+
+function createLogoArt(): LogoArt {
+  const canvas = document.createElement('canvas')
+  canvas.width = LOGO_TEXTURE_SIZE
+  canvas.height = LOGO_TEXTURE_SIZE
+  const ctx = canvas.getContext('2d')!
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.colorSpace = THREE.SRGBColorSpace
+  texture.anisotropy = 8
+  const path2Ds = PAINT_ORDER.map(([idx]) => new Path2D(FILL_PATH_DS[idx]))
+  return { canvas, ctx, texture, path2Ds }
+}
+
+function paintLogoArt(
+  art: LogoArt,
+  opacities: [number, number, number, number],
+) {
+  const { ctx, canvas, path2Ds, texture } = art
+  ctx.save()
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  ctx.scale(canvas.width / VIEWBOX_SIZE, canvas.height / VIEWBOX_SIZE)
+  for (let i = 0; i < PAINT_ORDER.length; i++) {
+    const alpha = opacities[i]
+    if (alpha <= 0) continue
+    ctx.globalAlpha = alpha
+    ctx.fillStyle = PAINT_ORDER[i][1]
+    ctx.fill(path2Ds[i])
+  }
+  ctx.restore()
+  texture.needsUpdate = true
+}
+
 interface LogoSceneProps {
   isActive: boolean
   reducedMotion: boolean
@@ -113,18 +211,34 @@ interface LogoSceneProps {
 function LogoScene({ isActive, reducedMotion }: LogoSceneProps) {
   const envMap = useMemo(() => buildEnvMap(), [])
 
-  const extrudeGeoms = useMemo(
-    () => FILL_PATH_DS.map((d) => buildExtrudeGeometry(d)),
-    [],
-  )
+  const unionGeom = useMemo(() => buildUnionGeometry(), [])
   const lineGeoms = useMemo(
     () => SKETCH_PATH_DS.map((d) => buildLineGeometry(d)),
     [],
   )
 
-  const meshRefs = useRef<(THREE.Mesh | null)[]>([null, null, null, null])
+  const meshRef = useRef<THREE.Mesh | null>(null)
   const groupRef = useRef<THREE.Group>(null)
   const elapsedRef = useRef(0)
+
+  const logoArt = useMemo(() => createLogoArt(), [])
+  const paintFrozenRef = useRef(false)
+
+  const material = useMemo(() => {
+    const mat = new THREE.MeshPhysicalMaterial({
+      map: logoArt.texture,
+      metalness: 0.38,
+      roughness: 0.34,
+      clearcoat: 0.4,
+      clearcoatRoughness: 0.22,
+      envMap,
+      envMapIntensity: 0.95,
+      transparent: true,
+      depthWrite: true,
+      opacity: 0,
+    })
+    return mat
+  }, [envMap, logoArt.texture])
 
   const lineObjects = useMemo(() => {
     return lineGeoms.map((geom) => {
@@ -168,16 +282,16 @@ function LogoScene({ isActive, reducedMotion }: LogoSceneProps) {
 
   useFrame((_, dt) => {
     if (reducedMotion) {
-      meshRefs.current.forEach((m) => {
-        if (!m) return
-        m.scale.setScalar(1)
-        const mat = m.material as THREE.MeshPhysicalMaterial
-        mat.opacity = 1
-        if (mat.transparent) {
-          mat.transparent = false
-          mat.needsUpdate = true
-        }
-      })
+      paintLogoArt(logoArt, [1, 1, 1, 1])
+      paintFrozenRef.current = true
+      /* eslint-disable react-hooks/immutability -- imperative three.js material mutation */
+      material.opacity = 1
+      if (material.transparent) {
+        material.transparent = false
+        material.needsUpdate = true
+      }
+      /* eslint-enable react-hooks/immutability */
+      if (meshRef.current) meshRef.current.scale.setScalar(1)
       lineObjects.forEach((pair) => {
         pair.coreMat.opacity = 0
         pair.glowMat.opacity = 0
@@ -191,16 +305,14 @@ function LogoScene({ isActive, reducedMotion }: LogoSceneProps) {
 
     if (!isActive) {
       elapsedRef.current = 0
-      meshRefs.current.forEach((m) => {
-        if (!m) return
-        m.scale.setScalar(0.96)
-        const mat = m.material as THREE.MeshPhysicalMaterial
-        if (!mat.transparent) {
-          mat.transparent = true
-          mat.needsUpdate = true
-        }
-        mat.opacity = 0
-      })
+      paintFrozenRef.current = false
+      paintLogoArt(logoArt, [0, 0, 0, 0])
+      if (!material.transparent) {
+        material.transparent = true
+        material.needsUpdate = true
+      }
+      material.opacity = 0
+      if (meshRef.current) meshRef.current.scale.setScalar(0.96)
       lineObjects.forEach((pair) => {
         pair.core.geometry.setDrawRange(0, 0)
         pair.glow.geometry.setDrawRange(0, 0)
@@ -214,6 +326,29 @@ function LogoScene({ isActive, reducedMotion }: LogoSceneProps) {
 
     elapsedRef.current += dt
     const t = elapsedRef.current
+
+    if (!paintFrozenRef.current) {
+      const layerOps: [number, number, number, number] = [0, 0, 0, 0]
+      for (let i = 0; i < 4; i++) {
+        const localT = Math.max(0, (t - LAYER_ENTRANCE[i]) / MESH_MATERIALIZE_DURATION)
+        const p = Math.min(1, localT)
+        layerOps[i] = 1 - Math.pow(1 - p, 3)
+      }
+      paintLogoArt(logoArt, layerOps)
+      if (t >= PAINT_STOP_TIME) {
+        paintFrozenRef.current = true
+      }
+    }
+
+    const meshLocalT = Math.max(0, (t - LAYER_ENTRANCE[0]) / MESH_MATERIALIZE_DURATION)
+    const meshProgress = Math.min(1, meshLocalT)
+    const meshEased = 1 - Math.pow(1 - meshProgress, 3)
+    material.opacity = meshEased
+    if (meshEased >= 1 && material.transparent) {
+      material.transparent = false
+      material.needsUpdate = true
+    }
+    if (meshRef.current) meshRef.current.scale.setScalar(0.96 + meshEased * 0.04)
 
     const fadeT = Math.max(0, (t - SKETCH_FADE_START) / SKETCH_FADE_DURATION)
     const fadeProgress = Math.min(1, fadeT)
@@ -234,21 +369,6 @@ function LogoScene({ isActive, reducedMotion }: LogoSceneProps) {
       pair.glowMat.opacity = SKETCH_BASE_OPACITY.glow * sketchAlpha
       pair.haloMat.opacity = SKETCH_BASE_OPACITY.halo * sketchAlpha
       /* eslint-enable react-hooks/immutability */
-    }
-
-    for (let i = 0; i < 4; i++) {
-      const mesh = meshRefs.current[i]
-      if (!mesh) continue
-      const localT = Math.max(0, (t - LAYER_ENTRANCE[i]) / MESH_MATERIALIZE_DURATION)
-      const progress = Math.min(1, localT)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      const mat = mesh.material as THREE.MeshPhysicalMaterial
-      mat.opacity = eased
-      mesh.scale.setScalar(0.96 + eased * 0.04)
-      if (eased >= 1 && mat.transparent) {
-        mat.transparent = false
-        mat.needsUpdate = true
-      }
     }
 
     if (groupRef.current) {
@@ -274,37 +394,18 @@ function LogoScene({ isActive, reducedMotion }: LogoSceneProps) {
       />
 
       <group ref={groupRef} scale={0.5} rotation={[0.16, 0, 0]}>
-        {extrudeGeoms.map((geom, i) => {
-          const cfg = LAYER_CONFIGS[i]
-          return (
-            <mesh
-              key={`fill-${i}`}
-              ref={(m) => {
-                meshRefs.current[i] = m
-              }}
-              geometry={geom}
-              position={[0, 0, cfg.zOffset]}
-              scale={0.96}
-              renderOrder={i}
-            >
-              <meshPhysicalMaterial
-                color={cfg.color}
-                metalness={cfg.metalness}
-                roughness={cfg.roughness}
-                clearcoat={cfg.clearcoat ?? 0}
-                clearcoatRoughness={cfg.clearcoatRoughness ?? 0}
-                envMap={envMap}
-                envMapIntensity={0.8}
-                transparent
-                depthWrite
-                opacity={0}
-              />
-            </mesh>
-          )
-        })}
+        <mesh
+          ref={(m) => {
+            meshRef.current = m
+          }}
+          geometry={unionGeom}
+          material={material}
+          position={[0, 0, 0]}
+          scale={0.96}
+        />
 
         {lineObjects.map((pair, i) => (
-          <group key={`edges-${i}`} position={[0, 0, 32]}>
+          <group key={`edges-${i}`} position={[0, 0, EXTRUDE_DEPTH + 2]}>
             <primitive object={pair.halo} />
             <primitive object={pair.glow} />
             <primitive object={pair.core} />
