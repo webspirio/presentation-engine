@@ -29,13 +29,13 @@ type LayerConfig = {
 
 const LAYER_CONFIGS: LayerConfig[] = [
   { color: '#007595', metalness: 0.35, roughness: 0.42, zOffset: 0 },
-  { color: '#00a5c7', metalness: 0.4, roughness: 0.35, zOffset: 8 },
-  { color: '#00b8db', metalness: 0.4, roughness: 0.32, zOffset: 16 },
+  { color: '#00a5c7', metalness: 0.4, roughness: 0.35, zOffset: 0.08 },
+  { color: '#00b8db', metalness: 0.4, roughness: 0.32, zOffset: 0.16 },
   {
     color: '#8df5ff',
     metalness: 0.25,
     roughness: 0.25,
-    zOffset: 24,
+    zOffset: 0.24,
     clearcoat: 0.4,
     clearcoatRoughness: 0.18,
   },
@@ -173,6 +173,10 @@ function LogoScene({ isActive, reducedMotion }: LogoSceneProps) {
         m.scale.setScalar(1)
         const mat = m.material as THREE.MeshPhysicalMaterial
         mat.opacity = 1
+        if (mat.transparent) {
+          mat.transparent = false
+          mat.needsUpdate = true
+        }
       })
       lineObjects.forEach((pair) => {
         pair.coreMat.opacity = 0
@@ -191,6 +195,10 @@ function LogoScene({ isActive, reducedMotion }: LogoSceneProps) {
         if (!m) return
         m.scale.setScalar(0.96)
         const mat = m.material as THREE.MeshPhysicalMaterial
+        if (!mat.transparent) {
+          mat.transparent = true
+          mat.needsUpdate = true
+        }
         mat.opacity = 0
       })
       lineObjects.forEach((pair) => {
@@ -237,6 +245,10 @@ function LogoScene({ isActive, reducedMotion }: LogoSceneProps) {
       const mat = mesh.material as THREE.MeshPhysicalMaterial
       mat.opacity = eased
       mesh.scale.setScalar(0.96 + eased * 0.04)
+      if (eased >= 1 && mat.transparent) {
+        mat.transparent = false
+        mat.needsUpdate = true
+      }
     }
 
     if (groupRef.current) {
