@@ -2,14 +2,13 @@ import { motion, useReducedMotion } from 'motion/react'
 import { useEffect, useState } from 'react'
 import DarkVeil from '@/components/DarkVeil'
 import { WebspirioLogo } from '@/components/WebspirioLogo'
-import type { SlideConfig } from './types'
+import { HERO_TIMING } from '@/animations/heroTimeline'
+import type { ActivePosition, ColumnConfig } from './types'
 
 interface PersistentStageProps {
-  slides: SlideConfig[]
-  activeSlide: number
+  columns: ColumnConfig[]
+  active: ActivePosition
 }
-
-const LOGO_SIZE_DESKTOP = 440
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(() =>
@@ -26,11 +25,13 @@ function useIsMobile() {
   return isMobile
 }
 
-export function PersistentStage({ slides, activeSlide }: PersistentStageProps) {
+export function PersistentStage({ columns, active }: PersistentStageProps) {
   const reduce = useReducedMotion() ?? false
   const isMobile = useIsMobile()
-  const showLogo = slides[activeSlide]?.showCenterLogo !== false
-  const isHero = activeSlide === 0
+  const activeSlide = columns[active.col]?.slides[active.row]
+  const isHero = active.col === 0 && active.row === 0
+  const heroRevealed = !isHero || active.fragment >= 1
+  const showLogo = activeSlide?.showCenterLogo !== false && heroRevealed
 
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
@@ -82,34 +83,48 @@ export function PersistentStage({ slides, activeSlide }: PersistentStageProps) {
       <motion.div
         className="absolute left-1/2 top-1/2 flex items-center justify-center"
         style={{
-          width: LOGO_SIZE_DESKTOP,
-          height: LOGO_SIZE_DESKTOP,
-          marginLeft: -LOGO_SIZE_DESKTOP / 2,
-          marginTop: -LOGO_SIZE_DESKTOP / 2,
-          filter: `drop-shadow(0 0 ${isHero ? 64 : 48}px rgba(0, 211, 242, ${
-            isHero ? 0.55 : 0.35
+          width: 'var(--logo-size)',
+          height: 'var(--logo-size)',
+          marginLeft: 'calc(var(--logo-size) / -2)',
+          marginTop: 'calc(var(--logo-size) / -2)',
+          filter: `drop-shadow(0 0 ${isHero ? 68 : 52}px rgba(0, 211, 242, ${
+            isHero ? 0.6 : 0.4
           }))`,
         }}
+        initial={{ y: '0%' }}
         animate={{
           opacity: showLogo ? 1 : 0,
           scale: showLogo ? 1 : 0.9,
+          y: isHero && heroRevealed ? '-38%' : '0%',
         }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        transition={{
+          duration: 0.6,
+          ease: [0.22, 1, 0.36, 1],
+          y: {
+            delay:
+              isHero && heroRevealed && !reduce
+                ? HERO_TIMING.taglineStart - 0.25
+                : 0,
+            duration: 1.1,
+            ease: [0.22, 1, 0.36, 1],
+          },
+        }}
       >
         <motion.div
+          aria-hidden
           className="pointer-events-none absolute inset-0"
           animate={{
-            opacity: isHero ? 1 : 0,
-            scale: isHero ? 1.5 : 1.2,
+            opacity: isHero && heroRevealed ? 1 : 0.35,
+            scale: isHero ? 1.55 : 1.25,
           }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           style={{
             background:
-              'radial-gradient(circle at 50% 50%, rgba(83, 234, 253, 0.5) 0%, rgba(0, 211, 242, 0.2) 35%, transparent 70%)',
-            filter: 'blur(36px)',
+              'radial-gradient(circle at 50% 50%, rgba(83, 234, 253, 0.55) 0%, rgba(0, 211, 242, 0.22) 35%, transparent 72%)',
+            filter: 'blur(38px)',
           }}
         />
-        <WebspirioLogo isActive className="h-full w-full" />
+        <WebspirioLogo isActive={showLogo} className="relative h-full w-full" />
       </motion.div>
     </div>
   )

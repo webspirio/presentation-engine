@@ -227,12 +227,13 @@ function LogoScene({ isActive, reducedMotion }: LogoSceneProps) {
   const material = useMemo(() => {
     const mat = new THREE.MeshPhysicalMaterial({
       map: logoArt.texture,
-      metalness: 0.38,
-      roughness: 0.34,
-      clearcoat: 0.4,
-      clearcoatRoughness: 0.22,
+      metalness: 0.42,
+      roughness: 0.18,
+      clearcoat: 0.9,
+      clearcoatRoughness: 0.08,
+      reflectivity: 0.6,
       envMap,
-      envMapIntensity: 0.95,
+      envMapIntensity: 1.55,
       transparent: true,
       depthWrite: true,
       opacity: 0,
@@ -382,15 +383,16 @@ function LogoScene({ isActive, reducedMotion }: LogoSceneProps) {
 
   return (
     <>
-      <ambientLight intensity={0.22} color="#8df5ff" />
-      <directionalLight position={[-4, 6, 8]} intensity={1.4} color="#aef2ff" />
-      <directionalLight position={[6, -3, 4]} intensity={0.5} color="#0591b0" />
+      <ambientLight intensity={0.45} color="#a5f3fc" />
+      <directionalLight position={[-4, 6, 8]} intensity={2.2} color="#d8f7ff" />
+      <directionalLight position={[6, -3, 4]} intensity={1.1} color="#53eafd" />
+      <directionalLight position={[0, 8, -2]} intensity={0.7} color="#ffffff" />
       <pointLight
         position={[0, 0, -80]}
-        intensity={220}
+        intensity={320}
         color="#53eafd"
-        distance={320}
-        decay={1.8}
+        distance={340}
+        decay={1.7}
       />
 
       <group ref={groupRef} scale={0.5} rotation={[0.16, 0, 0]}>

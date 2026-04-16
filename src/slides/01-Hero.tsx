@@ -9,20 +9,21 @@ import {
 const TAGLINE = 'Від ідеї до цифрової екосистеми'
 const CAPTION = 'UA WELL · 2026 · Düsseldorf'
 
-const LOGO_SIZE = 440
-
-export function HeroSlide({ isActive }: SlideProps) {
+export function HeroSlide({ isActive, fragment }: SlideProps) {
   const reduce = useReducedMotion() ?? false
-  const animState = isActive || reduce ? 'visible' : 'hidden'
+  const revealed = fragment >= 1
+  const animState = (isActive && revealed) || (reduce && isActive) ? 'visible' : 'hidden'
 
   return (
-    <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
+    <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden px-6">
+      {/* Reserve vertical space for the persistent logo (same sizing expression). */}
       <div
-        className="absolute left-1/2 flex -translate-x-1/2 flex-col items-center gap-8 px-6 text-center sm:gap-10"
-        style={{
-          top: `calc(50% + ${LOGO_SIZE / 2}px + 32px)`,
-        }}
-      >
+        aria-hidden
+        className="shrink-0"
+        style={{ height: 'var(--logo-size)' }}
+      />
+
+      <div className="flex flex-col items-center gap-6 pt-6 text-center sm:gap-8 sm:pt-8">
         <motion.h1
           variants={taglineContainer}
           initial="hidden"
@@ -31,7 +32,7 @@ export function HeroSlide({ isActive }: SlideProps) {
           style={{
             fontFamily: "'Unbounded', 'Poppins', sans-serif",
             fontWeight: 700,
-            fontSize: 'clamp(2.25rem, 5.2vw, 4.25rem)',
+            fontSize: 'clamp(1.75rem, 4.6vw, 4.25rem)',
             letterSpacing: '-0.03em',
             lineHeight: 1.05,
             textShadow: '0 2px 40px rgba(0, 184, 219, 0.35)',

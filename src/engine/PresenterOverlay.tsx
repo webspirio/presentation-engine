@@ -4,11 +4,18 @@ import { motion, AnimatePresence } from 'motion/react'
 interface PresenterOverlayProps {
   show: boolean
   showTimer: boolean
-  currentSlide: number
+  label: string
+  title?: string
   notes?: string
 }
 
-export function PresenterOverlay({ show, showTimer, currentSlide, notes }: PresenterOverlayProps) {
+export function PresenterOverlay({
+  show,
+  showTimer,
+  label,
+  title,
+  notes,
+}: PresenterOverlayProps) {
   const [elapsed, setElapsed] = useState(0)
   const startTime = useRef(Date.now())
 
@@ -30,7 +37,6 @@ export function PresenterOverlay({ show, showTimer, currentSlide, notes }: Prese
 
   return (
     <>
-      {/* Timer */}
       <AnimatePresence>
         {showTimer && (
           <motion.div
@@ -44,7 +50,6 @@ export function PresenterOverlay({ show, showTimer, currentSlide, notes }: Prese
         )}
       </AnimatePresence>
 
-      {/* Notes panel */}
       <AnimatePresence>
         {show && (
           <motion.div
@@ -54,10 +59,17 @@ export function PresenterOverlay({ show, showTimer, currentSlide, notes }: Prese
             className="fixed bottom-0 left-0 z-50 w-full border-t border-cyan-800/50 bg-cyan-950/90 p-6 backdrop-blur-md"
           >
             <div className="mx-auto max-w-4xl">
-              <div className="mb-2 text-xs font-medium uppercase tracking-wider text-cyan-500">
-                Slide {currentSlide + 1} — Notes
+              <div className="mb-2 flex items-baseline gap-3">
+                <span className="font-mono text-xs uppercase tracking-wider text-cyan-500">
+                  {label}
+                </span>
+                {title ? (
+                  <span className="text-sm font-medium text-cyan-100">
+                    {title}
+                  </span>
+                ) : null}
               </div>
-              <p className="text-sm leading-relaxed text-cyan-100">
+              <p className="whitespace-pre-wrap text-sm leading-relaxed text-cyan-100/90">
                 {notes || 'No notes for this slide.'}
               </p>
             </div>

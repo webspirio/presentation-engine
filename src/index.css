@@ -65,6 +65,7 @@
 }
 
 :root {
+    --logo-size: clamp(14rem, 38vh, 28rem);
     --background: #083344;
     --foreground: #ecfeff;
     --card: #0c4a5e;

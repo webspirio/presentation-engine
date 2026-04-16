@@ -26,3 +26,4 @@ dist-ssr
 # Claude Code + reference inputs
 .claude/settings.local.json
 .input/
+.reference/
