@@ -42,6 +42,16 @@ You do NOT invoke `superpowers:brainstorming` — that happens at the orchestrat
 - Don't invent content that isn't in `docs/PROJECT_PLAN.md`
 - Don't touch `src/engine/*` unless the task explicitly requires engine work
 
+## Slide fragments (reveal steps)
+
+If the spec specifies multi-stage reveals on a slide, use the engine's fragment system — don't roll your own step state or custom keybinding. Full authoring rules live in `CLAUDE.md` under "Slide fragments (reveal steps)". Quick version:
+
+- Add `fragments: N` to the slide's `SlideConfig` in `src/App.tsx`, where N is the number of *extra* reveal steps after the initial state (so `fragments: 2` means 3 total states: 0, 1, 2).
+- Destructure `fragment` from `SlideProps` and gate each reveal element on its threshold: `const step1Revealed = isActive && fragment >= 1`. Combine with your existing `isActive` gating — both must be true.
+- The engine handles keyboard, wheel, swipe, retreat-to-last-fragment, and hash URL (`#/col/row/fragment`). You do not intercept keys in the slide component.
+- Do NOT manage the center logo from the slide body. If the slide has the center logo and a reveal, `PersistentStage` already coordinates it via the shared fragment state.
+- Set `fragments` only to match the authored reveals. Don't declare fragments speculatively for future content.
+
 ## ReactBits discipline
 
 Read `src/SKILL.md` for the complete catalog and install protocol. Non-negotiable rules on top of the skill:
@@ -68,7 +78,7 @@ If an animation fires wrong, a Framer Motion variant behaves unexpectedly, a typ
 Invoke **`superpowers:verification-before-completion`** and back every claim with evidence:
 
 1. `npx tsc --noEmit` — clean. Paste the terminal output.
-2. Scoped lint — clean. Run `npx eslint` against **only the files you changed** (`src/slides/NN-Name.tsx src/components/... src/animations/...`); `npm run lint` will surface pre-existing errors in `src/engine/PresenterOverlay.tsx` and `src/engine/useActiveSlide.ts` that are out of scope for slide work. Paste the output.
+2. Scoped lint — clean. Run `npx eslint` against **only the files you changed** (`src/slides/NN-Name.tsx src/components/... src/animations/...`); `npm run lint` may surface pre-existing errors in `src/engine/*` that are out of scope for slide work. Paste the output.
 3. Confirm the slide is registered in `src/App.tsx` at the correct index.
 4. Confirm the dev server is reachable at `http://localhost:5173/#/N` (or 5174 if 5173 was taken). Curl it if unsure.
 

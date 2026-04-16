@@ -52,8 +52,9 @@ On specific slides where a different aesthetic fits (hero, section dividers), a 
 ## File conventions
 
 - Slides: `src/slides/NN-Name.tsx`, exported as `{Name}Slide` (e.g. `HeroSlide`)
-- Slide components receive `{ isActive, slideIndex }: SlideProps` from `@/engine/types`
+- Slide components receive `{ isActive, col, row, fragment }: SlideProps` from `@/engine/types`
 - **Only animate when `isActive` is true.** Don't re-animate on scroll-back — use Framer Motion's `initial`/`animate` bound to `isActive`.
+- If the slide uses reveal steps, also gate on `fragment` (see "Slide fragments" below).
 - Register slides in order in `src/App.tsx` via the `slides: SlideConfig[]` array. Always fill `notes` for the presenter overlay.
 - Reusable UI in `src/components/`; animation variants/transitions in `src/animations/`; engine internals in `src/engine/` (don't modify without reason).
 - Path alias: `@/*` → `src/*`.
@@ -66,6 +67,27 @@ On specific slides where a different aesthetic fits (hero, section dividers), a 
 - `src/animations/variants.ts` — shared Framer Motion variants (`fadeInUp`, `slideInLeft/Right`, `scaleIn`, `staggerChildren`). Reuse before authoring new ones.
 - `src/animations/transitions.ts` — spring + ease presets (`easeSmooth`, `springGentle`, etc.).
 - `src/animations/heroTimeline.ts` — hero-specific variants (glow pulse, levitation, tagline blur-in, caption reveal). Only relevant to slide 1.
+
+## Slide fragments (reveal steps)
+
+The engine supports reveal.js-style **fragments** — incremental reveal steps within a single slide. Reveal.js's own fragment docs live in `.reference/revealjs.com/src/fragments.md` (gitignored; set up locally if you want them). Use fragments when a slide needs to build up in stages rather than land fully rendered the moment it activates.
+
+**Convention (deviates from reveal.js):** `SlideConfig.fragments?: number` is the count of *extra* reveal steps after the initial state. `fragments: 1` gives two states: `fragment=0` (nothing revealed) and `fragment=1` (fully revealed). Reveal.js uses `indexf = -1` for "nothing revealed"; we use `0` because `fragment >= K` reads more naturally in React than comparing against a sentinel.
+
+**Authoring:**
+- Declare in `src/App.tsx`: `{ id: '...', component: MySlide, fragments: 2 }`
+- Destructure `fragment` from `SlideProps` in the slide and gate variants: `const revealed = isActive && fragment >= 1`. For multi-step reveals, gate each element on its own threshold (`fragment >= 1`, `fragment >= 2`, ...).
+- You still need both `isActive` AND `fragment >= K` — the fragment only matters when the slide is active.
+- Set a `fragments: N` on a slide only if the slide actually has N+1 authored states. Don't declare them speculatively.
+
+**Navigation semantics** (handled by the engine — don't re-implement in slides):
+- All forward nav (`Space`, `ArrowRight`, `ArrowDown`, `PageDown`, wheel, swipe) advances fragments before moving to the next slide.
+- Retreat into a fragment-enabled slide lands on its *last* fragment (matches reveal.js — one more forward advances to the next slide, not back into the same reveal).
+- Column-dot clicks always reset to `fragment = 0` (explicit jump semantics).
+
+**Hash URL:** `#/col/row[/fragment]` — trailing `/fragment` omitted when fragment is 0, so classic (non-fragment) slides keep clean `#/col/row` URLs. Deep links like `#/1/1/1` boot directly into the revealed state.
+
+**Do not manage the center logo from a slide component.** The logo lives in `PersistentStage` and is already gated on `active.fragment` for the hero. Slides gate their *own* content; the persistent stage takes care of itself.
 
 ## Ukrainian copy rules
 
@@ -85,7 +107,7 @@ On specific slides where a different aesthetic fits (hero, section dividers), a 
 
 ### Lint scoping
 
-`npm run lint` surfaces pre-existing errors in `src/engine/PresenterOverlay.tsx` and `src/engine/useActiveSlide.ts` (`react-hooks/purity`, `react-hooks/set-state-in-effect`). They predate slide work and are out of scope for slide PRs. When gating a slide batch, scope lint to the files you changed:
+`npm run lint` may surface pre-existing `react-hooks/purity` / `react-hooks/set-state-in-effect` errors in `src/engine/PresenterOverlay.tsx` and elsewhere in `src/engine/`. Those predate slide work and are out of scope for slide PRs. When gating a slide batch, scope lint to the files you changed:
 
 ```bash
 npx eslint src/slides/NN-Name.tsx src/components/Foo.tsx src/animations/...
