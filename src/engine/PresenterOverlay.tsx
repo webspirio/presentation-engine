@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 
 interface PresenterOverlayProps {
@@ -17,14 +17,17 @@ export function PresenterOverlay({
   notes,
 }: PresenterOverlayProps) {
   const [elapsed, setElapsed] = useState(0)
-  const startTime = useRef(Date.now())
 
   useEffect(() => {
     if (!showTimer) return
-    const interval = setInterval(() => {
-      setElapsed(Math.floor((Date.now() - startTime.current) / 1000))
-    }, 1000)
-    return () => clearInterval(interval)
+    const start = Date.now()
+    const tick = () => setElapsed(Math.floor((Date.now() - start) / 1000))
+    const initial = setTimeout(tick, 0)
+    const interval = setInterval(tick, 1000)
+    return () => {
+      clearTimeout(initial)
+      clearInterval(interval)
+    }
   }, [showTimer])
 
   const formatTime = (seconds: number) => {
