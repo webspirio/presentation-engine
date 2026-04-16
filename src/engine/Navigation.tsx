@@ -34,7 +34,7 @@ export function Navigation({ columns, active, onNavigate }: NavigationProps) {
         {columns.map((column, i) => (
           <button
             key={column.id}
-            onClick={() => onNavigate({ col: i, row: 0 })}
+            onClick={() => onNavigate({ col: i, row: 0, fragment: 0 })}
             className="group relative flex h-3 w-6 items-center justify-center"
             aria-label={`Go to column ${i + 1}`}
           >
@@ -59,7 +59,7 @@ export function Navigation({ columns, active, onNavigate }: NavigationProps) {
           {Array.from({ length: rowCount }, (_, i) => (
             <button
               key={i}
-              onClick={() => onNavigate({ col: active.col, row: i })}
+              onClick={() => onNavigate({ col: active.col, row: i, fragment: 0 })}
               className="group relative flex h-3 w-3 items-center justify-center"
               aria-label={`Go to row ${i + 1}`}
             >
