@@ -1,147 +1,158 @@
-# Webspirio Presentation — Project Plan & Claude Code Prompt (v2)
+# Webspirio Presentation — Project Plan (v3: Consultative Sales)
 
-> This is the canonical project plan. Store any scope/requirement changes here — Claude Code reads this file for context.
+> Canonical spec. Claude Code subagents (`slide-builder`, `visual-reviewer`) read this file for context. Store any scope/requirement changes here.
 
 ## Project Overview
 
-- **What:** A 15-minute interactive web-based business presentation for Webspirio
-- **Who:** UA WELL business community (Ukrainian entrepreneurs in Germany)
+- **What:** A 15-minute interactive web-based **consultative sales presentation** for Webspirio
+- **Who:** UA WELL business community (Ukrainian entrepreneurs in Germany) — mostly non-technical small-business owners (cosmetology, coaching, retail, auto service, construction); a few semi/deep-tech attendees mixed in
 - **Language:** Ukrainian (Cyrillic)
-- **Goal:** Establish Webspirio as the most professional, capable digital agency in the room. Every slide should communicate: "We build world-class digital solutions."
+- **Goal:** Each attendee finishes the talk thinking _"he was talking about MY business"_ and scans a QR to book a free 30-min audit call
 - **Deploy:** GitHub Pages (static build)
+
+### Sales approach (v3 reframe)
+
+This is a **consultative sales deck**, not an agency brochure. It teaches a framework first, then demonstrates fit via real cases, then makes a low-pressure offer. Structural decisions baked in:
+
+| Decision                          | Answer                                                                          |
+| --------------------------------- | ------------------------------------------------------------------------------- |
+| Sales shape                       | Consultative — teach first, offer gently                                        |
+| Teaching spine                    | Customer journey: **Привабити → Зацікавити → Записати → Обслужити → Повернути** |
+| Opening                           | Identity-first — _"Я Олександр, такий самий підприємець як ви"_                 |
+| Pricing treatment                 | Ranges, not packages — merged with 3-year SaaS math                             |
+| CTA                               | Free 30-min audit call via Google Calendar booking page                         |
+| Primary contact on close          | Telegram                                                                        |
+| Industry hook                     | Balanced — 6-tile industry mapper replaces Tech Stack slide                     |
+| Flagship case                     | LR Health & Beauty funnel (€6k, Mainz, DE+RU, GoHighLevel + InVideo AI)         |
+| Pipeline node labels (slides 3–4) | Keep CRM/ERP/AI, add plain-Ukrainian sublabels underneath                       |
+
+Headlines stay in plain Ukrainian across the deck. Acronyms (CRM, ERP, SaaS) only survive as small chips/subtitles so semi-tech attendees can see them without non-tech attendees tripping over them.
 
 ---
 
-## Webspirio Brand Guidelines
+## Brand Guidelines
 
 ### Colors (Cyan palette — primary brand)
 
-| Token | Hex | Usage |
-|-------|-----|-------|
+| Token    | Hex       | Usage                         |
+| -------- | --------- | ----------------------------- |
 | Cyan/950 | `#053345` | Deepest backgrounds, overlays |
-| Cyan/900 | `#104e64` | Dark sections |
-| Cyan/800 | `#005f78` | Secondary backgrounds |
-| Cyan/700 | `#007595` | Borders, subtle accents |
-| Cyan/600 | `#0092b8` | Interactive elements |
-| Cyan/500 | `#00b8db` | Primary brand color |
-| Cyan/400 | `#00d3f2` | Primary accent, highlights |
-| Cyan/300 | `#53eafd` | Glow effects, hover states |
-| Cyan/200 | `#a2f4fd` | Light accents |
-| Cyan/100 | `#cefafe` | Subtle tints |
-| Cyan/50  | `#ecfeff` | Lightest backgrounds |
+| Cyan/900 | `#104e64` | Dark sections                 |
+| Cyan/800 | `#005f78` | Secondary backgrounds         |
+| Cyan/700 | `#007595` | Borders, subtle accents       |
+| Cyan/600 | `#0092b8` | Interactive elements          |
+| Cyan/500 | `#00b8db` | Primary brand color           |
+| Cyan/400 | `#00d3f2` | Primary accent, highlights    |
+| Cyan/300 | `#53eafd` | Glow effects, hover states    |
+| Cyan/200 | `#a2f4fd` | Light accents                 |
+| Cyan/100 | `#cefafe` | Subtle tints                  |
+| Cyan/50  | `#ecfeff` | Lightest backgrounds          |
 
-### Additional Colors (use where they fit)
-- **Dark backgrounds:** Cyan/950 (`#053345`) or slightly warmer dark navy (`#0A1628`) for main slide backgrounds
-- **Accent colors:** Complementary warm accents (amber, coral) on specific slides for contrast — not everything must be cyan
-- **Text:** Off-white (`#F0F4F8`) for primary text on dark, Cyan/950 for text on light sections
-- **Gradients:** Use the cyan scale for mesh gradients and glow effects
+### Additional Colors
 
-### Typography (Primary: Poppins)
+- Dark backgrounds: Cyan/950 (`#053345`) or slightly warmer dark navy (`#0A1628`) for main slide backgrounds
+- Accent colors: Complementary warm accents (amber, coral) on specific slides for contrast — not everything must be cyan
+- Text: Off-white (`#F0F4F8`) for primary text on dark, Cyan/950 for text on light sections
+- Gradients: Use the cyan scale for mesh gradients and glow effects
 
-| Level | Font | Weight | Size | Line Height |
-|-------|------|--------|------|-------------|
-| H1 | Poppins | Regular | 64px | 120% |
-| H2 | Poppins | Regular | 56px | 120% |
-| H3 | Poppins | Regular | 40px | 120% |
-| H4 | Poppins | Medium | 24px | 120% |
-| Body | Poppins | Regular | 16px | 140% |
-| Body Small | Poppins | Regular | 14px | 140% |
-| Mono | JetBrains Mono | Regular | 14px | 140% |
+### Typography
 
-**Note:** Poppins supports Cyrillic. On specific slides where a different aesthetic fits (hero, section dividers), a bolder alternative like Unbounded or a dramatic serif is acceptable. Not every slide needs the same font — variety is good when intentional.
+**Poppins** is default. Loaded via Google Fonts with Cyrillic subset. JetBrains Mono for code. **Unbounded** (500/600/700/800) loaded for hero + section-divider displays — geometric display face with full Cyrillic subset. Available via the `--font-display` CSS variable.
 
----
+| Level      | Font           | Weight  | Size | Line Height |
+| ---------- | -------------- | ------- | ---- | ----------- |
+| H1         | Poppins        | Regular | 64px | 120%        |
+| H2         | Poppins        | Regular | 56px | 120%        |
+| H3         | Poppins        | Regular | 40px | 120%        |
+| H4         | Poppins        | Medium  | 24px | 120%        |
+| Body       | Poppins        | Regular | 16px | 140%        |
+| Body Small | Poppins        | Regular | 14px | 140%        |
+| Mono       | JetBrains Mono | Regular | 14px | 140%        |
 
-## Slide Plan (~15 minutes, ~27 slides)
-
-### Act 1: Hook & Credibility (2 min, slides 1-4)
-
-| # | Slide | Content | Duration | Notes |
-|---|-------|---------|----------|-------|
-| 1 | **Hero** | Logo + animated tagline: "Від ідеї до цифрової екосистеми" | 15s | Particle/aurora background, dramatic entrance |
-| 2 | **The Problem** | "Ваш бізнес працює на Excel, WhatsApp і купі відкритих вкладок?" | 30s | Pain points stagger in one-by-one |
-| 3 | **The Solution** | "Ми з'єднуємо все в одну систему" — animated pipeline | 30s | Flow: Website → CRM → ERP → Автоматизація → AI → Аналітика |
-| 4 | **Who We Are** | Oleksandr intro + animated stats | 30s | Photo, location badge, counter animations |
-
-### Act 2: Case Studies & Results (5 min, slides 5-11)
-
-| # | Slide | Content | Duration | Notes |
-|---|-------|---------|----------|-------|
-| 5 | **Section: Case Studies** | "РЕАЛЬНІ РЕЗУЛЬТАТИ" | 10s | Dramatic section divider |
-| 6 | **Case: Auto Eder** | Magento 2 automotive e-commerce | 60s | Performance metrics, tech details |
-| 7 | **Case: Küchen Fokus** | Kitchen company — full brand + site | 45s | Branding showcase |
-| 8 | **Case: Olga Gatlin** | Attorney — multilingual, SEO, legal compliance | 45s | 3-language site demo |
-| 9 | **Case: Nail Salon** | Altegio CRM, online booking, automation | 30s | System integration diagram |
-| 10 | **Results Summary** | Counter cards: projects, hours saved, satisfaction, revenue | 30s | 4x AnimatedCounter |
-| 11 | **Testimonials** | 2-3 client quotes | 30s | Carousel/rotation |
-
-### Act 3: Branding & Business Identity (2 min, slides 12-14)
-
-| # | Slide | Content | Duration | Notes |
-|---|-------|---------|----------|-------|
-| 12 | **Section: Бренд під ключ** | "ВАШ БРЕНД — ВІД НАЗВИ ДО ВІЗИТКИ" | 10s | Section divider |
-| 13 | **Full Branding Service** | Complete brand creation pipeline | 45s | 7-step pipeline animation |
-| 14 | **Business Cards** | Design + printing + delivery | 30s | 3D card flip mockup |
-
-**Slide 13 — Бренд під ключ (Full Branding Service):**
-Animated pipeline showing the complete service:
-1. Вибір назви (name research, domain check, trademark check)
-2. Логотип (logo design — multiple concepts, revisions)
-3. Дизайн-система (colors, fonts, patterns, brand book)
-4. Реєстрація домену (domain registration)
-5. Вебсайт (WordPress/WooCommerce site in brand style)
-6. Візитки (business cards — design + print outsourcing)
-7. Соц мережі (social media templates, profile branding)
-
-Key message: "Один партнер робить ВСЕ. Не потрібно координувати 5 фрілансерів."
-
-**Slide 14 — Візитки та друк (Business Cards):**
-- Showcase: 3D animated business card mockup (front/back flip)
-- Process: Дизайн → Затвердження → Друк → Доставка
-- Types: Standard, Premium (soft-touch), Luxury (spot UV, foil)
-- "Від дизайну до ваших рук за 7 днів"
-- This slide should look PREMIUM — the card itself is the product
-
-### Act 4: Products & Live Demos (4 min, slides 15-20)
-
-| # | Slide | Content | Duration | Notes |
-|---|-------|---------|----------|-------|
-| 15 | **Section: Products** | "НАШІ ПРОДУКТИ" | 10s | Section divider |
-| 16 | **Korvo AI Chatbot** | Features overview | 45s | Animated feature cards |
-| 17 | **LIVE DEMO: Korvo** | Working chatbot widget in slide | 60s | Interactive component |
-| 18 | **Clickwise Analytics** | Features overview | 30s | Dashboard mockup |
-| 19 | **LIVE DEMO: Analytics** | Interactive dashboard in slide | 45s | Interactive component |
-| 20 | **Why Not SaaS?** | Cost comparison table | 30s | Webspirio vs Shopify/Wix/per-user |
-
-### Act 5: Services & Process (2 min, slides 21-24)
-
-| # | Slide | Content | Duration | Notes |
-|---|-------|---------|----------|-------|
-| 21 | **Services Grid** | 8 service categories (interactive) | 30s | Added: CRM systems, Business automation |
-| 22 | **Tech Stack** | Technology constellation | 20s | Animated logo grid |
-| 23 | **How We Work** | 5-step process timeline | 20s | Animated stepper |
-| 24 | **Pricing** | 3 package cards + monthly plans | 30s | Starter / Professional / Enterprise |
-
-### Act 6: Close & CTA (2 min, slides 25-27)
-
-| # | Slide | Content | Duration | Notes |
-|---|-------|---------|----------|-------|
-| 25 | **Why Webspirio** | 4 pillars: GDPR, Fixed pricing, One partner, Self-hosted | 30s | Icon cards |
-| 26 | **Special Offer** | "Безкоштовний IT-аудит для UA WELL" | 20s | Glowing CTA |
-| 27 | **Дякую + Contact** | Thank you + QR + all contact info + Q&A | 30s | Closing animation |
+Use Unbounded 700 for the hero tagline; 600 for section dividers; 800 for the closing _"Дякую"_. Do not use Unbounded for body copy or cards.
 
 ---
 
-## Services (Slide 21)
+## Slide Plan — 24 slides, ~15 minutes
 
-1. Вебсайти та інтернет-магазини (WordPress, Magento 2, WooCommerce)
-2. Брендинг та дизайн (logos, brand books, business cards, social media templates)
-3. ERP та бізнес-системи (ERPNext, Invoice Ninja, Kimai)
-4. AI-чатботи (Korvo — custom AI sales assistants)
-5. Аналітика (Clickwise, Rybbit — GDPR-compliant GA alternative)
-6. Автоматизація процесів (n8n workflows, custom integrations)
-7. Омніканал комунікації (WhatsApp + Instagram + Telegram → one inbox)
-8. CRM-системи (Altegio, custom CRM setups, client portals, online booking)
+### Act 1 · Meet + Frame (slides 1–5, ~3 min)
+
+| #   | Slide                 | Content                                                                                                                                           | Duration | Notes                                                                                 |
+| --- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------- |
+| 1   | **Hero — Identity**   | Logo + identity subline: _"Я Олександр. 5 років будую цифрові системи для українських підприємців у Німеччині."_                                  | 30s      | Warm, peer-tone. Caption: _"Сьогодні — 15 хв. Без води."_                             |
+| 2   | **Hook**              | Full-screen question: _"На якому кроці ви втрачаєте клієнта?"_                                                                                    | 20s      | Hold 3s in silence. Soft aurora backdrop.                                             |
+| 3   | **Problem scatter**   | Reworded: _"Більшість малих бізнесів так і працюють — 5 інструментів, які не говорять один з одним."_ Reuses existing `02-Problem.tsx` animation. | 35s      | Keep CRM/ERP/AI labels, add plain-UA sublabels beneath each. Three pain metrics.      |
+| 4   | **Solution assembly** | Reworded: _"Можна інакше. Один ланцюг — від першого контакту до повторного клієнта."_ Reuses existing `03-Solution.tsx` animation.                | 35s      | Subtitle as customer journey. Same sublabels as slide 3.                              |
+| 5   | **Framework intro**   | 5-stage journey reveals: 👁 Привабити → 👀 Зацікавити → 📅 Записати → 🤝 Обслужити → 🔁 Повернути                                                 | 40s      | Dotted connectors. Closing: _"На якому з них ви зараз — подумайте до кінця розмови."_ |
+
+### Act 2 · Teaching (slides 6–10, ~4 min)
+
+**Shared pattern** — each stage slide has 3 reveal fragments: stage badge + diagnostic question (0) → leak (1) → mini-case with one hard number (2). Shared visual: number badge top-left, 5-dot progress strip top-right, mini-case card at bottom.
+
+| #   | Stage                | Diagnostic Q                                                                  | Leak                                                                | Mini-case                                                                                                                                   |
+| --- | -------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| 6   | **Привабити (1/5)**  | _"Звідки приходить ваш наступний клієнт?"_                                    | Більшість малих бізнесів інвестують в Insta/Ads наосліп.            | **LR Health & Beauty:** 23K підписників TikTok → автоматична воронка, 15–25 Reels/тиждень.                                                  |
+| 7   | **Зацікавити (2/5)** | _"Що бачить клієнт за перші 5 секунд на вашому сайті?"_                       | Якщо не зрозуміло «що ви робите» і «чому вам довіряти» — він пішов. | **Küchen Fokus:** повний бренд + сайт за 6 тижнів. [TBD] більше заявок. _(Voiceover mention: Olga Gatlin — 3 мови, клієнти з трьох країн.)_ |
+| 8   | **Записати (3/5)**   | _"Як легко записатись до вас прямо зараз, о 11 вечора?"_                      | Кожне пропущене повідомлення — втрачений клієнт.                    | **Nail Salon (Munich):** запис 24/7, нагадування автоматично, [TBD]% менше пропущених візитів.                                              |
+| 9   | **Обслужити (4/5)**  | _"Чи можете ви обслужити вдвічі більше клієнтів без вдвічі більшої команди?"_ | Хаос замовлень, ручні рахунки — зростання коштує якості.            | **Auto Eder:** Magento 2 + ERP, [TBD]× замовлень на ту саму команду.                                                                        |
+| 10  | **Повернути (5/5)**  | _"Скільки ваших клієнтів повертаються? Ви знаєте точно чи здогадуєтесь?"_     | Залучити нового — у 5× дорожче, ніж повернути старого.              | **LR email nurture:** 4 послідовності (DE/RU × продукт/партнерство), 5–7 листів кожна.                                                      |
+
+### Act 3 · Full cases (slides 11–15, ~3 min)
+
+| #   | Slide                              | Content                                                                                                                                                                                      | Duration |
+| --- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| 11  | **Section divider**                | _"Повна картина — три історії."_                                                                                                                                                             | 10s      |
+| 12  | **LR Health & Beauty (flagship)**  | _"Від 23K підписників TikTok → автоматична воронка продажів."_ Майнц · DE+RU. 3 build-blocks: AI-контент · DM-бот + бридж-сторінка · CRM + email. **€6,000 · 4 фази · 12 тижнів · DSGVO ✓.** | 60s      |
+| 13  | **Nail Salon (Munich, anonymous)** | _"Салон манікюру — запис 24/7, менше «привидів»."_ Altegio · автонагадування · Insta-інтеграція.                                                                                             | 45s      |
+| 14  | **Auto Eder (capstone)**           | _"Магазин автозапчастин — масштабування без хаосу."_ Magento 2 · ERP · performance. All specifics [TBD]. No price shown (credibility > transparency).                                        | 45s      |
+| 15  | **Results summary**                | 4× AnimatedCounter: проєктів, годин збережено, % retention, % ріст доходу. All [TBD].                                                                                                        | 20s      |
+
+**Shared case anatomy:** hero line · client strip · **Before** (left) · **What we built** (center, 3 bullets + tech chips) · **After** (right) · bottom bar (price + tenure + DSGVO badge where relevant). Restrained motion — numbers carry the emotion.
+
+### Act 4 · Match + Scope (slides 16–21, ~4 min)
+
+| #   | Slide                                     | Content                                                                                                          | Duration |
+| --- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | -------- |
+| 16  | **Industry mapper** (replaces Tech Stack) | 3×2 tile grid mapping to audience sectors. See table below.                                                      | 45s      |
+| 17  | **Services grid**                         | 8 outcome-first cards, tech chips as secondary labels                                                            | 30s      |
+| 18  | **Бренд під ключ + візитки** (merged)     | 7-step branding pipeline (left) + 3D-flipping business card mockup (right)                                       | 30s      |
+| 19  | **Korvo — overview + LIVE DEMO**          | 2 fragments: feature overview → chat widget with pre-seeded _"Скільки коштує манікюр?"_ exchange                 | 60s      |
+| 20  | **Clickwise — overview + LIVE DEMO**      | 2 fragments: GA-alternative pitch → dashboard with Insta→site→conversion flow. Subtitle: "Побудовано на Rybbit". | 45s      |
+| 21  | **Як ми працюємо**                        | 5-step timeline: Розмова (30хв) → Ескіз → Показуємо по дорозі → Запуск → Супровід                                | 30s      |
+
+**Slide 16 — Industry mapper tiles (3×2 grid):**
+
+| Icon | Industry                            | Top line                                 | Bullets                                                | Tool chips                        |
+| ---- | ----------------------------------- | ---------------------------------------- | ------------------------------------------------------ | --------------------------------- |
+| 💅   | Бʼюті / масаж / косметологія        | _"Клієнти записуються самі, 24/7"_       | Онлайн-запис · Нагадування · Insta автовідповіді       | Altegio · Korvo · n8n             |
+| 🎯   | Коучі / нутриціологи / консультанти | _"Бренд, воронка і оплата — все онлайн"_ | Лендінг + календар · Email-розсилки · Приймання оплати | WordPress · Calendly · Stripe     |
+| 🚗   | Автосервіс / дилер авто             | _"Замовлення і склад без хаосу"_         | Роботодатки · Облік запчастин · Відгуки                | Magento · ERPNext · Rybbit        |
+| 🔨   | Ремонти / будівництво               | _"Ліди з сайту, рахунки в один клік"_    | Лендінг-портфоліо · Форма заявок · Автоматичні рахунки | WordPress · Invoice Ninja · n8n   |
+| 🛒   | Роздріб / невеликий магазин         | _"Магазин, який ви контролюєте"_         | Інтернет-магазин · Склад · Касові звіти                | WooCommerce · Magento · Clickwise |
+| 🏢   | B2B / корпоративні послуги          | _"CRM, пропозиції, повторні клієнти"_    | Кабінет клієнта · CRM · Пропозиції                     | Власні рішення · ERPNext · Korvo  |
+
+Footer: _"Не бачите вашої галузі? Адаптуємось."_ Tile-glow triggered via fragment index so each tile lights up as Oleksandr names the industry.
+
+### Act 5 · Offer + Close (slides 22–24, ~2 min)
+
+| #   | Slide                             | Content                                                                                                                                                                                                                                                                | Duration |
+| --- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| 22  | **Вартість + 3-річна математика** | Fragment 0: ranges (Сайт €2–5k · Воронка €6–12k · Супровід €200/міс). Fragment 1: 3-year SaaS comparison bar chart (Shopify €14,364 · Wix €5,724 · per-seat CRM €9,000 · Webspirio build €6–10k). Caption: _"Підписка тихо зʼїдає. Власний продукт — один раз і ваш."_ | 45s      |
+| 23  | **The Offer**                     | Headline: _"Для учасників UA WELL — безкоштовна 30-хв розмова."_ 3 ✓ bullets. Large QR → Google Calendar booking page. Pillar badges ribbon: 🛡 DSGVO · 🔒 Фіксована ціна · 🤝 Один партнер · 📦 Все належить вам.                                                     | 40s      |
+| 24  | **Дякую + Q&A**                   | _"Дякую."_ (Unbounded 800). Primary contact: **Telegram** (2× size of other contacts). Secondary row: site + email. Second QR bottom-right → same booking link.                                                                                                        | 30s      |
+
+---
+
+## Services (slide 17, 8 outcome-first cards)
+
+1. _"Облік, рахунки, склад — в одному вікні"_ · chips: **ERPNext · Invoice Ninja · Kimai**
+2. _"Система запису клієнтів"_ · chips: **Altegio · власні CRM**
+3. _"AI-асистент на сайті"_ · chips: **Korvo**
+4. _"Єдина скринька — WhatsApp + Instagram + Telegram"_ · chips: **native + custom**
+5. _"Автоматизація повторних задач"_ · chips: **n8n**
+6. _"Вебсайти та інтернет-магазини"_ · chips: **WordPress · Magento · WooCommerce**
+7. _"Аналітика без витоку даних"_ · chips: **Clickwise · Rybbit**
+8. _"Бренд і дизайн"_
 
 ---
 
@@ -149,17 +160,18 @@ Key message: "Один партнер робить ВСЕ. Не потрібно
 
 ### Presentation Engine — Custom React (NOT reveal.js)
 
-Fully custom slide engine supporting:
-- **Keyboard navigation:** Arrow keys ←→ for horizontal, ↑↓ for vertical sub-slides
-- **Scroll navigation (PRIMARY):** Mouse wheel / trackpad scroll moves between slides. Smooth scroll-snap.
+Fully custom slide engine in `src/engine/` supporting:
+
+- **Keyboard navigation:** Arrow keys ←→ horizontal, ↑↓ vertical sub-slides, Space/PageDown forward
+- **Scroll navigation:** Mouse wheel / trackpad with smooth scroll-snap
 - **Touch:** Swipe on mobile
 - **Navigation dots:** Clickable on the right side
-- **URL hash routing:** `#/1`, `#/2` for direct linking
+- **URL hash routing:** `#/col/row[/fragment]` — trailing fragment omitted for fragment 0
 - **Progress bar:** Top of screen
 - **Fullscreen:** `F` key
-- **Presenter notes:** `N` key
+- **Presenter notes overlay:** `N` key
 - **Timer:** `T` for countdown overlay
-- **Scroll-driven sections:** Some slides can have vertical sub-slides
+- **Fragments:** reveal.js-style incremental reveals within a slide. See `CLAUDE.md` for the authoring convention (`fragment >= K` gating, `SlideConfig.fragments: N`).
 
 ### Transitions
 
@@ -168,94 +180,138 @@ Framer Motion `AnimatePresence`. Each slide defines its own entry/exit. Default:
 ### Project Structure
 
 ```
-webspirio-presentation/
+webspirio-presentation-2026-04/
 ├── public/assets/{images,logos,fonts}/
 ├── src/
 │   ├── engine/          # Presentation, Slide, Navigation, hooks, types
-│   ├── slides/          # 01-Hero.tsx ... 27-Thanks.tsx
-│   ├── demos/           # KorvoChatDemo, AnalyticsDashboard
+│   ├── slides/          # 01-Hero.tsx ... 24-Thanks.tsx
+│   ├── demos/           # KorvoChatDemo, ClickwiseDashboard
 │   ├── components/
 │   │   ├── ui/          # shadcn/ui components
-│   │   ├── AnimatedCounter, SectionDivider, CaseStudyCard,
-│   │   │   ServiceCard, BusinessCardMockup, PipelineFlow
-│   ├── animations/      # variants, transitions, hooks
-│   ├── data/            # slides, services, caseStudies, stats
-│   ├── styles/globals.css
+│   │   ├── react-bits/  # ReactBits TS-TW ports
+│   │   ├── PipelineNode / PipelineConnector / BrokenConnector
+│   │   ├── AnimatedCounter / WebspirioLogo
+│   │   └── DarkVeil / Aurora / SpaceBackdrop
+│   ├── animations/      # variants, transitions, hero/problem/solution timelines
+│   ├── data/            # funnelDiagram, services, caseStudies
 │   ├── App.tsx
 │   └── main.tsx
 ├── vite.config.ts
-├── tailwind.config.ts
 ├── tsconfig.json
 └── package.json
 ```
 
 ---
 
-## Development Approach — Incremental Tasks
+## Development Approach — Incremental Batches
 
-**Do NOT build all slides at once.** Build in batches of 2-3 slides. After each batch: review, refine animations, fix issues, then proceed. Quality over speed.
+**Do NOT build all slides at once.** Build in batches of 2–3 slides per CLAUDE.md rule. After each batch: visual review (screenshots at 1920×1080 + 375×667) + copy review before proceeding.
 
-### Task 0: Project Setup & Slide Engine
-Foundation — devcontainer, Vite scaffold, shadcn/ui init, ReactBits registry, brand theme, scroll-snap engine, keyboard nav, hash routing, progress bar, dots, presenter overlay, one Hero test slide.
+### Batch 1 · Plan sync + reword (current)
 
-### Task 1: Hero + Problem + Solution (slides 1-3)
-**Checkpoint:** Transitions smooth? Scroll feels good? Dark theme right?
+- Rewrite this `PROJECT_PLAN.md` to 24-slide structure ✓
+- Add `NODE_SUBLABELS` to `src/animations/problemTimeline.ts`
+- Extend `PipelineNode` to accept optional `sublabel` prop
+- Update `01-Hero.tsx` — add identity subline fragment
+- Update `02-Problem.tsx` — new headline, render sublabels
+- Update `03-Solution.tsx` — new headline, new subtitle, render sublabels
+- Reorganize `src/App.tsx` — 5-act column structure, remove `FounderSlide`
 
-### Task 2: About + Section Divider + First Case Study (slides 4-6)
-**Checkpoint:** Case study template reusable? Counters smooth?
+### Batch 2 · Act 1 new slides (2-Hook, 5-Framework)
 
-### Task 3: Remaining Case Studies + Results + Testimonials (slides 7-11)
-**Checkpoint:** All case studies consistent? Carousel rotating?
+- Hook slide: full-screen question with aurora backdrop
+- Framework slide: 5-stage journey reveal with dotted connectors
 
-### Task 4: Branding Section (slides 12-14)
-**Checkpoint:** Business card mockup looks premium? Pipeline clear?
+### Batch 3 · Act 2 teaching batch A (slides 6–8)
 
-### Task 5: Products Overview (slides 15-16, 18)
-**Checkpoint:** Product descriptions clear? Feature cards solid?
+- Attract, Interest, Book stages
 
-### Task 6: Interactive Demos (slides 17, 19)
-**Checkpoint:** Demos flawless? No lag? Clear interaction?
+### Batch 4 · Act 2 teaching batch B (slides 9–10)
 
-### Task 7: Price Comparison + Services Grid (slides 20-22)
-**Checkpoint:** Comparison compelling? Services grid responsive?
+- Serve, Retain stages
 
-### Task 8: Process + Pricing + Close (slides 23-27)
-**Checkpoint:** Close strong? CTA compelling? Contact info clear?
+### Batch 5 · Act 3 cases batch A (slides 11–12)
 
-### Task 9: Polish & Deploy
-Replace placeholders, mobile pass, Lighthouse > 90, 60fps everywhere, GitHub Pages deploy, projector test, 15-min rehearsal.
+- Section divider · LR flagship case (most complex)
+
+### Batch 6 · Act 3 cases batch B (slides 13–15)
+
+- Nail Salon · Auto Eder · Results summary
+
+### Batch 7 · Act 4 match batch A (slides 16–18)
+
+- Industry mapper · Services grid · Branding turnkey
+
+### Batch 8 · Act 4 match batch B (slides 19–21)
+
+- Korvo demo · Clickwise demo · How we work
+
+### Batch 9 · Act 5 close (slides 22–24)
+
+- Pricing + 3-year math · Offer · Thank you
+
+### Batch 10 · Final polish
+
+- Replace all `[TBD]` numbers with confirmed values
+- Set Google Calendar booking URL + Telegram handle
+- Full-deck visual review at 1920×1080 + 375×667
+- 15-min rehearsal · Lighthouse > 90
 
 ---
 
 ## Quality Targets
 
 - **Lighthouse:** > 90 on Performance, Accessibility, Best Practices
-- **Animation frame rate:** 60fps on all transitions
-- **Projector resolution:** 1920x1080 — test on this viewport before shipping
-- **Fonts:** Poppins loads with Cyrillic subset (no FOUT of missing glyphs)
+- **Animation frame rate:** 60 fps on presenting hardware (devcontainer uses software WebGL — ignore FPS there)
+- **Projector resolution:** 1920×1080 — test on this viewport before shipping
+- **Fonts:** Poppins + Unbounded load with Cyrillic subset (no FOUT of missing glyphs)
 - **No console errors**
 - **Browsers:** Chrome, Firefox, Safari
-- **Responsive:** 1920x1080 and 375px mobile
+- **Responsive:** 1920×1080 and 375×667 mobile
+- **Copy:** apostrophes `ʼ` (U+02BC), guillemets `«»`, no English acronyms in headlines
 
 ---
 
 ## Assets Checklist
 
-- [ ] Webspirio logo (SVG)
-- [ ] Professional photo of Oleksandr
-- [ ] Client website screenshots (Auto Eder, Küchen Fokus, Olga Gatlin, Nail Salon)
-- [ ] Korvo chatbot UI screenshot
-- [ ] Business card designs (VIELBAU, Olga Gatlin, etc.)
-- [ ] Brand assets (social media templates, brand book pages)
-- [ ] Exact stats/numbers
-- [ ] Client testimonial quotes
+- [ ] Webspirio logo (SVG) — already in `src/components/WebspirioLogo.tsx`
+- [ ] Photo of Oleksandr (optional, for Hero slide)
+- [ ] LR Health & Beauty funnel diagram — port `funnel-diagram.jsx` from that project
+- [ ] LR Reels thumbnail mockups (3–4 preview Reels)
+- [ ] Client website screenshots: Auto Eder, Küchen Fokus, Olga Gatlin, Nail Salon
+- [ ] Korvo chat widget UI (pre-seeded conversation)
+- [ ] Clickwise dashboard mock (traffic-source breakdown)
+- [ ] Business card designs (front/back, for 3D flip)
+- [ ] Google Calendar booking page URL (for CTA QR)
+- [ ] Telegram handle (confirmed)
+- [ ] Exact `[TBD]` numbers for all mini-cases + case studies + results summary
+- [ ] Verified EU Shopify/Wix pricing for 3-year math chart
 
 ---
 
 ## ReactBits Components
 
-Installed via shadcn CLI using the `@react-bits` registry. Pro components require a ReactBits Pro license — if a Pro component fails to install, recreate the effect with Framer Motion + CSS.
+Installed via shadcn CLI using the `@reactbits-starter` registry. Requires `REACTBITS_LICENSE_KEY` in `.env.local`. Catalog in `src/SKILL.md`.
 
 Planned usage:
-- **Free:** SplitText, Aurora, SpotlightCard, AnimatedCounter, ClickSpark, Noise
-- **Check if Pro:** LetterGlitch, TiltedCard, StarBorder, TextPressure, ShinyText, PixelTransition, Magnet
+
+- **Already installed:** BlurHighlight (slide 4 headline)
+- **Candidates:** SplitText (hook + framework headings), Aurora (hook background), SpotlightCard (industry mapper tiles), AnimatedCounter (results summary), ClickSpark (CTA/QR interactions), Noise (subtle texture on dark backgrounds)
+
+Install per-slide with `-tw` suffix. Customize colors to the cyan palette before shipping. Default ReactBits palettes must not ship — always retheme.
+
+---
+
+## What NOT to do (project-specific, see also `CLAUDE.md`)
+
+- Don't hardcode hex colors in slides; use `cyan-*` Tailwind classes (raw hex only for gradients/glows)
+- Don't put acronyms (CRM, ERP, SaaS) in headlines — chip/subtitle only
+- Don't ship default ReactBits palettes — always retheme to cyan
+- Don't use GDPR in copy — use **DSGVO** (audience is in Germany)
+- Don't say "Self-hosted" — use _"Все належить вам"_
+- Don't add a dedicated "Why Webspirio" slide — pillars collapse into badges on the Offer slide
+- Don't add pricing packages — use ranges (see slide 22)
+- Don't add testimonials as their own slide — embed client quotes inside case slides where they fit
+- Don't re-brainstorm inside `slide-builder` — orchestrator hands it a concrete spec
+- Don't ship with any `[TBD]` numbers still visible
+- Don't run `npm run deploy` without explicit user confirmation
