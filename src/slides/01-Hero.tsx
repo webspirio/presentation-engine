@@ -7,12 +7,20 @@ import {
 } from '@/animations/heroTimeline'
 
 const TAGLINE = 'Від ідеї до цифрової екосистеми'
-const CAPTION = 'UA WELL · 2026 · Düsseldorf'
+const CAPTION = 'Сьогодні — 15 хв · Без води'
+const IDENTITY =
+  'Я Олександр. 5 років будую цифрові системи для українських підприємців у Німеччині.'
 
 export function HeroSlide({ isActive, fragment }: SlideProps) {
   const reduce = useReducedMotion() ?? false
-  const revealed = fragment >= 1
-  const animState = (isActive && revealed) || (reduce && isActive) ? 'visible' : 'hidden'
+  const taglineRevealed = fragment >= 1
+  const identityRevealed = fragment >= 2
+  const animState =
+    (isActive && taglineRevealed) || (reduce && isActive) ? 'visible' : 'hidden'
+  const identityAnimState =
+    (isActive && identityRevealed) || (reduce && isActive)
+      ? 'visible'
+      : 'hidden'
 
   return (
     <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden px-6">
@@ -57,6 +65,21 @@ export function HeroSlide({ isActive, fragment }: SlideProps) {
           style={{ fontFamily: "'JetBrains Mono', monospace" }}
         >
           {CAPTION}
+        </motion.p>
+
+        <motion.p
+          variants={captionReveal}
+          initial="hidden"
+          animate={identityAnimState}
+          className="mt-4 max-w-[32ch] text-balance text-[#F0F4F8]/85 sm:mt-6 sm:max-w-[38ch]"
+          style={{
+            fontFamily: "'Poppins', sans-serif",
+            fontWeight: 400,
+            fontSize: 'clamp(0.95rem, 1.25vw, 1.15rem)',
+            lineHeight: 1.5,
+          }}
+        >
+          {IDENTITY}
         </motion.p>
       </div>
     </div>
