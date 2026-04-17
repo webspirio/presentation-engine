@@ -4,6 +4,11 @@ import { HeroSlide } from '@/slides/01-Hero'
 import { ProblemSlide } from '@/slides/02-Problem'
 import { SolutionSlide } from '@/slides/03-Solution'
 import { ActResultsSlide } from '@/slides/05-ActResults'
+import { AttractStageSlide } from '@/slides/06-AttractStage'
+import { InterestStageSlide } from '@/slides/07-InterestStage'
+import { BookStageSlide } from '@/slides/08-BookStage'
+import { ServeStageSlide } from '@/slides/09-ServeStage'
+import { RetainStageSlide } from '@/slides/10-RetainStage'
 import { ServicesConstellationSlide } from '@/slides/21-ServicesConstellation'
 
 // 24-slide consultative sales deck — see docs/PROJECT_PLAN.md for the canonical spec.
@@ -56,6 +61,83 @@ const columns: ColumnConfig[] = [
         fragments: 4,
       },
       // TODO batch 2: add hook slide (02-Hook) before problem and framework slide (05-Framework) after solution
+    ],
+  },
+  {
+    // Act 2 · Teaching — slides 6-10. Each stage: diagnostic question → leak → mini-case.
+    // Foundation only; polish tasks add slide-specific visual accents.
+    id: 'act-teach',
+    slides: [
+      {
+        id: 'attract',
+        component: AttractStageSlide,
+        title: 'Привабити',
+        fragments: 2,
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Етап 1/5 — Привабити.',
+          'Діагностичне питання: «Звідки приходить ваш наступний клієнт?»',
+          'Leak: більшість малих бізнесів інвестують в Insta/Ads наосліп.',
+          'Міні-кейс LR Health & Beauty — TikTok-воронка, 15–25 Reels/тиждень.',
+        ].join('\n'),
+      },
+      {
+        id: 'interest',
+        component: InterestStageSlide,
+        title: 'Зацікавити',
+        fragments: 2,
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Етап 2/5 — Зацікавити.',
+          'Діагностичне питання: «Що бачить клієнт за перші 5 секунд на вашому сайті?»',
+          'Leak: якщо не зрозуміло «що робите» і «чому довіряти» — він пішов.',
+          'Міні-кейс Küchen Fokus — повний бренд + сайт за 6 тижнів. Voiceover: Olga Gatlin, 3 мови.',
+        ].join('\n'),
+      },
+      {
+        id: 'book',
+        component: BookStageSlide,
+        title: 'Записати',
+        fragments: 2,
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Етап 3/5 — Записати.',
+          'Діагностичне питання: «Як легко записатись до вас прямо зараз, о 11 вечора?»',
+          'Leak: кожне пропущене повідомлення — втрачений клієнт.',
+          'Міні-кейс Nail Salon (Мюнхен) — запис 24/7, автонагадування.',
+        ].join('\n'),
+      },
+      {
+        id: 'serve',
+        component: ServeStageSlide,
+        title: 'Обслужити',
+        fragments: 2,
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Етап 4/5 — Обслужити.',
+          'Діагностичне питання: «Чи можете ви обслужити вдвічі більше клієнтів без вдвічі більшої команди?»',
+          'Leak: хаос замовлень і ручні рахунки — зростання коштує якості.',
+          'Міні-кейс Auto Eder — Magento 2 + ERP, та сама команда, більше замовлень.',
+        ].join('\n'),
+      },
+      {
+        id: 'retain',
+        component: RetainStageSlide,
+        title: 'Повернути',
+        fragments: 2,
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Етап 5/5 — Повернути.',
+          'Діагностичне питання: «Скільки ваших клієнтів повертаються? Ви знаєте точно чи здогадуєтесь?»',
+          'Leak: залучити нового — у 5× дорожче, ніж повернути старого.',
+          'Міні-кейс LR email nurture — 4 послідовності (DE/RU × продукт/партнерство), 5–7 листів кожна.',
+        ].join('\n'),
+      },
     ],
   },
   {
