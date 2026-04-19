@@ -19,6 +19,14 @@ import { CaseShirtSpinSlide } from '@/slides/18-CaseShirtSpin'
 import { CasePunchlineSlide } from '@/slides/19-CasePunchline'
 import { CaseCtaSlide } from '@/slides/20-CaseCta'
 import { ServicesConstellationSlide } from '@/slides/21-ServicesConstellation'
+import { LrDividerSlide } from '@/slides/22-LrDivider'
+import { LrSituationSlide } from '@/slides/23-LrSituation'
+import { LrVisionSlide } from '@/slides/24-LrVision'
+import { LrArchitectureSlide } from '@/slides/25-LrArchitecture'
+import { LrFunnelSlide } from '@/slides/26-LrFunnel'
+import { LrFunnelInteractiveSlide } from '@/slides/27-LrFunnelInteractive'
+import { OfferSlide } from '@/slides/28-Offer'
+import { ThanksSlide } from '@/slides/29-Thanks'
 
 // 24-slide consultative sales deck — see docs/PROJECT_PLAN.md for the canonical spec.
 // Only slides that have been authored are registered here; batches 2-9 add the rest.
@@ -88,7 +96,7 @@ const columns: ColumnConfig[] = [
           'Етап 1/5 — Привабити.',
           'Діагностичне питання: «Звідки приходить ваш наступний клієнт?»',
           'Leak: більшість малих бізнесів інвестують в Insta/Ads наосліп.',
-          'Міні-кейс LR Health & Beauty — TikTok-воронка, 15–25 Reels/тиждень.',
+          'Міні-кейс Велнес-бренд — TikTok-воронка, 15–25 Reels/тиждень.',
         ].join('\n'),
       },
       {
@@ -102,7 +110,7 @@ const columns: ColumnConfig[] = [
           'Етап 2/5 — Зацікавити.',
           'Діагностичне питання: «Що бачить клієнт за перші 5 секунд на вашому сайті?»',
           'Leak: якщо не зрозуміло «що робите» і «чому довіряти» — він пішов.',
-          'Міні-кейс Küchen Fokus — повний бренд + сайт за 6 тижнів. Voiceover: Olga Gatlin, 3 мови.',
+          'Міні-кейс Küchen Fokus — повний бренд + сайт за 6 тижнів.',
           '(Передвістя — повну історію Küchen Fokus розгорнемо в Акті 3, слайд 12+.)',
         ].join('\n'),
       },
@@ -145,7 +153,7 @@ const columns: ColumnConfig[] = [
           'Етап 5/5 — Повернути.',
           'Діагностичне питання: «Скільки ваших клієнтів повертаються? Ви знаєте точно чи здогадуєтесь?»',
           'Leak: залучити нового — у 5× дорожче, ніж повернути старого.',
-          'Міні-кейс LR email nurture — 4 послідовності (DE/RU × продукт/партнерство), 5–7 листів кожна.',
+          'Міні-кейс Велнес-бренд · email nurture — 4 послідовності (DE/RU × продукт/партнерство), 5–7 листів кожна.',
         ].join('\n'),
       },
     ],
@@ -297,6 +305,107 @@ const columns: ColumnConfig[] = [
     ],
   },
   {
+    // Act 3Б · Кейс №2 — LR Health & Beauty (slides 22-27).
+    // Stub column registered in Batch A; real content comes in Batches B-E.
+    // Paired with Küchen Fokus: KF = brand/site deliverable, LR = sales-funnel/automation deliverable.
+    id: 'act-case-lr',
+    slides: [
+      {
+        id: 'lr-divider',
+        component: LrDividerSlide,
+        title: 'Кейс 2 · Розділ',
+        background: 'transparent',
+        showCenterLogo: false,
+        notes: [
+          'Секційний роздільник — від історії Küchen Fokus переходимо до другого кейсу.',
+          'Eyebrow: «АКТ III · КЕЙС №2». Заголовок: «Від підписників до продажів».',
+          'Caption: «Media factory funnel».',
+          'Пара до Küchen Fokus: KF = бренд/сайт, Кейс 2 = воронка/автоматизація.',
+        ].join('\n'),
+      },
+      {
+        id: 'lr-situation',
+        component: LrSituationSlide,
+        title: 'Кейс 2 · Ситуація',
+        fragments: 2,
+        background: 'transparent',
+        showCenterLogo: false,
+        notes: [
+          'Ситуація клієнта — переповненість, а не тиша.',
+          'Fr 0: заголовок «Актив уже є.» + підзаголовок «Рук — не вистачає.»',
+          'Fr 1: 23 000 підписників TikTok (анімований лічильник) + три ланки: магазин · партнерське посилання · міні-курс. Все є, але сиплеться через руки.',
+          'Fr 2: leak-лінія «Клієнти пишуть щодня. Часу відповідати — вже немає. А контенту треба ще більше.» + кутова бульбашка «Не встигаю відповідати».',
+          'Voice-over: прямо сказати — клієнти ПИШУТЬ, це не тиша. Проблема в тому, що власник не встигає їх обробляти + хоче постити більше контенту. Ось пара болів, які ми розвʼязуємо далі (Vision + Voronka).',
+          'Callback до Акту 2 (Привабити) — та сама 23K аудиторія, тепер показуємо чому вона не перетворюється на клієнтів.',
+        ].join('\n'),
+      },
+      {
+        id: 'lr-vision',
+        component: LrVisionSlide,
+        title: 'Кейс 2 · Візія',
+        fragments: 3,
+        background: 'transparent',
+        showCenterLogo: false,
+        notes: [
+          'Обіцянка в 4 кроки.',
+          'Fr 0: заголовок «Воронка, яка працює без тебе.» + підзаголовок «Чотири кроки — від першого Reels до гарячого ліда.»',
+          'Fr 1: чотири картки з іконками — AI створює → Бот веде → Автофільтр → Гарячі до тебе.',
+          'Fr 2: градієнтний бейдж «70% менше ручної роботи».',
+          'Fr 3: фінальна лінія «Ти працюєш тільки з тими, хто готовий купити.»',
+        ].join('\n'),
+      },
+      {
+        id: 'lr-architecture',
+        component: LrArchitectureSlide,
+        title: 'Кейс 2 · Архітектура',
+        fragments: 3,
+        background: 'transparent',
+        showCenterLogo: false,
+        notes: [
+          'Три шари архітектури — зверху вниз.',
+          'Fr 0: заголовок «Три шари — один рух.» + підзаголовок «Контент → Мозок → Дія. Один інструмент замість десяти.»',
+          'Fr 1: Шар 1 — Контент: Reels · Stories · TikTok.',
+          'Fr 2: Шар 2 — Мозок (одна платформа): Бот · CRM · Календар · Email · WhatsApp. Виділений візуально — це ядро системи.',
+          'Fr 3: Шар 3 — Дії: Магазин · Реєстрація · Консультація. Плюс фінальна лінія «Кожен лід — у CRM. Нічого не губиться.»',
+          'Деталі бот-flow і bridge-page — voice-over, не на слайді. Глибша розмова — на дзвінку.',
+        ].join('\n'),
+      },
+      {
+        id: 'lr-funnel',
+        component: LrFunnelSlide,
+        title: 'Кейс 2 · Воронка',
+        fragments: 2,
+        background: 'transparent',
+        showCenterLogo: false,
+        notes: [
+          'Канонічний шлях клієнта — 5 вузлів, 4 звʼязки.',
+          'Fr 0: заголовок «Один клік — і клієнт у воронці.» + підзаголовок «Шлях одного клієнта — від Reels до консультації.» + всі 5 вузлів зʼявляються поруч (ще без звʼязків).',
+          'Fr 1: 4 ребра малюються по черзі — Reels → Бот → Мостова → Календар → Консультація. Показуємо, як це все зʼєднано.',
+          'Fr 2: вузол «Консультація» пульсує + фінальна лінія «1–2 хвилини. Без людини.» — швидкість воронки.',
+          'Короткий огляд — детальна мапа на наступному слайді.',
+        ].join('\n'),
+      },
+      {
+        id: 'lr-funnel-interactive',
+        component: LrFunnelInteractiveSlide,
+        title: 'Кейс 2 · Повна мапа',
+        fragments: 5,
+        background: 'transparent',
+        showCenterLogo: false,
+        notes: [
+          'Інтерактивна мапа воронки — порт з .reference/media-factory/src/funnel.jsx, переведена на українську та перефарбована у cyan-палітру.',
+          'Fr 0: вільна взаємодія — аудиторія (або презентер) клікає точку входу (Instagram/Facebook/TikTok) і будує шлях крок за кроком.',
+          'Fr 1: підсвітлюється маршрут «⚡ Швидкий продаж» — Reels → Бот → Календар → Консультація.',
+          'Fr 2: маршрут «🛍️ Купівля продукту» — через мостову → магазин.',
+          'Fr 3: маршрут «🤝 Партнерство» — через email-серію → реєстрація.',
+          'Fr 4: маршрут «❄️ Прогрів холодного» — 14–30 днів email + Telegram → повернення.',
+          'Fr 5: маршрут «🎵 TikTok» — 23K → біо → мостова → конверсія.',
+          'Ключова думка: одна система — пʼять різних шляхів клієнта.',
+        ].join('\n'),
+      },
+    ],
+  },
+  {
     // Act 4 · Match + Scope — slides 16-21. Services constellation = slide 17 (services grid).
     // TODO batches 7-8: add industry mapper (16), branding (18), Korvo+demo (19), Clickwise+demo (20), how-we-work (21).
     id: 'act-match',
@@ -320,6 +429,44 @@ const columns: ColumnConfig[] = [
           'Ключ: один партнер робить усе — не треба координувати пʼять фрілансерів.',
         ].join('\n'),
         background: 'transparent',
+      },
+    ],
+  },
+  {
+    // Act 5 · Offer + Close — slides 28-29. The ask.
+    // Consultative: quote per project scope (no pricing slide). UA WELL members get −20% off.
+    id: 'act-close',
+    slides: [
+      {
+        id: 'offer',
+        component: OfferSlide,
+        title: 'Пропозиція',
+        fragments: 2,
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Акт 5/5 — Пропозиція (~40с).',
+          'Fr 0: eyebrow «ПРОПОЗИЦІЯ» + headline «Для учасників UA WELL — розмова і рішення безкоштовно.»',
+          'Fr 1: три ✓ важелі по черзі — 30–60 хв розмова · покажу рішення · −20% від фінальної ціни.',
+          'Fr 2: QR зʼявляється разом зі стрічкою принципів (DSGVO · Фіксована ціна · Один партнер · Все належить вам).',
+          'Voice-over: прямо сказати — «ваша черга. Десь 30-60 хвилин. Якщо є задача — покажу безкоштовне рішення. Якщо підходить — мінус 20 для UA WELL».',
+          'Тримати паузу на QR — дати сканерам ~5 секунд.',
+        ].join('\n'),
+      },
+      {
+        id: 'thanks',
+        component: ThanksSlide,
+        title: 'Дякую',
+        fragments: 1,
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Фінал (~30с) — заради Q&A.',
+          'Fr 0: велике «Дякую.» з мʼяким глоу-пульсом.',
+          'Fr 1: «Питання?» + два Telegram-чіпи — @webspirio (бізнес) і @swefd (напряму). Нижче — сайт і email. Маленький QR у правому нижньому куті — для тих, хто сканує вже зараз.',
+          'Voice-over: «Напишіть у Telegram — відповідаю особисто. А на розмову — ось той самий QR, нікуди не загубиться».',
+          'Якщо зал активний — живе Q&A. Якщо мовчать — «каву на коридорі, я тут до кінця».',
+        ].join('\n'),
       },
     ],
   },

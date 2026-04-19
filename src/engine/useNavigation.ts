@@ -218,6 +218,9 @@ export function useNavigation({
 
   const handleWheel = useCallback(
     (e: WheelEvent) => {
+      // Mac trackpad pinch-zoom arrives as a wheel event with ctrlKey=true.
+      // Let the browser handle it instead of advancing the slide.
+      if (e.ctrlKey) return
       e.preventDefault()
       const now = Date.now()
       if (now - lastWheelTime.current < 800) return

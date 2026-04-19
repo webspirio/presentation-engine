@@ -163,7 +163,7 @@ function ThroughputAccent({ active }: { active: boolean }) {
               className="absolute top-1/2 hidden -translate-y-1/2 translate-x-2 whitespace-nowrap rounded-full border px-4 py-1.5 text-cyan-300 md:inline-flex"
               style={{ left: '87%', ...pillStyle }}
             >
-              [TBD]× більше
+              Значно більше
             </motion.span>
           </div>
         </div>
@@ -174,7 +174,7 @@ function ThroughputAccent({ active }: { active: boolean }) {
         className="self-end whitespace-nowrap rounded-full border px-4 py-1.5 text-cyan-300 md:hidden"
         style={pillStyle}
       >
-        [TBD]× більше
+        Значно більше
       </motion.span>
 
       <motion.ul variants={chipsEnter} className="mt-1 flex flex-wrap gap-2">

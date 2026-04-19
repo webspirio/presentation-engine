@@ -1,0 +1,5 @@
+export const BOOKING_URL = 'https://calendar.app.google/TODO-SET-BEFORE-DEMO'
+export const TELEGRAM_BUSINESS = '@webspirio'
+export const TELEGRAM_PERSONAL = '@swefd'
+export const EMAIL = 'info@webspirio.com'
+export const SITE_URL = 'webspirio.com'

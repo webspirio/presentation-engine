@@ -7,10 +7,10 @@ export const ACT2_STAGES: readonly StageSlideData[] = [
     emoji: '👁',
     diagnosticQ: '«Звідки приходить ваш наступний клієнт?»',
     leak: 'Більшість малих бізнесів інвестують в Insta/Ads наосліп.',
-    caseClient: 'LR Health & Beauty',
+    caseClient: 'Велнес-бренд',
     caseLocation: 'Майнц · DE+RU',
     caseResult: '23K підписників TikTok → автоматична воронка, 15–25 Reels/тиждень.',
-    caseTechChips: ['TikTok', 'InVideo AI', 'GoHighLevel'],
+    caseTechChips: ['TikTok', 'InVideo AI', 'Автоматизація'],
   },
   {
     stageIndex: 2,
@@ -19,7 +19,7 @@ export const ACT2_STAGES: readonly StageSlideData[] = [
     diagnosticQ: '«Що бачить клієнт за перші 5 секунд на вашому сайті?»',
     leak: 'Якщо не зрозуміло «що ви робите» і «чому вам довіряти» — він пішов.',
     caseClient: 'Küchen Fokus',
-    caseResult: 'Повний бренд + сайт за 6 тижнів. [TBD] більше заявок.',
+    caseResult: 'Повний бренд + сайт за 6 тижнів.',
   },
   {
     stageIndex: 3,
@@ -29,7 +29,7 @@ export const ACT2_STAGES: readonly StageSlideData[] = [
     leak: 'Кожне пропущене повідомлення — втрачений клієнт.',
     caseClient: 'Nail Salon',
     caseLocation: 'Мюнхен',
-    caseResult: 'Запис 24/7, нагадування автоматично, [TBD]% менше пропущених візитів.',
+    caseResult: 'Запис 24/7, автоматичні нагадування — менше пропущених візитів.',
     caseTechChips: ['Altegio', 'Instagram'],
   },
   {
@@ -39,7 +39,7 @@ export const ACT2_STAGES: readonly StageSlideData[] = [
     diagnosticQ: '«Чи можете ви обслужити вдвічі більше клієнтів без вдвічі більшої команди?»',
     leak: 'Хаос замовлень, ручні рахунки — зростання коштує якості.',
     caseClient: 'Auto Eder',
-    caseResult: 'Magento 2 + ERP, [TBD]× замовлень на ту саму команду.',
+    caseResult: 'Magento 2 + ERP — більше замовлень на ту саму команду.',
     caseTechChips: ['Magento 2', 'ERP'],
   },
   {
@@ -48,7 +48,7 @@ export const ACT2_STAGES: readonly StageSlideData[] = [
     emoji: '🔁',
     diagnosticQ: '«Скільки ваших клієнтів повертаються? Ви знаєте точно чи здогадуєтесь?»',
     leak: 'Залучити нового — у 5× дорожче, ніж повернути старого.',
-    caseClient: 'LR email nurture',
+    caseClient: 'Велнес-бренд · email nurture',
     caseLocation: 'DE/RU × продукт/партнерство',
     caseResult: '4 послідовності, 5–7 листів кожна.',
   },

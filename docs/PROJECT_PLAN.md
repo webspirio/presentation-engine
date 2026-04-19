@@ -119,6 +119,27 @@ One deep seven-slide narrative replaces the original three-case-study slot. Thro
 
 **Backup (not in active deck):** the original LR flagship, Nail Salon and Auto Eder "full case" slides were demoted to backup. If presenter needs a quick cross-case summary, that content survives as one-line mini-cases inside slides 6, 8, 9 (Attract, Book, Serve). Standalone full-case slides can be re-introduced later as a separate batch without disturbing the Küchen Fokus sequence.
 
+### Act 3Б · Кейс №2 — Media factory funnel (slides 22–27, ~2 min)
+
+Added 2026-04-19 as a second deep case, paired with Küchen Fokus. Source material ported from the standalone `.reference/media-factory/` deck. Translated to Ukrainian, generalized away from specific brand/tool names (no "LR", no "GoHighLevel", no "«Найди себе»"). 6 slides — Result slide dropped because the project is still in discovery phase (no real numbers to claim). KF = бренд + сайт; Кейс 2 = воронка + автоматизація. Column id: `act-case-lr`.
+
+| #   | Slide                          | Content                                                                                                                                                                                               | Duration | Fragments |
+| --- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------- |
+| 22  | **Section divider**            | _"Від підписників до продажів."_ Bridges Küchen Fokus → Кейс 2. Mirrors `SectionDivider`. Caption: _Media factory funnel_.                                                                             | ~5s      | 0         |
+| 23  | **Situation**                  | 23K TikTok + three disconnected assets (магазин, партнерське посилання, міні-курс). Leak: _"Клієнти пишуть щодня. Часу відповідати — вже немає. А контенту треба ще більше."_ Bubble: _"Не встигаю відповідати"_. | ~20s     | 2         |
+| 24  | **Vision**                     | 4-step promise: AI створює → Бот веде → Автофільтр → Гарячі до тебе. KPI badge: 70% менше ручної роботи.                                                                                                | ~20s     | 3         |
+| 25  | **Architecture**               | 3-layer stack: Контент → Мозок (одна платформа) → Дії (Магазин / Реєстрація / Консультація).                                                                                                           | ~25s     | 3         |
+| 26  | **Funnel (compact)**           | Canonical journey: Reels → Бот → Мостова → Календар → Консультація. Animated 5-node flow.                                                                                                              | ~15s     | 2         |
+| 27  | **Повна мапа (interactive)**   | Full interactive funnel — 22 nodes, 36 edges, 5 preset journeys. Ported from media-factory `funnel.jsx`, landscape 1600×1100 viewBox, cyan+coral+amber+mint palette. Fragments drive preset selection. | ~45s     | 5         |
+
+**New primitives for this sequence:**
+- `src/components/mockups/LrFunnelFlow.tsx` (slide 26 — compact animated flow)
+- `src/components/mockups/LrFunnelInteractive.tsx` (slide 27 — full interactive map)
+- `src/components/mockups/LrArchitectureStack.tsx` (slide 25)
+- `src/animations/lrTimeline.ts` (shared variants for leak stagger, funnel edge draws, counter choreography)
+
+**Reused primitives:** `QuestionBubble`, `AnimatedCounter`, `SectionDivider`, `easeSmooth`, `fadeInUp`, `staggerChildren`. Unbounded display on divider title.
+
 ### Act 4 · Match + Scope (slides 20–25, ~4 min)
 
 > Renumbered +4 due to Act 3 restructure (including the 3D business-card slide). Note: slide 22 ("Бренд під ключ + візитки") now fully redundant after the Küchen Fokus journey + 3D card slide — drop or repurpose when Act 4 is built.
@@ -145,13 +166,22 @@ One deep seven-slide narrative replaces the original three-case-study slot. Thro
 
 Footer: _"Не бачите вашої галузі? Адаптуємось."_ Tile-glow triggered via fragment index so each tile lights up as Oleksandr names the industry.
 
-### Act 5 · Offer + Close (slides 26–28, ~2 min)
+### Act 5 · Offer + Close (slides 28–29, ~1:10 min) ✓ (2026-04-19)
 
-| #   | Slide                             | Content                                                                                                                                                                                                                                                                | Duration |
-| --- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| 26  | **Вартість + 3-річна математика** | Fragment 0: ranges (Сайт €2–5k · Воронка €6–12k · Супровід €200/міс). Fragment 1: 3-year SaaS comparison bar chart (Shopify €14,364 · Wix €5,724 · per-seat CRM €9,000 · Webspirio build €6–10k). Caption: _"Підписка тихо зʼїдає. Власний продукт — один раз і ваш."_ | 45s      |
-| 27  | **The Offer**                     | Headline: _"Для учасників UA WELL — безкоштовна 30-хв розмова."_ 3 ✓ bullets. Large QR → Google Calendar booking page. Pillar badges ribbon: 🛡 DSGVO · 🔒 Фіксована ціна · 🤝 Один партнер · 📦 Все належить вам.                                                     | 40s      |
-| 28  | **Дякую + Q&A**                   | _"Дякую."_ (Unbounded 800). Primary contact: **Telegram** (2× size of other contacts). Secondary row: site + email. Second QR bottom-right → same booking link.                                                                                                        | 30s      |
+> **Restructure (2026-04-19):** dropped pricing slide + 3-year SaaS math. Pricing is now stated verbally — per-project scope (fixed or hourly for support phase). A pricing slide contradicted the consultative positioning. Act 5 is now 2 slides.
+>
+> **Offer terms:** free 30–60 min consultation · **UA WELL members: −20% off final price** · if the attendee describes a problem on the call, the solution proposal is free regardless of hiring decision.
+
+| #   | Slide           | Content                                                                                                                                                                                                                                                                                                                                                                                                                                          | Duration | Fragments |
+| --- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|-----------|
+| 28  | **The Offer**   | Eyebrow «ПРОПОЗИЦІЯ» + headline «Для учасників UA WELL — розмова і рішення безкоштовно.» (Unbounded 700, cyan-400 highlight on «безкоштовно»). Three ✓ levers stagger-in: (1) 30–60 хв безкоштовна розмова, (2) покажу рішення для задачі — теж безкоштовно, (3) −20% від фінальної ціни для UA WELL. Right column: large QR (~280px) → Google Calendar booking. Footer pillar ribbon: 🛡 DSGVO · 🔒 Фіксована ціна · 🤝 Один партнер · 📦 Все належить вам. | ~40s     | 2         |
+| 29  | **Дякую + Q&A** | «Дякую.» in Unbounded 800 (~11rem) with cyan glow pulse. Subcap «Питання?». Two Telegram chips side-by-side (2× size): `@webspirio` (бізнес) + `@swefd` (напряму до Олександра). Secondary row: `webspirio.com · info@webspirio.com`. Small QR bottom-right for anyone who missed it on Offer slide.                                                                                                                                              | ~30s     | 1         |
+
+**New primitives:** `src/data/contacts.ts` (BOOKING_URL, TELEGRAM_BUSINESS, TELEGRAM_PERSONAL, EMAIL, SITE_URL). QR image: `src/assets/calendar-qr-code.svg`. Reused: `easeSmooth`, Unbounded display family.
+
+**Dropped:** `qrcode.react` dependency (not needed — QR is a static pre-baked SVG).
+
+**Still TBD:** the Google Calendar booking URL in `src/data/contacts.ts` is a placeholder (`TODO-SET-BEFORE-DEMO`). The QR image asset is already final — only the URL constant for voice-over / future use is pending.
 
 ---
 
@@ -252,6 +282,39 @@ webspirio-presentation-2026-04/
 - Journey (7-fragment set piece) · Тепер · Punchline · CTA
 - Net-new mockup primitives built: `BrowserFrame`, `SitePreview`, `BusinessCard`, `TShirt`, `ChatBubbles`, `KuchenFokusLogo` (all under `src/components/mockups/`).
 
+### Batch LR-A · Act 3Б skeleton (2026-04-19)
+
+- Register `act-case-lr` column in `src/App.tsx` with 6 stub slides (22–27).
+- Add Act 3Б section to this plan.
+- Stubs render a placeholder title so keyboard nav + dots rail work end-to-end before content is authored.
+
+### Batch LR-B · LR Divider + Situation (slides 22, 23)
+
+- Implement `22-LrDivider.tsx` (reuse `SectionDivider` pattern).
+- Implement `23-LrSituation.tsx` with fragment-gated leaks and `QuestionBubble`.
+- Build `src/animations/lrTimeline.ts` with shared LR variants.
+
+### Batch LR-C · LR Vision + Architecture (slides 24, 25)
+
+- Implement `24-LrVision.tsx` (4-step promise with staggered reveal + one KPI badge).
+- Implement `25-LrArchitecture.tsx` using new `LrArchitectureStack` primitive.
+
+### Batch LR-D · LR Funnel visual (slide 26)
+
+- Build `src/components/mockups/LrFunnelFlow.tsx` (5-node animated flow, cyan palette, fragment-driven edge draws).
+- Implement `26-LrFunnel.tsx` wiring the mockup to fragments.
+
+### Batch LR-E · Result slide (cancelled)
+
+Originally planned as slide 28 (KPI trio + closing line). **Dropped** — the project is still in discovery phase and there are no real results to claim. Reintroduce only when the case has shipped numbers.
+
+### Batch LR-F · Interactive funnel (slide 27)
+
+- Port `.reference/media-factory/src/funnel.jsx` (526 LOC) → `src/components/mockups/LrFunnelInteractive.tsx` (TypeScript).
+- Translate all Russian copy to Ukrainian; remap palette to cyan-dominant with coral/amber/mint warm accents.
+- Thin slide wrapper `27-LrFunnelInteractive.tsx` — fragments 0..5 drive preset selection (fr 0 = free exploration, fr 1..5 = JOURNEYS[i-1]).
+- Later retrofit (2026-04-19 same day): widen viewBox 960×1100 → 1600×1100 (landscape), reposition all 22 nodes, bump fonts +40%; strip card chrome; let SVG fill slide height; exempt pinch-zoom events from slide nav (`useNavigation.ts` handleWheel ctrlKey check).
+
 ### Batch 7 · Act 4 match batch A (slides 19–21)
 
 - Industry mapper · Services grid · Branding turnkey (reassess — overlap with slide 15 Journey)
@@ -290,7 +353,7 @@ webspirio-presentation-2026-04/
 
 - [ ] Webspirio logo (SVG) — already in `src/components/WebspirioLogo.tsx`
 - [ ] Photo of Oleksandr (optional, for Hero slide)
-- [ ] LR Health & Beauty funnel diagram — port `funnel-diagram.jsx` from that project
+- [x] LR Health & Beauty funnel — Act 3Б (slides 22–28). Static `LrFunnelFlow` on slide 26 + full interactive `LrFunnelInteractive` on slide 27 (ported and translated from `.reference/media-factory/src/funnel.jsx`).
 - [ ] LR Reels thumbnail mockups (3–4 preview Reels)
 - [ ] Client website screenshots: Auto Eder, Küchen Fokus, Olga Gatlin, Nail Salon
 - [ ] Korvo chat widget UI (pre-seeded conversation)

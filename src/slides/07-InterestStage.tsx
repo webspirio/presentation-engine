@@ -44,15 +44,6 @@ const pillEnter: Variants = {
   },
 }
 
-const noteEnter: Variants = {
-  hidden: { opacity: 0, y: 6 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: 1.25, ease: easeSmooth },
-  },
-}
-
 function InterestAccent({ active }: { active: boolean }) {
   const animate = active ? 'visible' : 'hidden'
   return (
@@ -133,20 +124,6 @@ function InterestAccent({ active }: { active: boolean }) {
         </motion.span>
       </div>
 
-      <motion.aside
-        variants={noteEnter}
-        role="note"
-        className="italic"
-        style={{
-          fontFamily: FONT_POPPINS,
-          fontWeight: 400,
-          fontSize: 'clamp(0.88rem, 0.95vw, 1rem)',
-          color: 'rgba(240, 244, 248, 0.55)',
-          letterSpacing: '0.01em',
-        }}
-      >
-        «Olga Gatlin: 3 мови, клієнти з трьох країн»
-      </motion.aside>
     </motion.div>
   )
 }
