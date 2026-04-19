@@ -9,7 +9,6 @@ import { BusinessCard } from '@/components/mockups/BusinessCard'
 import { TShirt } from '@/components/mockups/TShirt'
 import { ChatBubbles } from '@/components/mockups/ChatBubbles'
 import { QuestionBubble } from '@/components/QuestionBubble'
-import { EntrepreneurSilhouette } from '@/components/EntrepreneurSilhouette'
 
 const FONT_POPPINS = "'Poppins', sans-serif"
 const FONT_DISPLAY = "'Unbounded', 'Poppins', sans-serif"
@@ -220,7 +219,7 @@ export function CaseJourneySlide({ isActive, fragment }: SlideProps) {
             </motion.div>
           </motion.div>
 
-          {/* Business card — bottom-left slot, fragment 6 */}
+          {/* Business card — mid-left slot, fragment 6 */}
           <div className="relative flex min-h-[140px] items-center justify-center">
             {show(6) && (
               <div className="relative">
@@ -250,9 +249,14 @@ export function CaseJourneySlide({ isActive, fragment }: SlideProps) {
               </div>
             )}
           </div>
+
+          {/* T-shirt — bottom-left slot, below the business card, fragment 7 */}
+          <div className="relative flex min-h-[160px] items-center justify-center">
+            {show(7) && <TShirt isActive={show(7)} delay={0.1} scale={0.65} />}
+          </div>
         </div>
 
-        {/* Delivery panel — top-right browser */}
+        {/* Delivery panel — right column, browser only */}
         <div className="relative flex flex-col gap-4">
           <motion.div
             variants={panelVariant}
@@ -275,22 +279,6 @@ export function CaseJourneySlide({ isActive, fragment }: SlideProps) {
               )}
             </BrowserFrame>
           </motion.div>
-
-          {/* T-shirt + silhouette — bottom-right slot, fragment 7 */}
-          <div className="relative flex min-h-[160px] items-end justify-end gap-4 pr-4">
-            {show(7) && (
-              <>
-                <EntrepreneurSilhouette
-                  isActive={show(7)}
-                  pose="standing"
-                  opacity={0.75}
-                  delay={0.25}
-                  className="h-[160px] w-auto"
-                />
-                <TShirt isActive={show(7)} delay={0.1} scale={0.65} />
-              </>
-            )}
-          </div>
         </div>
       </div>
 
