@@ -15,8 +15,9 @@ import { CaseAskSlide } from '@/slides/14-CaseAsk'
 import { CaseJourneySlide } from '@/slides/15-CaseJourney'
 import { CaseAfterSlide } from '@/slides/16-CaseAfter'
 import { CaseCardSpinSlide } from '@/slides/17-CaseCardSpin'
-import { CasePunchlineSlide } from '@/slides/18-CasePunchline'
-import { CaseCtaSlide } from '@/slides/19-CaseCta'
+import { CaseShirtSpinSlide } from '@/slides/18-CaseShirtSpin'
+import { CasePunchlineSlide } from '@/slides/19-CasePunchline'
+import { CaseCtaSlide } from '@/slides/20-CaseCta'
 import { ServicesConstellationSlide } from '@/slides/21-ServicesConstellation'
 
 // 24-slide consultative sales deck — see docs/PROJECT_PLAN.md for the canonical spec.
@@ -226,15 +227,14 @@ const columns: ColumnConfig[] = [
       {
         id: 'case-after',
         component: CaseAfterSlide,
-        title: 'Кейс · Тепер',
-        fragments: 3,
+        title: 'Кейс · Сайт',
         showCenterLogo: false,
         background: 'transparent',
         notes: [
-          'Кейс 5/7 — After (~20с).',
-          'Силует стоїть випрямлений, показує рукою на кожну зміну.',
-          'Фрагменти: 1) візитка; 2) футболка; 3) сайт — у Розенхаймі.',
-          'Бульбашка зникає після третього фрагмента — питання більше немає.',
+          'Кейс 5/9 — Сайт (~15с).',
+          'Живий вбудований kuechenfokus.de — не скриншот, не мокап.',
+          'Підпис: «Хтось шукає кухню в Розенхаймі — знаходить Küchen Fokus».',
+          'Якщо сайт не встиг завантажитись — згадати коротко і перейти до візитки.',
         ].join('\n'),
       },
       {
@@ -249,6 +249,20 @@ const columns: ColumnConfig[] = [
           'Фізична візитка Küchen Fokus, обидва боки. Покрутіть мишкою, щоб показати.',
           'Говорити про тактильність: «це не картинка в Figma — це дійсно друк, вага, матеріал».',
           'Не затримуватися — 5-10с, далі punchline.',
+        ].join('\n'),
+      },
+      {
+        id: 'case-shirt-spin',
+        component: CaseShirtSpinSlide,
+        title: 'Кейс · Футболка 3D',
+        transition: 'fade',
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Кейс 7/9 — Футболка в 3D (~10с ambient).',
+          'Бренд-одяг команди Küchen Fokus. Перед — логотип і назва; зворот — URL + тел.',
+          'Говорити: «коли бригада заходить у підʼїзд — сусіди читають назву, перш ніж двері відкрились».',
+          'Покрутити мишкою, показати обидва боки. Не затримуватися — далі punchline.',
         ].join('\n'),
       },
       {

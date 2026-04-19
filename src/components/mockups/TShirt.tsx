@@ -1,7 +1,7 @@
 import { motion, type Variants } from 'motion/react'
 import { easeSmooth } from '@/animations/transitions'
-import shirtBackUrl from '@/assets/kf/t-shirt-back-transparent.png'
-import shirtFrontUrl from '@/assets/kf/t-shirt-front-transparent.png'
+import shirtBackUrl from '@/assets/kf/kf-tshirt-back-clean.png'
+import shirtFrontUrl from '@/assets/kf/kf-tshirt-front-clean.png'
 
 export interface TShirtProps {
   isActive: boolean
