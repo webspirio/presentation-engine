@@ -7,9 +7,13 @@ import { easeSmooth } from '@/animations/transitions'
 const FONT_POPPINS = "'Poppins', sans-serif"
 const FONT_DISPLAY = "'Unbounded', 'Poppins', sans-serif"
 
-// Bubble lands with its inner edge at the silhouette's torso (silhouette is min(52vh,460px) wide on md;
-// torso sits well inside the bounding box, so we inset past the full half-width by ~38px on md+).
-const SILHOUETTE_EDGE_OFFSET = 'min(22vh, 192px)'
+// Silhouette is a circle (r ≈ 187.5 px at md+, centered ~10 px above stage middle).
+// For each bubble, offset = circle radius evaluated at the bubble edge closest to
+// the circle's vertical center, +1-2 px clearance so it just kisses without overlap.
+// MID bubbles span y=505-575 (closest y to circle center → ±187 radius at that y).
+// UPPER bubbles span up to y=403 (closest edge of taller bubble → ±166 radius).
+const MID_EDGE_OFFSET = 'min(22vh, 189px)'
+const UPPER_EDGE_OFFSET = 'min(20vh, 168px)'
 
 const eyebrowVariant: Variants = {
   hidden: { opacity: 0, y: 8 },
@@ -111,7 +115,7 @@ export function CaseHookSlide({ isActive, fragment }: SlideProps) {
       </motion.div>
 
       {/* Centered hub: silhouette + intro; desktop side bubbles overlay; mobile stacks bubbles below */}
-      <div className="relative flex h-full w-full flex-col items-center justify-center px-6 pb-6 pt-10 sm:px-12 sm:py-20 md:py-14">
+      <div className="relative flex h-full w-full flex-col items-center justify-center px-6 pb-4 pt-8 sm:px-12 sm:py-20 md:py-14">
         {/* Center: silhouette + intro text */}
         <div className="relative z-10 flex flex-col items-center">
           <motion.div
@@ -126,7 +130,7 @@ export function CaseHookSlide({ isActive, fragment }: SlideProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: stageActive ? 1 : 0 }}
               transition={{ duration: 0.9, ease: easeSmooth, delay: 0.2 }}
-              className="pointer-events-none absolute left-1/2 top-1/2 h-[24vh] w-[24vh] -translate-x-1/2 -translate-y-[52%] sm:h-[38vh] sm:w-[38vh] md:h-[min(62vh,560px)] md:w-[min(62vh,560px)]"
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[20vh] w-[20vh] -translate-x-1/2 -translate-y-[52%] sm:h-[36vh] sm:w-[36vh] md:h-[min(62vh,560px)] md:w-[min(62vh,560px)]"
               style={{
                 background:
                   'radial-gradient(circle, rgba(0,211,242,0.28) 0%, rgba(0,211,242,0.14) 32%, rgba(0,211,242,0.05) 55%, transparent 72%)',
@@ -137,7 +141,7 @@ export function CaseHookSlide({ isActive, fragment }: SlideProps) {
               isActive={stageActive}
               opacity={1}
               delay={0.15}
-              className="relative h-[16vh] w-auto drop-shadow-[0_6px_28px_rgba(0,211,242,0.38)] sm:h-[28vh] md:h-[min(52vh,460px)]"
+              className="relative h-[13vh] w-auto drop-shadow-[0_6px_28px_rgba(0,211,242,0.38)] sm:h-[26vh] md:h-[min(52vh,460px)]"
             />
             {/* Floor line — scoped to silhouette base */}
             <motion.span
@@ -158,25 +162,25 @@ export function CaseHookSlide({ isActive, fragment }: SlideProps) {
             variants={introVariant}
             initial="hidden"
             animate={stageActive ? 'visible' : 'hidden'}
-            className="mt-4 flex flex-col items-center gap-1.5 text-center"
+            className="mt-5 flex flex-col items-center gap-2 text-center"
           >
             <span
               className="text-[#F0F4F8]"
               style={{
                 fontFamily: FONT_DISPLAY,
                 fontWeight: 600,
-                fontSize: 'clamp(1rem, 1.15vw, 1.2rem)',
+                fontSize: 'clamp(1.35rem, 1.75vw, 1.9rem)',
                 letterSpacing: '-0.01em',
               }}
             >
               Власник невеликої майстерні.
             </span>
             <span
-              className="max-w-[38ch] text-[#F0F4F8]/75"
+              className="max-w-[48ch] text-[#F0F4F8]/85"
               style={{
                 fontFamily: FONT_POPPINS,
                 fontWeight: 400,
-                fontSize: 'clamp(0.88rem, 0.95vw, 1rem)',
+                fontSize: 'clamp(1.05rem, 1.35vw, 1.45rem)',
                 lineHeight: 1.5,
               }}
             >
@@ -234,7 +238,7 @@ export function CaseHookSlide({ isActive, fragment }: SlideProps) {
           {/* Bubble 1 — mid-left (fr=1) */}
           <div
             className="absolute top-1/2 -translate-y-1/2"
-            style={{ right: `calc(50% + ${SILHOUETTE_EDGE_OFFSET})` }}
+            style={{ right: `calc(50% + ${MID_EDGE_OFFSET})` }}
           >
             <QuestionBubble
               isActive={bubble1Active}
@@ -250,7 +254,7 @@ export function CaseHookSlide({ isActive, fragment }: SlideProps) {
           {/* Bubble 2 — mid-right (fr=2) */}
           <div
             className="absolute top-1/2 -translate-y-1/2"
-            style={{ left: `calc(50% + ${SILHOUETTE_EDGE_OFFSET})` }}
+            style={{ left: `calc(50% + ${MID_EDGE_OFFSET})` }}
           >
             <QuestionBubble
               isActive={bubble2Active}
@@ -263,10 +267,10 @@ export function CaseHookSlide({ isActive, fragment }: SlideProps) {
               «Дайте візитку — порекомендую друзям»
             </QuestionBubble>
           </div>
-          {/* Bubble 3 — upper-left (fr=3) */}
+          {/* Bubble 3 — upper-left, head level (fr=3) */}
           <div
-            className="absolute top-[20%]"
-            style={{ right: `calc(50% + min(19vh, 160px))` }}
+            className="absolute top-[32%] -translate-y-1/2"
+            style={{ right: `calc(50% + ${UPPER_EDGE_OFFSET})` }}
           >
             <QuestionBubble
               isActive={bubble3Active}
@@ -279,10 +283,10 @@ export function CaseHookSlide({ isActive, fragment }: SlideProps) {
               «А відгуки десь почитати?»
             </QuestionBubble>
           </div>
-          {/* Bubble 4 — upper-right, above visitka (fr=3) */}
+          {/* Bubble 4 — upper-right, head level, above visitka (fr=3) */}
           <div
-            className="absolute top-[20%]"
-            style={{ left: `calc(50% + min(19vh, 160px))` }}
+            className="absolute top-[32%] -translate-y-1/2"
+            style={{ left: `calc(50% + ${UPPER_EDGE_OFFSET})` }}
           >
             <QuestionBubble
               isActive={bubble4Active}
