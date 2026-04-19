@@ -248,26 +248,35 @@ export function SpinCard({
 
 function CardFace({ src, back }: { src: string; back?: boolean }) {
   return (
-    <img
-      src={src}
-      alt=""
+    <div
       aria-hidden
-      draggable={false}
       style={{
         position: 'absolute',
         inset: 0,
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        borderRadius: '5.6%',
+        overflow: 'hidden',
+        borderRadius: '7% / 10.5%',
         backfaceVisibility: 'hidden',
         WebkitBackfaceVisibility: 'hidden',
         transform: back ? 'rotateY(180deg)' : undefined,
         boxShadow:
           '0 32px 70px -28px rgba(0, 0, 0, 0.65), 0 0 44px -20px rgba(0, 211, 242, 0.4)',
-        userSelect: 'none',
       }}
-    />
+    >
+      <img
+        src={src}
+        alt=""
+        draggable={false}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          transform: 'scale(1.07)',
+          transformOrigin: 'center',
+          userSelect: 'none',
+          display: 'block',
+        }}
+      />
+    </div>
   )
 }
 
