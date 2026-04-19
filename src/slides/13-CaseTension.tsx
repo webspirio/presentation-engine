@@ -1,6 +1,5 @@
 import { motion, useReducedMotion, type Variants } from 'motion/react'
 import type { SlideProps } from '@/engine/types'
-import { EntrepreneurSilhouette } from '@/components/EntrepreneurSilhouette'
 import { QuestionBubble } from '@/components/QuestionBubble'
 import { easeSmooth } from '@/animations/transitions'
 
@@ -61,24 +60,24 @@ function TensionTag({ label, active }: TensionTagProps) {
       variants={tagContainer}
       initial="hidden"
       animate={active ? 'visible' : 'hidden'}
-      className="relative inline-flex items-center gap-4 rounded-xl px-5 py-3.5"
+      className="relative inline-flex items-center gap-5 rounded-2xl px-8 py-5"
       style={{
         background: 'rgba(8, 51, 68, 0.75)',
         border: '1px solid rgba(255, 107, 74, 0.35)',
-        boxShadow: '0 18px 40px -24px rgba(255, 107, 74, 0.5)',
+        boxShadow: '0 24px 56px -24px rgba(255, 107, 74, 0.5)',
         backdropFilter: 'blur(4px)',
       }}
     >
       {/* X mark */}
       <span
         aria-hidden
-        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
         style={{
           background: 'rgba(255, 107, 74, 0.15)',
           border: '1px solid rgba(255, 107, 74, 0.6)',
         }}
       >
-        <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none">
+        <svg viewBox="0 0 16 16" className="h-5 w-5" fill="none">
           <path
             d="M4 4 L12 12 M12 4 L4 12"
             stroke="#ff8361"
@@ -89,11 +88,11 @@ function TensionTag({ label, active }: TensionTagProps) {
       </span>
 
       <span
-        className="relative text-[#F0F4F8]/85"
+        className="relative text-[#F0F4F8]/90"
         style={{
           fontFamily: FONT_DISPLAY,
           fontWeight: 500,
-          fontSize: 'clamp(1.3rem, 1.8vw, 1.7rem)',
+          fontSize: 'clamp(1.7rem, 2.4vw, 2.3rem)',
           letterSpacing: '-0.01em',
         }}
       >
@@ -134,32 +133,21 @@ export function CaseTensionSlide({ isActive, fragment }: SlideProps) {
         {COPY.eyebrow}
       </motion.div>
 
-      {/* Faded bubble recap — top-right */}
-      <div className="absolute right-10 top-10 scale-90 opacity-60 sm:right-16 sm:top-12">
+      {/* Faded bubble recap — top-center */}
+      <div className="absolute left-1/2 top-16 -translate-x-1/2 opacity-70 sm:top-20">
         <QuestionBubble
           isActive={isActive}
           from="top"
-          tail="down-right"
-          opacity={0.55}
+          tail="down-left"
+          opacity={0.7}
           delay={0.15}
         >
           «...візитку? ...сайт?»
         </QuestionBubble>
       </div>
 
-      {/* Silhouette — bottom-left, smaller, same pose */}
-      <div className="absolute bottom-10 left-10 flex items-end sm:bottom-14 sm:left-16">
-        <EntrepreneurSilhouette
-          isActive={isActive}
-          pose="carrying"
-          opacity={0.32}
-          delay={0.1}
-          className="h-[min(50vh,380px)] w-auto"
-        />
-      </div>
-
-      {/* Three tags stack — right side */}
-      <div className="absolute right-10 top-1/2 flex -translate-y-1/2 flex-col gap-5 sm:right-16">
+      {/* Three tags stack + caption — centered on stage */}
+      <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-7">
         {COPY.tags.map((tag, i) => (
           <TensionTag key={tag} label={tag} active={tagActive(i + 1)} />
         ))}
@@ -168,11 +156,11 @@ export function CaseTensionSlide({ isActive, fragment }: SlideProps) {
           variants={captionVariant}
           initial="hidden"
           animate={tagActive(3) ? 'visible' : 'hidden'}
-          className="mt-4 max-w-[32ch] text-right text-[#F0F4F8]/80"
+          className="mt-6 max-w-[46ch] text-center text-[#F0F4F8]/85"
           style={{
             fontFamily: FONT_POPPINS,
             fontWeight: 400,
-            fontSize: 'clamp(1rem, 1.2vw, 1.15rem)',
+            fontSize: 'clamp(1.25rem, 1.6vw, 1.55rem)',
             lineHeight: 1.5,
             fontStyle: 'italic',
           }}
