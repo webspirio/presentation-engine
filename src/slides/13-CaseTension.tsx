@@ -8,9 +8,9 @@ const FONT_POPPINS = "'Poppins', sans-serif"
 const FONT_DISPLAY = "'Unbounded', 'Poppins', sans-serif"
 
 const COPY = {
-  eyebrow: 'Три «нє»',
+  eyebrow: 'Але...',
   tags: ['Немає назви', 'Немає сайту', 'Немає візитки'] as const,
-  caption: 'Кожна розмова починалася з нуля.',
+  caption: 'Інтерес завершується на порозі.',
 }
 
 const eyebrowVariant: Variants = {
@@ -143,7 +143,7 @@ export function CaseTensionSlide({ isActive, fragment }: SlideProps) {
           opacity={0.55}
           delay={0.15}
         >
-          «А візитка є?»
+          «...візитку? ...сайт?»
         </QuestionBubble>
       </div>
 
