@@ -73,7 +73,7 @@ Use Unbounded 700 for the hero tagline; 600 for section dividers; 800 for the cl
 
 ---
 
-## Slide Plan — 27 slides, ~15 minutes
+## Slide Plan — 28 slides, ~15 minutes
 
 > **Act 3 restructure (2026-04-19):** the three generic case slots (originally slides 12–14 — LR Health & Beauty, Nail Salon, Auto Eder) were replaced with one deep Küchen Fokus story spanning slides 12–18. Slide 15 "Results summary" was dropped; its role is now absorbed by slide 18 (case CTA). Acts 4 and 5 renumber forward by +3 (old 16 → new 19, old 24 → new 27). Original LR/Nail/Auto Eder cases survive as one-line mini-cases inside Act 2 stage slides (6, 8, 9). See `src/App.tsx` for the current registered order.
 
@@ -99,7 +99,7 @@ Use Unbounded 700 for the hero tagline; 600 for section dividers; 800 for the cl
 | 9   | **Обслужити (4/5)**  | _"Чи можете ви обслужити вдвічі більше клієнтів без вдвічі більшої команди?"_ | Хаос замовлень, ручні рахунки — зростання коштує якості.            | **Auto Eder:** Magento 2 + ERP, [TBD]× замовлень на ту саму команду.                                                                        |
 | 10  | **Повернути (5/5)**  | _"Скільки ваших клієнтів повертаються? Ви знаєте точно чи здогадуєтесь?"_     | Залучити нового — у 5× дорожче, ніж повернути старого.              | **LR email nurture:** 4 послідовності (DE/RU × продукт/партнерство), 5–7 листів кожна.                                                      |
 
-### Act 3 · Küchen Fokus case story (slides 11–18, ~2.5 min)
+### Act 3 · Küchen Fokus case story (slides 11–19, ~2.5 min)
 
 One deep seven-slide narrative replaces the original three-case-study slot. Through-line motif: the question bubble «А візитка є?» recurs across slides 12, 13, 15 (fragment 6) and 16; retires on slide 16. Silhouette of entrepreneur recurs in 12, 13, 16, with pose shifts signalling the arc (hunched on 12/13 → pointing on 16).
 
@@ -111,27 +111,28 @@ One deep seven-slide narrative replaces the original three-case-study slot. Thro
 | 14  | **Case · Ask**                | Centred client quote, word-by-word reveal: _"Хлопці, мені потрібно все. Я навіть не знаю, з чого почати."_ Attribution: _Клієнт · перше звернення._ `fragments: 1`.                          | ~10s     |
 | 15  | **Case · Journey**            | Seven-fragment set piece. Progress strip across top. Deliverables build a 2×2 board: Назва → Домен → Логотип → Сайт → Korvo AI → Візитка → Футболка. Caption swaps per fragment. `fragments: 7`. | ~60s     |
 | 16  | **Case · Тепер (After)**      | All deliverables composed together. Silhouette upright, pointing at card / shirt / site as each caption reveals. `fragments: 3`.                                                             | ~20s     |
-| 17  | **Case · Punchline**          | _"Ми не робимо сайти. Ми робимо компанії видимими."_ — second line in cyan-400 with glow pulse. `fragments: 1`.                                                                              | ~10s     |
-| 18  | **Case · CTA**                | Persistent Webspirio logo + one line: _"Один партнер. Повний пакет. Один дзвінок."_ Contact chip: `webspirio.de`.                                                                           | ~5s      |
+| 17  | **Case · Візитка 3D**         | Fullscreen interactive business card. Real front/back artwork; hover tilts, drag spins with inertia, keyboard fallback (←/→/Space). Presenter-paced, 5–10 s ambient demo.                   | ~10s     |
+| 18  | **Case · Punchline**          | _"Ми не робимо сайти. Ми робимо компанії видимими."_ — second line in cyan-400 with glow pulse. `fragments: 1`.                                                                              | ~10s     |
+| 19  | **Case · CTA**                | Persistent Webspirio logo + one line: _"Один партнер. Повний пакет. Один дзвінок."_ Contact chip: `webspirio.de`.                                                                           | ~5s      |
 
-**Shared case anatomy (this sequence):** cinematic cuts · dark cyan-950 stage · Unbounded display for hero beats · one strong motion per slide · recurring question-bubble + silhouette motifs. Rebuilt hand-rolled SVG/CSS mockups (browser chrome, business card, t-shirt, Korvo chat) live under `src/components/mockups/`. Registry lives in `src/App.tsx`; components at `src/slides/12-CaseHook.tsx`..`18-CaseCta.tsx`.
+**Shared case anatomy (this sequence):** cinematic cuts · dark cyan-950 stage · Unbounded display for hero beats · one strong motion per slide · recurring question-bubble + silhouette motifs. Rebuilt hand-rolled SVG/CSS mockups (browser chrome, business card, t-shirt, Korvo chat) live under `src/components/mockups/`. Registry lives in `src/App.tsx`; components at `src/slides/12-CaseHook.tsx`..`19-CaseCta.tsx`.
 
 **Backup (not in active deck):** the original LR flagship, Nail Salon and Auto Eder "full case" slides were demoted to backup. If presenter needs a quick cross-case summary, that content survives as one-line mini-cases inside slides 6, 8, 9 (Attract, Book, Serve). Standalone full-case slides can be re-introduced later as a separate batch without disturbing the Küchen Fokus sequence.
 
-### Act 4 · Match + Scope (slides 19–24, ~4 min)
+### Act 4 · Match + Scope (slides 20–25, ~4 min)
 
-> Renumbered +3 due to Act 3 restructure. Note: slide 22 ("Бренд під ключ + візитки") may feel redundant after the Küchen Fokus journey — reassess scope when Act 4 is built; consider merging into the Korvo/Clickwise demos or dropping.
+> Renumbered +4 due to Act 3 restructure (including the 3D business-card slide). Note: slide 22 ("Бренд під ключ + візитки") now fully redundant after the Küchen Fokus journey + 3D card slide — drop or repurpose when Act 4 is built.
 
 | #   | Slide                                     | Content                                                                                                          | Duration |
 | --- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | -------- |
-| 19  | **Industry mapper** (replaces Tech Stack) | 3×2 tile grid mapping to audience sectors. See table below.                                                      | 45s      |
-| 20  | **Services grid**                         | 8 outcome-first cards, tech chips as secondary labels                                                            | 30s      |
-| 21  | **Бренд під ключ + візитки** (merged)     | 7-step branding pipeline (left) + 3D-flipping business card mockup (right). Overlap with slide 15 — reassess.    | 30s      |
-| 22  | **Korvo — overview + LIVE DEMO**          | 2 fragments: feature overview → chat widget with pre-seeded _"Скільки коштує манікюр?"_ exchange                 | 60s      |
-| 23  | **Clickwise — overview + LIVE DEMO**      | 2 fragments: GA-alternative pitch → dashboard with Insta→site→conversion flow. Subtitle: "Побудовано на Rybbit". | 45s      |
-| 24  | **Як ми працюємо**                        | 5-step timeline: Розмова (30хв) → Ескіз → Показуємо по дорозі → Запуск → Супровід                                | 30s      |
+| 20  | **Industry mapper** (replaces Tech Stack) | 3×2 tile grid mapping to audience sectors. See table below.                                                      | 45s      |
+| 21  | **Services grid**                         | 8 outcome-first cards, tech chips as secondary labels                                                            | 30s      |
+| 22  | **Бренд під ключ + візитки** (merged)     | 7-step branding pipeline (left) + 3D-flipping business card mockup (right). Overlap with slides 15 + 17 — drop or repurpose. | 30s      |
+| 23  | **Korvo — overview + LIVE DEMO**          | 2 fragments: feature overview → chat widget with pre-seeded _"Скільки коштує манікюр?"_ exchange                 | 60s      |
+| 24  | **Clickwise — overview + LIVE DEMO**      | 2 fragments: GA-alternative pitch → dashboard with Insta→site→conversion flow. Subtitle: "Побудовано на Rybbit". | 45s      |
+| 25  | **Як ми працюємо**                        | 5-step timeline: Розмова (30хв) → Ескіз → Показуємо по дорозі → Запуск → Супровід                                | 30s      |
 
-**Slide 19 — Industry mapper tiles (3×2 grid):**
+**Slide 20 — Industry mapper tiles (3×2 grid):**
 
 | Icon | Industry                            | Top line                                 | Bullets                                                | Tool chips                        |
 | ---- | ----------------------------------- | ---------------------------------------- | ------------------------------------------------------ | --------------------------------- |
@@ -144,17 +145,17 @@ One deep seven-slide narrative replaces the original three-case-study slot. Thro
 
 Footer: _"Не бачите вашої галузі? Адаптуємось."_ Tile-glow triggered via fragment index so each tile lights up as Oleksandr names the industry.
 
-### Act 5 · Offer + Close (slides 25–27, ~2 min)
+### Act 5 · Offer + Close (slides 26–28, ~2 min)
 
 | #   | Slide                             | Content                                                                                                                                                                                                                                                                | Duration |
 | --- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| 25  | **Вартість + 3-річна математика** | Fragment 0: ranges (Сайт €2–5k · Воронка €6–12k · Супровід €200/міс). Fragment 1: 3-year SaaS comparison bar chart (Shopify €14,364 · Wix €5,724 · per-seat CRM €9,000 · Webspirio build €6–10k). Caption: _"Підписка тихо зʼїдає. Власний продукт — один раз і ваш."_ | 45s      |
-| 26  | **The Offer**                     | Headline: _"Для учасників UA WELL — безкоштовна 30-хв розмова."_ 3 ✓ bullets. Large QR → Google Calendar booking page. Pillar badges ribbon: 🛡 DSGVO · 🔒 Фіксована ціна · 🤝 Один партнер · 📦 Все належить вам.                                                     | 40s      |
-| 27  | **Дякую + Q&A**                   | _"Дякую."_ (Unbounded 800). Primary contact: **Telegram** (2× size of other contacts). Secondary row: site + email. Second QR bottom-right → same booking link.                                                                                                        | 30s      |
+| 26  | **Вартість + 3-річна математика** | Fragment 0: ranges (Сайт €2–5k · Воронка €6–12k · Супровід €200/міс). Fragment 1: 3-year SaaS comparison bar chart (Shopify €14,364 · Wix €5,724 · per-seat CRM €9,000 · Webspirio build €6–10k). Caption: _"Підписка тихо зʼїдає. Власний продукт — один раз і ваш."_ | 45s      |
+| 27  | **The Offer**                     | Headline: _"Для учасників UA WELL — безкоштовна 30-хв розмова."_ 3 ✓ bullets. Large QR → Google Calendar booking page. Pillar badges ribbon: 🛡 DSGVO · 🔒 Фіксована ціна · 🤝 Один партнер · 📦 Все належить вам.                                                     | 40s      |
+| 28  | **Дякую + Q&A**                   | _"Дякую."_ (Unbounded 800). Primary contact: **Telegram** (2× size of other contacts). Secondary row: site + email. Second QR bottom-right → same booking link.                                                                                                        | 30s      |
 
 ---
 
-## Services (slide 20, 8 outcome-first cards)
+## Services (slide 21, 8 outcome-first cards)
 
 1. _"Облік, рахунки, склад — в одному вікні"_ · chips: **ERPNext · Invoice Ninja · Kimai**
 2. _"Система запису клієнтів"_ · chips: **Altegio · власні CRM**

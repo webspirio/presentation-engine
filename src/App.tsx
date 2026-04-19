@@ -14,8 +14,9 @@ import { CaseTensionSlide } from '@/slides/13-CaseTension'
 import { CaseAskSlide } from '@/slides/14-CaseAsk'
 import { CaseJourneySlide } from '@/slides/15-CaseJourney'
 import { CaseAfterSlide } from '@/slides/16-CaseAfter'
-import { CasePunchlineSlide } from '@/slides/17-CasePunchline'
-import { CaseCtaSlide } from '@/slides/18-CaseCta'
+import { CaseCardSpinSlide } from '@/slides/17-CaseCardSpin'
+import { CasePunchlineSlide } from '@/slides/18-CasePunchline'
+import { CaseCtaSlide } from '@/slides/19-CaseCta'
 import { ServicesConstellationSlide } from '@/slides/21-ServicesConstellation'
 
 // 24-slide consultative sales deck — see docs/PROJECT_PLAN.md for the canonical spec.
@@ -234,6 +235,20 @@ const columns: ColumnConfig[] = [
           'Силует стоїть випрямлений, показує рукою на кожну зміну.',
           'Фрагменти: 1) візитка; 2) футболка; 3) сайт — у Розенхаймі.',
           'Бульбашка зникає після третього фрагмента — питання більше немає.',
+        ].join('\n'),
+      },
+      {
+        id: 'case-card-spin',
+        component: CaseCardSpinSlide,
+        title: 'Кейс · Візитка 3D',
+        transition: 'fade',
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Кейс 6/8 — Візитка в 3D (~10с ambient).',
+          'Фізична візитка Küchen Fokus, обидва боки. Покрутіть мишкою, щоб показати.',
+          'Говорити про тактильність: «це не картинка в Figma — це дійсно друк, вага, матеріал».',
+          'Не затримуватися — 5-10с, далі punchline.',
         ].join('\n'),
       },
       {
