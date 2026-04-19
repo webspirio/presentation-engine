@@ -1,4 +1,4 @@
-import { motion, type Variants } from 'motion/react'
+import { motion, useReducedMotion, type Variants } from 'motion/react'
 import { StageSlide } from '@/components/StageSlide'
 import { ACT2_STAGES } from '@/data/act2Stages'
 import type { SlideProps } from '@/engine/types'
@@ -26,7 +26,7 @@ const SEQUENCES: readonly Sequence[] = [
 // Bar widths (%) for the 6 stacked "letters" on each card's left edge.
 const BAR_WIDTHS = [86, 62, 78, 54, 72, 60] as const
 
-const headlineEnter: Variants = {
+const headlineEnterMotion: Variants = {
   hidden: { opacity: 0, y: 10, filter: 'blur(4px)' },
   visible: {
     opacity: 1,
@@ -36,14 +36,24 @@ const headlineEnter: Variants = {
   },
 }
 
-const gridEnter: Variants = {
+const headlineEnterReduce: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.2 } },
+}
+
+const gridEnterMotion: Variants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.08, delayChildren: 0.5 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.3 },
   },
 }
 
-const cardEnter: Variants = {
+const gridEnterReduce: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0, delayChildren: 0 } },
+}
+
+const cardEnterMotion: Variants = {
   hidden: { opacity: 0, y: 14, scale: 0.94 },
   visible: {
     opacity: 1,
@@ -53,21 +63,26 @@ const cardEnter: Variants = {
   },
 }
 
-function SequenceCard({ lang, topic }: Sequence) {
+const cardEnterReduce: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0 } },
+}
+
+function SequenceCard({ lang, topic, variants }: Sequence & { variants: Variants }) {
   return (
     <motion.article
-      variants={cardEnter}
-      className="relative overflow-hidden rounded-xl border border-cyan-700/30 bg-cyan-900/40 px-3.5 py-3 pl-6"
-      style={{ minHeight: '100px' }}
+      variants={variants}
+      className="relative overflow-hidden rounded-xl border border-cyan-700/30 bg-cyan-900/40 px-4 py-4 pl-7"
+      style={{ minHeight: '120px' }}
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute bottom-3 left-2 top-3 flex w-[14px] flex-col justify-between"
+        className="pointer-events-none absolute bottom-3.5 left-2 top-3.5 flex w-[18px] flex-col justify-between"
       >
         {BAR_WIDTHS.map((w, i) => (
           <span
             key={i}
-            className="block h-[2px] rounded-full bg-cyan-400"
+            className="block h-[2.5px] rounded-full bg-cyan-400"
             style={{ width: `${w}%`, opacity: 0.6 }}
           />
         ))}
@@ -78,9 +93,9 @@ function SequenceCard({ lang, topic }: Sequence) {
         style={{
           fontFamily: FONT_MONO,
           fontWeight: 600,
-          fontSize: '0.65rem',
+          fontSize: '0.82rem',
           letterSpacing: '0.1em',
-          padding: '2px 8px',
+          padding: '4px 10px',
           borderRadius: '999px',
           background: 'rgba(0, 211, 242, 0.1)',
           border: '1px solid rgba(83, 234, 253, 0.4)',
@@ -91,17 +106,17 @@ function SequenceCard({ lang, topic }: Sequence) {
 
       <div
         className="mt-2 text-[#F0F4F8]"
-        style={{ fontFamily: FONT_POPPINS, fontWeight: 500, fontSize: '0.98rem', lineHeight: 1.2 }}
+        style={{ fontFamily: FONT_POPPINS, fontWeight: 500, fontSize: '1.18rem', lineHeight: 1.2 }}
       >
         {topic}
       </div>
 
       <div
-        className="absolute bottom-2.5 right-3 text-cyan-200/75"
+        className="absolute bottom-3 right-3.5 text-cyan-200/75"
         style={{
           fontFamily: FONT_POPPINS,
           fontWeight: 400,
-          fontSize: '0.65rem',
+          fontSize: '0.82rem',
           letterSpacing: '0.01em',
         }}
       >
@@ -112,11 +127,16 @@ function SequenceCard({ lang, topic }: Sequence) {
 }
 
 function RetainAccent({ active }: { active: boolean }) {
+  const reduce = useReducedMotion() ?? false
+  const headlineEnter = reduce ? headlineEnterReduce : headlineEnterMotion
+  const gridEnter = reduce ? gridEnterReduce : gridEnterMotion
+  const cardEnter = reduce ? cardEnterReduce : cardEnterMotion
+
   return (
     <motion.div
       initial="hidden"
       animate={active ? 'visible' : 'hidden'}
-      className="flex w-full flex-col gap-4 md:ml-auto md:max-w-[360px]"
+      className="flex w-full flex-col gap-4 md:ml-auto md:max-w-[440px]"
     >
       <motion.p
         variants={headlineEnter}
@@ -124,7 +144,7 @@ function RetainAccent({ active }: { active: boolean }) {
         style={{
           fontFamily: FONT_DISPLAY,
           fontWeight: 700,
-          fontSize: 'clamp(1.05rem, 1.4vw, 1.3rem)',
+          fontSize: 'clamp(1.3rem, 1.55vw, 1.55rem)',
           letterSpacing: '-0.01em',
           lineHeight: 1.25,
           textShadow: '0 0 20px rgba(0, 211, 242, 0.25)',
@@ -135,7 +155,11 @@ function RetainAccent({ active }: { active: boolean }) {
 
       <motion.div variants={gridEnter} className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {SEQUENCES.map((seq) => (
-          <SequenceCard key={`${seq.lang}-${seq.topic}`} {...seq} />
+          <SequenceCard
+            key={`${seq.lang}-${seq.topic}`}
+            {...seq}
+            variants={cardEnter}
+          />
         ))}
       </motion.div>
     </motion.div>

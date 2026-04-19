@@ -424,7 +424,7 @@ function Branch({
               style={{
                 fontFamily: "'Poppins', sans-serif",
                 fontWeight: 500,
-                fontSize: 24,
+                fontSize: 30,
                 letterSpacing: '0.01em',
               }}
             >
@@ -636,7 +636,7 @@ export function ServicesConstellationSlide({ isActive }: SlideProps) {
         className="absolute left-16 top-14 z-20 flex flex-col gap-2"
       >
         <span
-          className="text-[11px] uppercase tracking-[0.42em] text-cyan-300/70"
+          className="text-sm uppercase tracking-[0.36em] text-cyan-300/70"
           style={{ fontFamily: "'JetBrains Mono', monospace" }}
         >
           · 21 / Наші продукти ·
@@ -646,7 +646,7 @@ export function ServicesConstellationSlide({ isActive }: SlideProps) {
           style={{
             fontFamily: "'Unbounded', 'Poppins', sans-serif",
             fontWeight: 600,
-            fontSize: 'clamp(2rem, 2.6vw, 2.75rem)',
+            fontSize: 'clamp(2.5rem, 3vw, 3.25rem)',
             lineHeight: 1.05,
             letterSpacing: '-0.02em',
           }}
@@ -660,7 +660,7 @@ export function ServicesConstellationSlide({ isActive }: SlideProps) {
         initial={{ opacity: 0 }}
         animate={isActive || reduce ? { opacity: 1 } : { opacity: 0 }}
         transition={{ delay: 3.6, duration: 0.8 }}
-        className="absolute bottom-12 right-16 z-20 max-w-[32ch] text-right text-sm text-cyan-200/60"
+        className="absolute bottom-12 right-16 z-20 max-w-[36ch] text-right text-base text-cyan-200/60 sm:text-lg"
         style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400 }}
       >
         Один партнер для всієї цифрової інфраструктури — дизайн, розробка,
@@ -865,7 +865,7 @@ export function ServicesConstellationSlide({ isActive }: SlideProps) {
             style={{
               fontFamily: "'Poppins', sans-serif",
               fontWeight: 600,
-              fontSize: 16,
+              fontSize: 19,
               lineHeight: 1.25,
             }}
           >
@@ -876,7 +876,7 @@ export function ServicesConstellationSlide({ isActive }: SlideProps) {
             style={{
               fontFamily: "'Poppins', sans-serif",
               fontWeight: 400,
-              fontSize: 14,
+              fontSize: 16,
               lineHeight: 1.4,
             }}
           >

@@ -66,7 +66,7 @@ function AttractAccent({ active }: { active: boolean }) {
     >
       <motion.div
         variants={badgeEnter}
-        className="inline-flex flex-col items-center gap-1 rounded-2xl px-6 py-4 text-center"
+        className="inline-flex flex-col items-center gap-1.5 rounded-2xl px-7 py-5 text-center"
         style={{
           background: 'linear-gradient(135deg, #00d3f2 0%, #53eafd 55%, #F0F4F8 100%)',
           boxShadow:
@@ -78,7 +78,7 @@ function AttractAccent({ active }: { active: boolean }) {
           style={{
             fontFamily: FONT_DISPLAY,
             fontWeight: 700,
-            fontSize: 'clamp(1.9rem, 3vw, 2.6rem)',
+            fontSize: 'clamp(2.4rem, 3.5vw, 3rem)',
             lineHeight: 1,
             letterSpacing: '-0.02em',
           }}
@@ -95,8 +95,8 @@ function AttractAccent({ active }: { active: boolean }) {
           className="text-[#053345]/75"
           style={{
             fontFamily: FONT_POPPINS,
-            fontWeight: 400,
-            fontSize: 'clamp(0.7rem, 0.9vw, 0.85rem)',
+            fontWeight: 500,
+            fontSize: 'clamp(0.95rem, 1.05vw, 1.05rem)',
             letterSpacing: '0.04em',
           }}
         >
@@ -107,7 +107,7 @@ function AttractAccent({ active }: { active: boolean }) {
       <motion.ul
         variants={reelsGrid}
         aria-hidden
-        className="grid w-full max-w-[240px] grid-cols-3 gap-3"
+        className="grid w-full max-w-[280px] grid-cols-3 gap-3"
       >
         {[0, 1, 2].map((i) => (
           <motion.li
@@ -120,7 +120,7 @@ function AttractAccent({ active }: { active: boolean }) {
             }}
           >
             <Play
-              className="h-4 w-4 translate-x-[1px] text-cyan-200/70"
+              className="h-5 w-5 translate-x-[1px] text-cyan-200/70"
               fill="currentColor"
               strokeWidth={0}
             />
@@ -134,7 +134,7 @@ function AttractAccent({ active }: { active: boolean }) {
         style={{
           fontFamily: FONT_POPPINS,
           fontWeight: 500,
-          fontSize: 'clamp(0.8rem, 1vw, 0.95rem)',
+          fontSize: 'clamp(1rem, 1.2vw, 1.15rem)',
           letterSpacing: '0.01em',
         }}
       >

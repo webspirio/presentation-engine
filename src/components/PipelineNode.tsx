@@ -25,7 +25,7 @@ export function PipelineNode({
   return (
     <motion.div
       className={cn(
-        "relative flex items-center gap-2 rounded-xl px-4 py-3 backdrop-blur-sm",
+        "relative flex items-center gap-2.5 rounded-xl px-5 py-3.5 backdrop-blur-sm",
         "border transition-[border-color,box-shadow,background-color] duration-500",
         isConnected
           ? "border-cyan-300/60 bg-cyan-950/50 shadow-[0_0_24px_-6px_rgba(83,234,253,0.5)]"
@@ -35,23 +35,23 @@ export function PipelineNode({
     >
       <span
         className={cn(
-          "flex h-8 w-8 items-center justify-center rounded-lg transition-colors duration-500",
+          "flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-500",
           isConnected
             ? "bg-cyan-400/20 text-cyan-200"
             : "bg-cyan-500/10 text-cyan-400/70",
         )}
       >
-        <Icon className="h-4 w-4" strokeWidth={1.75} />
+        <Icon className="h-5 w-5" strokeWidth={1.75} />
       </span>
       <span
         className="flex flex-col leading-tight"
         style={{ fontFamily: "'Poppins', sans-serif" }}
       >
-        <span className="text-[0.95rem] font-medium text-[#F0F4F8]">
+        <span className="text-[1.15rem] font-medium text-[#F0F4F8]">
           {label}
         </span>
         {sublabel ? (
-          <span className="text-[0.7rem] font-normal text-cyan-300/60">
+          <span className="text-[0.88rem] font-normal text-cyan-300/60">
             {sublabel}
           </span>
         ) : null}

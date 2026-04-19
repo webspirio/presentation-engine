@@ -67,19 +67,19 @@ function InterestAccent({ active }: { active: boolean }) {
         style={{
           fontFamily: FONT_POPPINS,
           fontWeight: 400,
-          fontSize: 'clamp(0.7rem, 0.85vw, 0.8rem)',
+          fontSize: 'clamp(0.9rem, 1vw, 1rem)',
           letterSpacing: '0.02em',
         }}
       >
         Звичайний цикл: 3–6 місяців
       </motion.p>
 
-      <div className="flex w-full flex-col items-stretch gap-3 md:flex-row md:items-start md:gap-4 md:w-auto md:min-w-[380px]">
+      <div className="flex w-full flex-col items-stretch gap-3 md:flex-row md:items-start md:gap-4 md:w-auto md:min-w-[440px]">
         <div className="relative grid flex-1 grid-cols-6 items-start gap-x-1">
           <motion.span
             aria-hidden
             variants={lineEnter}
-            className="pointer-events-none absolute top-[0.375rem] h-px origin-left"
+            className="pointer-events-none absolute top-[0.4375rem] h-px origin-left"
             style={{
               left: 'calc(100% / 12)',
               right: 'calc(100% / 12)',
@@ -95,7 +95,7 @@ function InterestAccent({ active }: { active: boolean }) {
             >
               <span
                 aria-hidden
-                className="block h-3 w-3 rounded-full"
+                className="block h-3.5 w-3.5 rounded-full"
                 style={{
                   background: '#00d3f2',
                   boxShadow: '0 0 10px rgba(0, 211, 242, 0.55)',
@@ -106,7 +106,7 @@ function InterestAccent({ active }: { active: boolean }) {
                 style={{
                   fontFamily: FONT_POPPINS,
                   fontWeight: 400,
-                  fontSize: 'clamp(0.62rem, 0.78vw, 0.75rem)',
+                  fontSize: 'clamp(0.8rem, 0.95vw, 0.95rem)',
                   letterSpacing: '0.01em',
                 }}
               >
@@ -118,11 +118,11 @@ function InterestAccent({ active }: { active: boolean }) {
 
         <motion.span
           variants={pillEnter}
-          className="inline-flex shrink-0 items-center self-center rounded-full border px-4 py-2 text-cyan-300 md:self-start"
+          className="inline-flex shrink-0 items-center self-center rounded-full border px-5 py-2.5 text-cyan-300 md:self-start"
           style={{
             fontFamily: FONT_DISPLAY,
             fontWeight: 600,
-            fontSize: 'clamp(0.9rem, 1.05vw, 1.05rem)',
+            fontSize: 'clamp(1.1rem, 1.2vw, 1.25rem)',
             letterSpacing: '-0.01em',
             borderColor: 'rgba(83, 234, 253, 0.5)',
             background: 'rgba(0, 211, 242, 0.1)',
@@ -140,7 +140,7 @@ function InterestAccent({ active }: { active: boolean }) {
         style={{
           fontFamily: FONT_POPPINS,
           fontWeight: 400,
-          fontSize: 'clamp(0.7rem, 0.8vw, 0.8rem)',
+          fontSize: 'clamp(0.88rem, 0.95vw, 1rem)',
           color: 'rgba(240, 244, 248, 0.55)',
           letterSpacing: '0.01em',
         }}

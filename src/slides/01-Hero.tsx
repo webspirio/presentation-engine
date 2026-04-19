@@ -40,7 +40,7 @@ export function HeroSlide({ isActive, fragment }: SlideProps) {
           style={{
             fontFamily: "'Unbounded', 'Poppins', sans-serif",
             fontWeight: 700,
-            fontSize: 'clamp(1.75rem, 4.6vw, 4.25rem)',
+            fontSize: 'clamp(2.25rem, 4.8vw, 4.6rem)',
             letterSpacing: '-0.03em',
             lineHeight: 1.05,
             textShadow: '0 2px 40px rgba(0, 184, 219, 0.35)',
@@ -61,7 +61,7 @@ export function HeroSlide({ isActive, fragment }: SlideProps) {
           variants={captionReveal}
           initial="hidden"
           animate={animState}
-          className="text-[11px] uppercase tracking-[0.42em] text-cyan-300/75 sm:text-xs"
+          className="text-sm uppercase tracking-[0.36em] text-cyan-300/75 sm:text-base sm:tracking-[0.4em]"
           style={{ fontFamily: "'JetBrains Mono', monospace" }}
         >
           {CAPTION}
@@ -75,7 +75,7 @@ export function HeroSlide({ isActive, fragment }: SlideProps) {
           style={{
             fontFamily: "'Poppins', sans-serif",
             fontWeight: 400,
-            fontSize: 'clamp(0.95rem, 1.25vw, 1.15rem)',
+            fontSize: 'clamp(1.2rem, 1.45vw, 1.35rem)',
             lineHeight: 1.5,
           }}
         >

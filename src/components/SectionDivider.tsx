@@ -54,21 +54,21 @@ export function SectionDivider({
         >
           <span
             aria-hidden
-            className="inline-block h-px w-8"
+            className="inline-block h-px w-10"
             style={{ backgroundColor: colors.eyebrow }}
           />
           <span
-            className="text-[11px] uppercase sm:text-xs"
+            className="text-sm uppercase sm:text-base"
             style={{
               fontFamily: "'JetBrains Mono', monospace",
-              letterSpacing: '0.42em',
+              letterSpacing: '0.36em',
             }}
           >
             {eyebrow}
           </span>
           <span
             aria-hidden
-            className="inline-block h-px w-8"
+            className="inline-block h-px w-10"
             style={{ backgroundColor: colors.eyebrow }}
           />
         </motion.div>
@@ -81,7 +81,7 @@ export function SectionDivider({
           style={{
             fontFamily: "'Unbounded', 'Poppins', sans-serif",
             fontWeight: 600,
-            fontSize: 'clamp(2.25rem, 8vw, 6.5rem)',
+            fontSize: 'clamp(2.8rem, 8.4vw, 7rem)',
             letterSpacing: '-0.035em',
             lineHeight: 0.95,
             textShadow: `0 2px 40px ${colors.glow}`,
@@ -107,7 +107,7 @@ export function SectionDivider({
           variants={ruleDraw}
           initial="hidden"
           animate={animState}
-          className="h-px w-40 origin-left sm:w-56"
+          className="h-px w-48 origin-left sm:w-64"
           style={{ backgroundColor: colors.rule }}
         />
 
@@ -116,10 +116,10 @@ export function SectionDivider({
             variants={captionReveal}
             initial="hidden"
             animate={animState}
-            className="text-[11px] uppercase sm:text-xs"
+            className="text-sm uppercase sm:text-base"
             style={{
               fontFamily: "'JetBrains Mono', monospace",
-              letterSpacing: '0.3em',
+              letterSpacing: '0.26em',
               color: colors.caption,
             }}
           >

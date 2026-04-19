@@ -10,7 +10,6 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import type { SlideProps } from "@/engine/types";
-import { SpaceBackdrop } from "@/components/SpaceBackdrop";
 import { PipelineNode } from "@/components/PipelineNode";
 import { PipelineConnector } from "@/components/PipelineConnector";
 import BlurHighlight, {
@@ -64,8 +63,6 @@ export function SolutionSlide({ isActive, fragment }: SlideProps) {
 
   return (
     <section className="relative h-full w-full overflow-hidden">
-      <SpaceBackdrop />
-
       <div className="relative z-10 flex h-full w-full flex-col px-12 py-14 sm:px-16 sm:py-16">
         {/* Headline (fragment ≥ 1) */}
         <motion.div
@@ -95,7 +92,7 @@ export function SolutionSlide({ isActive, fragment }: SlideProps) {
               style={{
                 fontFamily: "'Poppins', sans-serif",
                 fontWeight: 500,
-                fontSize: "clamp(1.6rem, 3.1vw, 3rem)",
+                fontSize: "clamp(2rem, 3.4vw, 3.4rem)",
                 lineHeight: 1.2,
                 letterSpacing: "-0.01em",
               }}
@@ -204,7 +201,7 @@ export function SolutionSlide({ isActive, fragment }: SlideProps) {
           style={{
             fontFamily: "'Poppins', sans-serif",
             fontWeight: 400,
-            fontSize: "clamp(0.95rem, 1.3vw, 1.2rem)",
+            fontSize: "clamp(1.2rem, 1.5vw, 1.4rem)",
             letterSpacing: "0.005em",
             lineHeight: 1.5,
           }}

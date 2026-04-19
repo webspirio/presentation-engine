@@ -9,6 +9,13 @@ import { InterestStageSlide } from '@/slides/07-InterestStage'
 import { BookStageSlide } from '@/slides/08-BookStage'
 import { ServeStageSlide } from '@/slides/09-ServeStage'
 import { RetainStageSlide } from '@/slides/10-RetainStage'
+import { CaseHookSlide } from '@/slides/12-CaseHook'
+import { CaseTensionSlide } from '@/slides/13-CaseTension'
+import { CaseAskSlide } from '@/slides/14-CaseAsk'
+import { CaseJourneySlide } from '@/slides/15-CaseJourney'
+import { CaseAfterSlide } from '@/slides/16-CaseAfter'
+import { CasePunchlineSlide } from '@/slides/17-CasePunchline'
+import { CaseCtaSlide } from '@/slides/18-CaseCta'
 import { ServicesConstellationSlide } from '@/slides/21-ServicesConstellation'
 
 // 24-slide consultative sales deck — see docs/PROJECT_PLAN.md for the canonical spec.
@@ -94,6 +101,7 @@ const columns: ColumnConfig[] = [
           'Діагностичне питання: «Що бачить клієнт за перші 5 секунд на вашому сайті?»',
           'Leak: якщо не зрозуміло «що робите» і «чому довіряти» — він пішов.',
           'Міні-кейс Küchen Fokus — повний бренд + сайт за 6 тижнів. Voiceover: Olga Gatlin, 3 мови.',
+          '(Передвістя — повну історію Küchen Fokus розгорнемо в Акті 3, слайд 12+.)',
         ].join('\n'),
       },
       {
@@ -141,8 +149,9 @@ const columns: ColumnConfig[] = [
     ],
   },
   {
-    // Act 3 · Full cases — slides 11-15. ActResultsSlide serves as the section divider (slide 11).
-    // TODO batches 5-6: add LR, Nail Salon, Auto Eder, Results summary after the divider.
+    // Act 3 · Kitchen-Fokus case story — slides 11-18.
+    // 11 = divider, 12-18 = the seven-slide Küchen Fokus narrative (Hook → Tension → Ask → Journey → After → Punchline → CTA).
+    // LR/Nail/Auto Eder mini-cases live inside Act 2 stage slides (6-10); full case slots are held by this single deep story.
     id: 'act-cases',
     slides: [
       {
@@ -150,12 +159,107 @@ const columns: ColumnConfig[] = [
         component: ActResultsSlide,
         title: 'Повна картина',
         notes: [
-          'Секційний роздільник перед блоком повних кейсів.',
-          'Три історії: LR Health & Beauty (флагман — €6k воронка), салон манікюру в Мюнхені, Auto Eder (технічний капстон).',
-          'Мета: перейти від «теорії» 5-етапної рамки до конкретних цифр.',
+          'Секційний роздільник перед історією Küchen Fokus.',
+          'Місток: від 5-етапної теорії — до живої історії одного підприємця.',
+          'Одна глибока історія замість трьох поверхових кейсів.',
         ].join('\n'),
         background: 'transparent',
         showCenterLogo: false,
+      },
+      {
+        id: 'case-hook',
+        component: CaseHookSlide,
+        title: 'Кейс · Hook',
+        fragments: 2,
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Кейс 1/7 — Hook (~15с).',
+          'Підприємець-ремонтник з Розенхайма. Клієнти задоволені, робота не закінчується.',
+          'Щоразу на кухні: «А візитка є? А сайт у вас є?» — і пауза.',
+          'Фрагменти: 1) бульбашка дрейфує справа; 2) підкаптування під нею.',
+        ].join('\n'),
+      },
+      {
+        id: 'case-tension',
+        component: CaseTensionSlide,
+        title: 'Кейс · Tension',
+        fragments: 3,
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Кейс 2/7 — Tension (~20с).',
+          'Три «нє»: немає назви, немає сайту, немає візитки.',
+          'Наголос на кожному — пауза між ударами.',
+          'Бульбашка з hook шрінкується в куток — питання ще не має відповіді.',
+        ].join('\n'),
+      },
+      {
+        id: 'case-ask',
+        component: CaseAskSlide,
+        title: 'Кейс · Ask',
+        fragments: 1,
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Кейс 3/7 — Ask (~10с).',
+          'Цитата клієнта: «Хлопці, мені потрібно все. Я навіть не знаю, з чого почати.»',
+          'Пауза після слова «почати» — дати словам осісти перед Journey.',
+        ].join('\n'),
+      },
+      {
+        id: 'case-journey',
+        component: CaseJourneySlide,
+        title: 'Кейс · Journey',
+        fragments: 7,
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Кейс 4/7 — Journey (~60с). Серцевина історії.',
+          'Сім фрагментів, ~8с на кожен: Назва → Домен → Логотип → Сайт → Korvo AI → Візитка → Футболка.',
+          'Не поспішати між фрагментами — анімація ≤1с, решта часу — мій голос.',
+          'Fr 6: бульбашка з Hook падає на візитку — motif закривається.',
+          'Fr 7: силует у футболці з логотипом на спині.',
+        ].join('\n'),
+      },
+      {
+        id: 'case-after',
+        component: CaseAfterSlide,
+        title: 'Кейс · Тепер',
+        fragments: 3,
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Кейс 5/7 — After (~20с).',
+          'Силует стоїть випрямлений, показує рукою на кожну зміну.',
+          'Фрагменти: 1) візитка; 2) футболка; 3) сайт — у Розенхаймі.',
+          'Бульбашка зникає після третього фрагмента — питання більше немає.',
+        ].join('\n'),
+      },
+      {
+        id: 'case-punchline',
+        component: CasePunchlineSlide,
+        title: 'Кейс · Punchline',
+        fragments: 1,
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Кейс 6/7 — Punchline (~10с).',
+          '«Ми не робимо сайти. Ми робимо компанії видимими.»',
+          'Тримати паузу після другого рядка — це єдина teaching-line цього акту.',
+        ].join('\n'),
+      },
+      {
+        id: 'case-cta',
+        component: CaseCtaSlide,
+        title: 'Кейс · CTA',
+        showCenterLogo: true,
+        background: 'transparent',
+        notes: [
+          'Кейс 7/7 — CTA (~5с).',
+          'Логотип Webspirio + одна лінія: «Один партнер. Повний пакет. Один дзвінок.»',
+          'Якщо зал мовчить — перехід в Q&A; якщо хтось киває — пропозиція розмови «після кави».',
+        ].join('\n'),
       },
     ],
   },

@@ -74,7 +74,7 @@ function ClockDialAccent({ active }: { active: boolean }) {
         variants={dialEnter}
         className="relative"
         style={{
-          width: 'clamp(140px, 18vw, 220px)',
+          width: 'clamp(175px, 21vw, 260px)',
           aspectRatio: '1 / 1',
         }}
       >
@@ -199,11 +199,11 @@ function ClockDialAccent({ active }: { active: boolean }) {
       <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 md:justify-end">
         <motion.span
           variants={chipEnter}
-          className="inline-flex items-center rounded-full border px-3.5 py-1.5 text-cyan-300"
+          className="inline-flex items-center rounded-full border px-4 py-2 text-cyan-300"
           style={{
             fontFamily: FONT_DISPLAY,
             fontWeight: 700,
-            fontSize: 'clamp(0.95rem, 1.2vw, 1.15rem)',
+            fontSize: 'clamp(1.2rem, 1.4vw, 1.4rem)',
             letterSpacing: '0.04em',
             borderColor: 'rgba(83, 234, 253, 0.55)',
             background: 'rgba(0, 211, 242, 0.1)',
@@ -218,7 +218,7 @@ function ClockDialAccent({ active }: { active: boolean }) {
           style={{
             fontFamily: FONT_POPPINS,
             fontWeight: 400,
-            fontSize: 'clamp(0.72rem, 0.88vw, 0.85rem)',
+            fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)',
             letterSpacing: '0.01em',
           }}
         >

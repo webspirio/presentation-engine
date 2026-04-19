@@ -9,7 +9,6 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import type { SlideProps } from "@/engine/types";
-import { SpaceBackdrop } from "@/components/SpaceBackdrop";
 import { PipelineNode } from "@/components/PipelineNode";
 import { BrokenConnector } from "@/components/BrokenConnector";
 import {
@@ -60,8 +59,6 @@ export function ProblemSlide({ isActive, fragment }: SlideProps) {
 
   return (
     <section className="relative h-full w-full overflow-hidden">
-      <SpaceBackdrop />
-
       <div className="relative z-10 flex h-full w-full flex-col px-12 py-12 sm:px-16 sm:py-14">
         {/* Headline (fragment ≥ 1) */}
         <motion.h2
@@ -72,7 +69,7 @@ export function ProblemSlide({ isActive, fragment }: SlideProps) {
           style={{
             fontFamily: "'Poppins', sans-serif",
             fontWeight: 500,
-            fontSize: "clamp(1.6rem, 3vw, 2.9rem)",
+            fontSize: "clamp(2rem, 3.4vw, 3.3rem)",
             lineHeight: 1.2,
             letterSpacing: "-0.01em",
           }}
@@ -124,7 +121,7 @@ export function ProblemSlide({ isActive, fragment }: SlideProps) {
               return (
                 <motion.div
                   key={`marker-${link.from}-${link.to}`}
-                  className="absolute flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border text-sm font-semibold"
+                  className="absolute flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border text-base font-semibold"
                   style={{
                     left: `${mx}%`,
                     top: `${my}%`,
@@ -216,13 +213,13 @@ export function ProblemSlide({ isActive, fragment }: SlideProps) {
               variants={painItem}
               className="flex items-center gap-4 text-[#F0F4F8]"
             >
-              <span aria-hidden className="h-px w-10 shrink-0 bg-cyan-400/45" />
+              <span aria-hidden className="h-px w-12 shrink-0 bg-cyan-400/45" />
               <span
-                className="min-w-[9rem] text-cyan-300/95"
+                className="min-w-[11rem] text-cyan-300/95"
                 style={{
                   fontFamily: "'Poppins', sans-serif",
                   fontWeight: 500,
-                  fontSize: "clamp(1rem, 1.4vw, 1.25rem)",
+                  fontSize: "clamp(1.25rem, 1.6vw, 1.45rem)",
                   letterSpacing: "0.005em",
                 }}
               >
@@ -233,7 +230,7 @@ export function ProblemSlide({ isActive, fragment }: SlideProps) {
                 style={{
                   fontFamily: "'Poppins', sans-serif",
                   fontWeight: 400,
-                  fontSize: "clamp(0.95rem, 1.25vw, 1.1rem)",
+                  fontSize: "clamp(1.2rem, 1.4vw, 1.3rem)",
                 }}
               >
                 {pain.subject}

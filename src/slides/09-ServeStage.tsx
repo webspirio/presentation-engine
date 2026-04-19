@@ -1,4 +1,4 @@
-import { motion, type Variants } from 'motion/react'
+import { motion, useReducedMotion, type Variants } from 'motion/react'
 import { StageSlide } from '@/components/StageSlide'
 import { ACT2_STAGES } from '@/data/act2Stages'
 import type { SlideProps } from '@/engine/types'
@@ -7,12 +7,17 @@ import { easeSmooth } from '@/animations/transitions'
 const FONT_POPPINS = "'Poppins', sans-serif"
 const FONT_DISPLAY = "'Unbounded', 'Poppins', sans-serif"
 
-const headingEnter: Variants = {
+const headingEnterMotion: Variants = {
   hidden: { opacity: 0, y: 6 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeSmooth } },
 }
 
-const barBefore: Variants = {
+const headingEnterReduce: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0 } },
+}
+
+const barBeforeMotion: Variants = {
   hidden: { scaleX: 0 },
   visible: {
     scaleX: 0.4,
@@ -20,7 +25,12 @@ const barBefore: Variants = {
   },
 }
 
-const barAfter: Variants = {
+const barBeforeReduce: Variants = {
+  hidden: { scaleX: 0.4 },
+  visible: { scaleX: 0.4, transition: { duration: 0 } },
+}
+
+const barAfterMotion: Variants = {
   hidden: { scaleX: 0 },
   visible: {
     scaleX: 0.87,
@@ -28,7 +38,12 @@ const barAfter: Variants = {
   },
 }
 
-const pillEnter: Variants = {
+const barAfterReduce: Variants = {
+  hidden: { scaleX: 0.87 },
+  visible: { scaleX: 0.87, transition: { duration: 0 } },
+}
+
+const pillEnterMotion: Variants = {
   hidden: { opacity: 0, x: -6 },
   visible: {
     opacity: 1,
@@ -37,7 +52,12 @@ const pillEnter: Variants = {
   },
 }
 
-const chipsEnter: Variants = {
+const pillEnterReduce: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0 } },
+}
+
+const chipsEnterMotion: Variants = {
   hidden: { opacity: 0, y: 6 },
   visible: {
     opacity: 1,
@@ -46,10 +66,15 @@ const chipsEnter: Variants = {
   },
 }
 
+const chipsEnterReduce: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0 } },
+}
+
 const pillStyle: React.CSSProperties = {
   fontFamily: FONT_DISPLAY,
   fontWeight: 600,
-  fontSize: 'clamp(0.82rem, 1vw, 0.95rem)',
+  fontSize: 'clamp(1rem, 1.15vw, 1.15rem)',
   letterSpacing: '0.02em',
   borderColor: 'rgba(83, 234, 253, 0.55)',
   background: 'rgba(0, 211, 242, 0.08)',
@@ -57,11 +82,18 @@ const pillStyle: React.CSSProperties = {
 }
 
 function ThroughputAccent({ active }: { active: boolean }) {
+  const reduce = useReducedMotion() ?? false
+  const headingEnter = reduce ? headingEnterReduce : headingEnterMotion
+  const barBefore = reduce ? barBeforeReduce : barBeforeMotion
+  const barAfter = reduce ? barAfterReduce : barAfterMotion
+  const pillEnter = reduce ? pillEnterReduce : pillEnterMotion
+  const chipsEnter = reduce ? chipsEnterReduce : chipsEnterMotion
+
   return (
     <motion.div
       initial="hidden"
       animate={active ? 'visible' : 'hidden'}
-      className="mx-auto flex w-full max-w-[260px] flex-col gap-3 md:mx-0 md:ml-auto md:max-w-[360px]"
+      className="mx-auto flex w-full max-w-[320px] flex-col gap-3.5 md:mx-0 md:ml-auto md:max-w-[420px]"
     >
       <motion.span
         variants={headingEnter}
@@ -69,7 +101,7 @@ function ThroughputAccent({ active }: { active: boolean }) {
         style={{
           fontFamily: FONT_POPPINS,
           fontWeight: 500,
-          fontSize: 'clamp(0.72rem, 0.88vw, 0.85rem)',
+          fontSize: 'clamp(0.9rem, 1.05vw, 1rem)',
           letterSpacing: '0.08em',
           textTransform: 'uppercase',
         }}
@@ -77,17 +109,17 @@ function ThroughputAccent({ active }: { active: boolean }) {
         Замовлень / тиждень
       </motion.span>
 
-      <div className="flex flex-col gap-2.5">
+      <div className="flex flex-col gap-3">
         {/* Раніше */}
         <div className="flex items-center gap-3">
           <span
-            className="w-14 shrink-0 text-cyan-200/70"
-            style={{ fontFamily: FONT_POPPINS, fontWeight: 400, fontSize: '0.8rem' }}
+            className="w-16 shrink-0 text-cyan-200/70"
+            style={{ fontFamily: FONT_POPPINS, fontWeight: 400, fontSize: '0.95rem' }}
           >
             Раніше
           </span>
           <div
-            className="relative h-3 flex-1 overflow-hidden rounded-full"
+            className="relative h-4 flex-1 overflow-hidden rounded-full"
             style={{ background: 'rgba(14, 116, 144, 0.22)' }}
           >
             <motion.div
@@ -105,12 +137,12 @@ function ThroughputAccent({ active }: { active: boolean }) {
         {/* Тепер — track + anchored desktop pill */}
         <div className="flex items-center gap-3">
           <span
-            className="w-14 shrink-0 text-cyan-200"
-            style={{ fontFamily: FONT_POPPINS, fontWeight: 500, fontSize: '0.8rem' }}
+            className="w-16 shrink-0 text-cyan-200"
+            style={{ fontFamily: FONT_POPPINS, fontWeight: 500, fontSize: '0.95rem' }}
           >
             Тепер
           </span>
-          <div className="relative h-3 flex-1">
+          <div className="relative h-4 flex-1">
             <div
               className="absolute inset-0 overflow-hidden rounded-full"
               style={{ background: 'rgba(14, 116, 144, 0.22)' }}
@@ -128,7 +160,7 @@ function ThroughputAccent({ active }: { active: boolean }) {
             </div>
             <motion.span
               variants={pillEnter}
-              className="absolute top-1/2 hidden -translate-y-1/2 translate-x-2 whitespace-nowrap rounded-full border px-3 py-1 text-cyan-300 md:inline-flex"
+              className="absolute top-1/2 hidden -translate-y-1/2 translate-x-2 whitespace-nowrap rounded-full border px-4 py-1.5 text-cyan-300 md:inline-flex"
               style={{ left: '87%', ...pillStyle }}
             >
               [TBD]× більше
@@ -139,7 +171,7 @@ function ThroughputAccent({ active }: { active: boolean }) {
 
       <motion.span
         variants={pillEnter}
-        className="self-end whitespace-nowrap rounded-full border px-3 py-1 text-cyan-300 md:hidden"
+        className="self-end whitespace-nowrap rounded-full border px-4 py-1.5 text-cyan-300 md:hidden"
         style={pillStyle}
       >
         [TBD]× більше
@@ -149,7 +181,7 @@ function ThroughputAccent({ active }: { active: boolean }) {
         {['Magento 2', 'ERP'].map((chip) => (
           <li
             key={chip}
-            className="rounded-full border border-cyan-700/40 bg-cyan-900/60 px-2 py-1 text-xs text-cyan-200"
+            className="rounded-full border border-cyan-700/40 bg-cyan-900/60 px-3 py-1.5 text-sm text-cyan-200"
             style={{ fontFamily: FONT_POPPINS, fontWeight: 400 }}
           >
             {chip}

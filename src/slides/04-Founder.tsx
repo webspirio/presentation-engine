@@ -8,7 +8,6 @@ import {
 } from "motion/react";
 import { Briefcase, Code2, Globe2, MapPin, MessagesSquare } from "lucide-react";
 import type { SlideProps } from "@/engine/types";
-import { Aurora } from "@/components/Aurora";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import {
   FOUNDER_TIMING,
@@ -50,17 +49,6 @@ export function FounderSlide({ isActive, fragment }: SlideProps) {
 
   return (
     <section className="relative h-full w-full overflow-hidden">
-      <Aurora />
-      {/* Gentle vignette so the content sits above Aurora's warmer cyan */}
-      <div
-        aria-hidden
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 40%, rgba(5,51,69,0) 0%, rgba(5,51,69,0.5) 70%, rgba(5,51,69,0.82) 100%)",
-        }}
-      />
-
       <div className="relative z-10 flex h-full w-full items-center px-12 sm:px-20">
         <div className="grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-[auto_1fr] lg:gap-16">
           {/* Left — photo + identity */}
@@ -85,7 +73,7 @@ export function FounderSlide({ isActive, fragment }: SlideProps) {
                 style={{
                   fontFamily: "'Poppins', sans-serif",
                   fontWeight: 600,
-                  fontSize: "clamp(1.75rem, 2.75vw, 2.5rem)",
+                  fontSize: "clamp(2.15rem, 3.1vw, 2.85rem)",
                   letterSpacing: "-0.01em",
                   lineHeight: 1.05,
                 }}
@@ -99,7 +87,7 @@ export function FounderSlide({ isActive, fragment }: SlideProps) {
                 style={{
                   fontFamily: "'Poppins', sans-serif",
                   fontWeight: 400,
-                  fontSize: "clamp(0.95rem, 1.15vw, 1.1rem)",
+                  fontSize: "clamp(1.15rem, 1.3vw, 1.25rem)",
                 }}
               >
                 Засновник · CTO Webspirio
@@ -107,15 +95,15 @@ export function FounderSlide({ isActive, fragment }: SlideProps) {
 
               <motion.div
                 variants={founderNameLine}
-                className="mt-1 inline-flex w-fit items-center gap-1.5 rounded-full border border-cyan-400/30 bg-cyan-950/60 px-2.5 py-1 text-cyan-200"
+                className="mt-1 inline-flex w-fit items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-950/60 px-3.5 py-1.5 text-cyan-200"
                 style={{
                   fontFamily: "'Poppins', sans-serif",
                   fontWeight: 500,
-                  fontSize: "0.82rem",
+                  fontSize: "0.98rem",
                   letterSpacing: "0.02em",
                 }}
               >
-                <MapPin className="h-3.5 w-3.5" strokeWidth={2} />
+                <MapPin className="h-4 w-4" strokeWidth={2} />
                 <span>Берлін</span>
               </motion.div>
             </motion.div>
@@ -132,7 +120,7 @@ export function FounderSlide({ isActive, fragment }: SlideProps) {
               style={{
                 fontFamily: "'Poppins', sans-serif",
                 fontWeight: 400,
-                fontSize: "clamp(0.9rem, 1.05vw, 1rem)",
+                fontSize: "clamp(1.1rem, 1.2vw, 1.2rem)",
                 lineHeight: 1.55,
               }}
             >
@@ -159,8 +147,8 @@ export function FounderSlide({ isActive, fragment }: SlideProps) {
                 }}
               >
                 <div className="flex items-center justify-between">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-400/15 text-cyan-200">
-                    <stat.Icon className="h-4 w-4" strokeWidth={1.75} />
+                  <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-cyan-400/15 text-cyan-200">
+                    <stat.Icon className="h-5 w-5" strokeWidth={1.75} />
                   </span>
                 </div>
                 <div
@@ -187,7 +175,7 @@ export function FounderSlide({ isActive, fragment }: SlideProps) {
                   style={{
                     fontFamily: "'JetBrains Mono', monospace",
                     fontWeight: 500,
-                    fontSize: "0.72rem",
+                    fontSize: "0.88rem",
                     letterSpacing: "0.16em",
                   }}
                 >
