@@ -114,9 +114,9 @@ export function CaseAfterSlide({ isActive, fragment }: SlideProps) {
         </div>
 
         {/* Deliverables board */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          {/* Browser/site — top-left of right column */}
-          <HighlightWrapper lit={highlight === 'site'} className="order-1 md:col-span-2">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+          {/* Browser/site — spans the full row at the top */}
+          <HighlightWrapper lit={highlight === 'site'} className="order-1 md:col-span-3">
             <BrowserFrame
               isActive={isActive}
               url="kuechenfokus.de"
@@ -133,9 +133,10 @@ export function CaseAfterSlide({ isActive, fragment }: SlideProps) {
             <BusinessCard isActive={isActive} delay={0.35} tilt={-4} />
           </HighlightWrapper>
 
-          {/* T-shirt */}
-          <HighlightWrapper lit={highlight === 'shirt'} className="order-3 flex justify-center md:justify-end">
-            <TShirt isActive={isActive} delay={0.45} scale={0.7} />
+          {/* T-shirts — front + back pair, both light up on the "shirt" line */}
+          <HighlightWrapper lit={highlight === 'shirt'} className="order-3 flex items-end justify-center gap-4 md:col-span-2 md:justify-end">
+            <TShirt isActive={isActive} delay={0.45} scale={0.55} view="front" />
+            <TShirt isActive={isActive} delay={0.6} scale={0.55} view="back" />
           </HighlightWrapper>
         </div>
       </div>

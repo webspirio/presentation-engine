@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { motion, type Variants } from 'motion/react'
 import { easeSmooth } from '@/animations/transitions'
+import kfLogoUrl from '@/assets/kf/kf-logo-512.svg'
 
 export interface BrowserFrameProps {
   isActive: boolean
@@ -92,10 +93,15 @@ export function BrowserFrame({
             border: '1px solid rgba(83, 234, 253, 0.2)',
           }}
         >
-          <span
+          <img
+            src={kfLogoUrl}
+            alt=""
             aria-hidden
-            className="h-1.5 w-1.5 rounded-full"
-            style={{ background: showCheck ? '#53eafd' : 'rgba(83, 234, 253, 0.4)' }}
+            draggable={false}
+            className="h-4 w-4 shrink-0 rounded-[3px]"
+            style={{
+              boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.15)',
+            }}
           />
           <span
             className="truncate text-[#F0F4F8]/90"

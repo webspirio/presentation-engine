@@ -1,5 +1,6 @@
 import { motion, type Variants } from 'motion/react'
 import { easeSmooth } from '@/animations/transitions'
+import kfLogoUrl from '@/assets/kf/kf-logo-512.svg'
 
 export type KuchenFokusVariant = 'wordmark' | 'with-mark' | 'mark-only'
 
@@ -108,37 +109,27 @@ export function KuchenFokusLogo({
             textTransform: 'uppercase',
           }}
         >
-          Küchen · Rosenheim · Bayern
+          Küchen · München · Bayern
         </motion.div>
       )}
     </div>
   )
 
   const mark = (
-    <motion.div
+    <motion.img
       variants={markVariant}
+      src={kfLogoUrl}
+      alt=""
       aria-hidden
-      className="flex shrink-0 items-center justify-center rounded-md"
+      draggable={false}
+      className="block shrink-0"
       style={{
         width: markSize,
         height: markSize,
-        border: '1.5px solid rgba(83, 234, 253, 0.7)',
-        background: 'rgba(8, 51, 68, 0.4)',
-        boxShadow: '0 0 24px -10px rgba(0, 211, 242, 0.6)',
+        boxShadow: '0 0 32px -8px rgba(0, 211, 242, 0.55)',
+        borderRadius: `calc(${scale} * 0.45rem)`,
       }}
-    >
-      <span
-        style={{
-          fontFamily: "'Cormorant Garamond', 'Georgia', serif",
-          fontWeight: 600,
-          fontSize: `calc(${scale} * 1.6rem)`,
-          letterSpacing: '-0.02em',
-          color: '#F0F4F8',
-        }}
-      >
-        K<span style={{ color: '#53eafd' }}>·</span>F
-      </span>
-    </motion.div>
+    />
   )
 
   return (

@@ -1,6 +1,6 @@
 import { motion, useReducedMotion, type Variants } from 'motion/react'
 import type { SlideProps } from '@/engine/types'
-import { EntrepreneurSilhouette } from '@/components/EntrepreneurSilhouette'
+import { KfClient } from '@/components/KfClient'
 import { QuestionBubble } from '@/components/QuestionBubble'
 import { easeSmooth } from '@/animations/transitions'
 
@@ -60,17 +60,16 @@ export function CaseHookSlide({ isActive, fragment }: SlideProps) {
           color: '#53eafd',
         }}
       >
-        Кейс · Rosenheim · 2025
+        Кейс · München · 2026
       </motion.div>
 
       {/* Main grid: silhouette left, bubble right */}
       <div className="relative grid h-full w-full grid-cols-1 gap-8 px-10 py-10 sm:px-16 sm:py-14 md:grid-cols-[minmax(280px,34%)_1fr]">
         {/* Left column — silhouette over floor line */}
         <div className="relative flex h-full min-h-[60vh] items-end justify-center md:justify-start">
-          <EntrepreneurSilhouette
+          <KfClient
             isActive={stageActive}
-            pose="carrying"
-            opacity={0.42}
+            opacity={0.85}
             delay={0.15}
             className="h-[min(64vh,520px)] w-auto"
           />

@@ -6,7 +6,7 @@ const FONT_DISPLAY = "'Unbounded', 'Poppins', sans-serif"
 const FONT_POPPINS = "'Poppins', sans-serif"
 
 const QUOTE =
-  'Хлопці, мені потрібно все. Я навіть не знаю, з чого почати.'
+  'Мені потрібно все. Я навіть не знаю, з чого почати.'
 
 const wordsContainer: Variants = {
   hidden: {},
@@ -54,7 +54,7 @@ export function CaseAskSlide({ isActive, fragment }: SlideProps) {
 
   return (
     <section className="relative flex h-full w-full items-center justify-center overflow-hidden px-10 sm:px-20">
-      <div className="flex max-w-[24ch] flex-col items-center gap-8 text-center">
+      <div className="flex w-full flex-col items-center gap-8 text-center">
         <motion.blockquote
           variants={wordsContainer}
           initial="hidden"
@@ -63,7 +63,7 @@ export function CaseAskSlide({ isActive, fragment }: SlideProps) {
           style={{
             fontFamily: FONT_DISPLAY,
             fontWeight: 700,
-            fontSize: 'clamp(2.25rem, 4.5vw, 4rem)',
+            fontSize: 'clamp(2.75rem, 5.6vw, 5rem)',
             letterSpacing: '-0.025em',
             lineHeight: 1.12,
             textShadow: '0 2px 40px rgba(0, 184, 219, 0.35)',

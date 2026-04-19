@@ -167,7 +167,7 @@ export function SitePreview({ isActive, delay = 0, className }: SitePreviewProps
             color: 'rgba(240,244,248,0.8)',
           }}
         >
-          Kostenlose Beratung · Rosenheim
+          Kostenlose Beratung · München
         </span>
         <span
           className="inline-flex items-center gap-1.5"
