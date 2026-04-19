@@ -2,7 +2,9 @@ import type { ReactNode } from 'react'
 import { motion, type Variants } from 'motion/react'
 import { easeSmooth } from '@/animations/transitions'
 
-export type BubbleTailDirection = 'down-left' | 'down-right' | 'up-left' | 'up-right' | 'left' | 'right'
+export type BubbleTailDirection = 'down-left' | 'down-right' | 'up-left' | 'up-right' | 'left' | 'right' | 'none'
+
+export type BubbleEntry = 'float' | 'throw'
 
 export interface QuestionBubbleProps {
   isActive: boolean
@@ -14,12 +16,16 @@ export interface QuestionBubbleProps {
   delay?: number
   /** Accent tint — bubble border + glow. */
   accent?: string
-  /** Entry direction hint for the float motion. */
+  /** Entry direction hint for the motion. */
   from?: 'left' | 'right' | 'top' | 'bottom'
+  /** Entry style — 'float' (default) or 'throw' (fly-in from off-screen with bump recoil). */
+  entry?: BubbleEntry
+  /** Off-screen start distance for 'throw' entry, px (default 420). */
+  throwDistance?: number
   className?: string
 }
 
-const bubbleVariants: Variants = {
+const floatVariants: Variants = {
   hidden: (custom: { from: QuestionBubbleProps['from']; opacity: number }) => {
     const offset = 36
     const axis = custom.from === 'left' ? { x: -offset } : custom.from === 'right' ? { x: offset } : custom.from === 'top' ? { y: -offset } : { y: offset }
@@ -38,6 +44,39 @@ const bubbleVariants: Variants = {
   }),
 }
 
+type ThrowCustom = {
+  from: QuestionBubbleProps['from']
+  opacity: number
+  delay: number
+  throwDistance: number
+}
+
+const throwVariants: Variants = {
+  hidden: (custom: ThrowCustom) => {
+    const d = custom.throwDistance
+    const x = custom.from === 'left' ? -d : custom.from === 'right' ? d : 0
+    return { opacity: 0, x, scale: 0.92 }
+  },
+  visible: (custom: ThrowCustom) => {
+    const startX = custom.from === 'left' ? -custom.throwDistance : custom.from === 'right' ? custom.throwDistance : 0
+    // Recoil AWAY from impact surface: bubble from left bounces back left, bubble from right bounces back right.
+    const recoil = custom.from === 'left' ? -10 : custom.from === 'right' ? 10 : 0
+    // Micro-overshoot INTO surface at the moment of contact (compression frame).
+    const pushIn = custom.from === 'left' ? 5 : custom.from === 'right' ? -5 : 0
+    return {
+      opacity: [0, 1, 1, 1, custom.opacity],
+      x: [startX, 0, pushIn, recoil, 0],
+      scale: [0.94, 1.02, 0.98, 1.02, 1],
+      transition: {
+        duration: 0.85,
+        times: [0, 0.55, 0.66, 0.84, 1],
+        ease: 'easeOut',
+        delay: custom.delay,
+      },
+    }
+  },
+}
+
 /**
  * Tail geometry. Two paths per direction:
  *   - fill: closed shape, includes the base edge (blended into the bubble)
@@ -50,7 +89,7 @@ interface TailGeometry {
   outline: string
 }
 
-const TAIL_GEOMETRY: Record<BubbleTailDirection, TailGeometry> = {
+const TAIL_GEOMETRY: Record<Exclude<BubbleTailDirection, 'none'>, TailGeometry> = {
   'down-left': {
     fill: 'M8 0 L24 0 Q22 22 2 38 Q4 18 8 0 Z',
     outline: 'M8 0 Q4 18 2 38 Q22 22 24 0',
@@ -77,7 +116,7 @@ const TAIL_GEOMETRY: Record<BubbleTailDirection, TailGeometry> = {
   },
 }
 
-function tailPosition(direction: BubbleTailDirection): React.CSSProperties {
+function tailPosition(direction: Exclude<BubbleTailDirection, 'none'>): React.CSSProperties {
   // Overlap the bubble by 4px on the base edge so stroke seams are fully hidden.
   const overlap = 4
   const bleed = 40 - overlap
@@ -101,7 +140,7 @@ function Tail({
   direction,
   accent,
 }: {
-  direction: BubbleTailDirection
+  direction: Exclude<BubbleTailDirection, 'none'>
   accent: string
 }) {
   const geo = TAIL_GEOMETRY[direction]
@@ -132,12 +171,16 @@ export function QuestionBubble({
   delay = 0,
   accent = '#53eafd',
   from = 'right',
+  entry = 'float',
+  throwDistance = 420,
   className,
 }: QuestionBubbleProps) {
+  const variants = entry === 'throw' ? throwVariants : floatVariants
+  const custom = entry === 'throw' ? { from, opacity, delay, throwDistance } : { from, opacity, delay }
   return (
     <motion.div
-      custom={{ from, opacity, delay }}
-      variants={bubbleVariants}
+      custom={custom}
+      variants={variants}
       initial="hidden"
       animate={isActive ? 'visible' : 'hidden'}
       className={`relative inline-flex max-w-[28ch] items-center rounded-[28px] px-7 py-4 ${className ?? ''}`}
@@ -160,7 +203,7 @@ export function QuestionBubble({
       >
         {children}
       </div>
-      <Tail direction={tail} accent={accent} />
+      {tail !== 'none' && <Tail direction={tail} accent={accent} />}
     </motion.div>
   )
 }
