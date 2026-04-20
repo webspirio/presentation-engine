@@ -30,7 +30,13 @@ export function PersistentStage({ columns, active }: PersistentStageProps) {
   const isMobile = useIsMobile()
   const activeSlide = columns[active.col]?.slides[active.row]
   const isHero = active.col === 0 && active.row === 0
+  // CaseCta closes both case narratives — lifted logo, but no fragment gate.
+  const isCaseCta = active.col === 3 && active.row === 6
+  // Services constellation opens Act 4 — the logo ignites the center aura.
+  const isServicesGrid = active.col === 4 && active.row === 0
   const heroRevealed = !isHero || active.fragment >= 1
+  // raisedReady = "logo should sit in the lifted (-38%) position for this slide"
+  const raisedReady = isHero ? heroRevealed : isCaseCta
   const showLogo = activeSlide?.showCenterLogo !== false && heroRevealed
 
   return (
@@ -94,18 +100,31 @@ export function PersistentStage({ columns, active }: PersistentStageProps) {
         initial={{ y: '0%' }}
         animate={{
           opacity: showLogo ? 1 : 0,
-          scale: showLogo ? 1 : 0.9,
-          y: isHero && heroRevealed ? '-38%' : '0%',
+          scale: showLogo
+            ? isServicesGrid && !reduce
+              ? [1, 1.08, 1]
+              : 1
+            : 0.9,
+          y: raisedReady ? '-38%' : '0%',
         }}
         transition={{
           duration: 0.6,
           ease: [0.22, 1, 0.36, 1],
+          scale:
+            isServicesGrid && !reduce
+              ? {
+                  duration: 1.4,
+                  times: [0, 0.35, 1],
+                  delay: 0.3,
+                  ease: [0.22, 1, 0.36, 1],
+                }
+              : { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
           y: {
             delay:
               isHero && heroRevealed && !reduce
                 ? HERO_TIMING.taglineStart - 0.25
                 : 0,
-            duration: 1.1,
+            duration: isHero ? 1.1 : 0.7,
             ease: [0.22, 1, 0.36, 1],
           },
         }}
@@ -114,10 +133,29 @@ export function PersistentStage({ columns, active }: PersistentStageProps) {
           aria-hidden
           className="pointer-events-none absolute inset-0"
           animate={{
-            opacity: isHero && heroRevealed ? 1 : 0.35,
-            scale: isHero ? 1.55 : 1.25,
+            opacity:
+              isServicesGrid && !reduce
+                ? [0.35, 1, 0.55]
+                : isHero && heroRevealed
+                  ? 1
+                  : 0.35,
+            scale:
+              isServicesGrid && !reduce
+                ? [1.25, 1.95, 1.35]
+                : isHero
+                  ? 1.55
+                  : 1.25,
           }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          transition={
+            isServicesGrid && !reduce
+              ? {
+                  duration: 1.4,
+                  times: [0, 0.35, 1],
+                  delay: 0.3,
+                  ease: [0.22, 1, 0.36, 1],
+                }
+              : { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+          }
           style={{
             background:
               'radial-gradient(circle at 50% 50%, rgba(83, 234, 253, 0.55) 0%, rgba(0, 211, 242, 0.22) 35%, transparent 72%)',

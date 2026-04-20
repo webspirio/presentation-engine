@@ -27,6 +27,7 @@ import { LrFunnelSlide } from '@/slides/26-LrFunnel'
 import { LrFunnelInteractiveSlide } from '@/slides/27-LrFunnelInteractive'
 import { OfferSlide } from '@/slides/28-Offer'
 import { ThanksSlide } from '@/slides/29-Thanks'
+import { TeamSlide } from '@/slides/30-Team'
 
 // 24-slide consultative sales deck — see docs/PROJECT_PLAN.md for the canonical spec.
 // Only slides that have been authored are registered here; batches 2-9 add the rest.
@@ -159,8 +160,9 @@ const columns: ColumnConfig[] = [
     ],
   },
   {
-    // Act 3 · Kitchen-Fokus case story — slides 11-18.
-    // 11 = divider, 12-18 = the seven-slide Küchen Fokus narrative (Hook → Tension → Ask → Journey → After → Punchline → CTA).
+    // Act 3 · Kitchen-Fokus case story — slides 11-17.
+    // 11 = divider, 12-17 = the six-slide Küchen Fokus narrative (Hook → Tension → Ask → Journey → After → Punchline).
+    // The unified CTA close lives at the end of Act 3Б (LR column) so it serves both case narratives.
     // LR/Nail/Auto Eder mini-cases live inside Act 2 stage slides (6-10); full case slots are held by this single deep story.
     id: 'act-cases',
     slides: [
@@ -290,24 +292,12 @@ const columns: ColumnConfig[] = [
           'Тримати паузу після другого рядка — це єдина teaching-line цього акту.',
         ].join('\n'),
       },
-      {
-        id: 'case-cta',
-        component: CaseCtaSlide,
-        title: 'Кейс · CTA',
-        showCenterLogo: true,
-        background: 'transparent',
-        notes: [
-          'Кейс 7/7 — CTA (~5с).',
-          'Логотип Webspirio + одна лінія: «Один партнер. Повний пакет. Один дзвінок.»',
-          'Якщо зал мовчить — перехід в Q&A; якщо хтось киває — пропозиція розмови «після кави».',
-        ].join('\n'),
-      },
     ],
   },
   {
-    // Act 3Б · Кейс №2 — LR Health & Beauty (slides 22-27).
-    // Stub column registered in Batch A; real content comes in Batches B-E.
+    // Act 3Б · Кейс №2 — LR Health & Beauty (slides 22-27) + unified CTA close.
     // Paired with Küchen Fokus: KF = brand/site deliverable, LR = sales-funnel/automation deliverable.
+    // The trailing case-cta slide closes BOTH case narratives — raised-logo treatment anchors the moment.
     id: 'act-case-lr',
     slides: [
       {
@@ -403,6 +393,18 @@ const columns: ColumnConfig[] = [
           'Ключова думка: одна система — пʼять різних шляхів клієнта.',
         ].join('\n'),
       },
+      {
+        id: 'case-cta',
+        component: CaseCtaSlide,
+        title: 'Кейс · CTA',
+        showCenterLogo: true,
+        background: 'transparent',
+        notes: [
+          'Unified CTA — закриває обидві кейс-історії (KF + LR).',
+          'Логотип Webspirio піднімається догори (як у hero), під ним: «Один партнер. Повний пакет. Один дзвінок.»',
+          'Якщо зал мовчить — перехід в Q&A; якщо хтось киває — пропозиція розмови «після кави».',
+        ].join('\n'),
+      },
     ],
   },
   {
@@ -429,6 +431,24 @@ const columns: ColumnConfig[] = [
           'Ключ: один партнер робить усе — не треба координувати пʼять фрілансерів.',
         ].join('\n'),
         background: 'transparent',
+      },
+      {
+        id: 'team',
+        component: TeamSlide,
+        title: 'Команда',
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Команда — хто насправді будує.',
+          'Founder + crew: Олександр великий ліворуч, четверо праворуч у 2×2.',
+          'Олександр — Засновник · Tech Lead · Fullstack (глю, відповідальність, архітектура).',
+          'Ірина — CRM-розробник (системи запису і облік).',
+          'Максим — Frontend-розробник (інтерфейси, UI-інженерія).',
+          'Андрій — Дизайнер (бренд, UI, друк).',
+          'Анастасія — Контент · соцмережі (поки монограма, фото замінимо пізніше).',
+          'Voice-over: «За мною — не я один. Іра будує CRM, Макс — фронтенд, Андрій робить, щоб усе виглядало як бренд, Настя веде контент. Я — склеюю і тягну відповідальність.»',
+          'Фінал: «Пʼятеро людей. Один стандарт. Один партнер.» — містить місток до Offer.',
+        ].join('\n'),
       },
     ],
   },

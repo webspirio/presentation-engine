@@ -12,8 +12,6 @@ export interface SpinTShirtProps {
   isActive: boolean
   frontSrc: string
   backSrc: string
-  /** Which face is shown when the slide becomes active. Default 'front'. */
-  initialView?: 'front' | 'back'
   /** Alt text describing the shirt (both sides). */
   label?: string
   /** Show the drag hint chip. Default true. */
@@ -32,15 +30,13 @@ export function SpinTShirt({
   isActive,
   frontSrc,
   backSrc,
-  initialView = 'front',
   label = 'Футболка Küchen Fokus · обидва боки',
   showHint = true,
   className,
 }: SpinTShirtProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const baseRotation = initialView === 'back' ? 180 : 0
 
-  const committedY = useMotionValue(baseRotation)
+  const committedY = useMotionValue(0)
   const committedX = useMotionValue(0)
   const hoverY = useMotionValue(0)
   const hoverX = useMotionValue(0)
@@ -91,7 +87,7 @@ export function SpinTShirt({
     if (!isActive) {
       cancelIdle()
       inertiaAnimRef.current?.stop()
-      committedY.set(baseRotation)
+      committedY.set(0)
       committedX.set(0)
       hoverY.set(0)
       hoverX.set(0)

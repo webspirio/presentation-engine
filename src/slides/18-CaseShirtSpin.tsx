@@ -10,14 +10,12 @@ export function CaseShirtSpinSlide({ isActive }: SlideProps) {
         isActive={isActive}
         frontSrc={shirtFrontUrl}
         backSrc={shirtBackUrl}
-        initialView="front"
         label="Футболка Küchen Fokus · передня сторона"
       />
       <SpinTShirt
         isActive={isActive}
-        frontSrc={shirtFrontUrl}
-        backSrc={shirtBackUrl}
-        initialView="back"
+        frontSrc={shirtBackUrl}
+        backSrc={shirtFrontUrl}
         label="Футболка Küchen Fokus · зворот"
         showHint={false}
       />
