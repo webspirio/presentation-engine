@@ -160,8 +160,8 @@ function ThroughputAccent({ active }: { active: boolean }) {
             </div>
             <motion.span
               variants={pillEnter}
-              className="absolute top-1/2 hidden -translate-y-1/2 translate-x-2 whitespace-nowrap rounded-full border px-4 py-1.5 text-cyan-300 md:inline-flex"
-              style={{ left: '87%', ...pillStyle }}
+              className="absolute top-1/2 right-0 hidden -translate-y-1/2 whitespace-nowrap rounded-full border px-4 py-1.5 text-cyan-300 md:inline-flex"
+              style={pillStyle}
             >
               Значно більше
             </motion.span>
@@ -178,7 +178,7 @@ function ThroughputAccent({ active }: { active: boolean }) {
       </motion.span>
 
       <motion.ul variants={chipsEnter} className="mt-1 flex flex-wrap gap-2">
-        {['Magento 2', 'ERP'].map((chip) => (
+        {['AI-асистент', 'Чатбот', 'Автоматизація'].map((chip) => (
           <li
             key={chip}
             className="rounded-full border border-cyan-700/40 bg-cyan-900/60 px-3 py-1.5 text-sm text-cyan-200"
