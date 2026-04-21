@@ -27,3 +27,6 @@ dist-ssr
 .claude/settings.local.json
 .input/
 .reference/
+
+# Large media assets (hosted out-of-repo)
+public/assets/video/

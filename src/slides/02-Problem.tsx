@@ -65,13 +65,13 @@ export function ProblemSlide({ isActive, fragment }: SlideProps) {
           variants={problemHeadline}
           initial="hidden"
           animate={stage(1)}
-          className="max-w-[28ch] text-balance text-[#F0F4F8]"
+          className="mx-auto mt-8 max-w-[40ch] text-balance text-center text-[#F0F4F8] sm:mt-14"
           style={{
             fontFamily: "'Poppins', sans-serif",
             fontWeight: 500,
-            fontSize: "clamp(2rem, 3.4vw, 3.3rem)",
-            lineHeight: 1.2,
-            letterSpacing: "-0.01em",
+            fontSize: "clamp(2.4rem, 4.2vw, 4.2rem)",
+            lineHeight: 1.15,
+            letterSpacing: "-0.015em",
           }}
         >
           Більшість малих бізнесів так і працюють —

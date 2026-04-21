@@ -86,15 +86,15 @@ export function SolutionSlide({ isActive, fragment }: SlideProps) {
             highlightDirection="left"
             inactiveOpacity={0}
             viewportOptions={{ once: false, amount: 0 }}
-            className="text-balance text-[#F0F4F8]"
+            className="mx-auto max-w-[40ch] text-balance text-[#F0F4F8]"
           >
             <span
               style={{
                 fontFamily: "'Poppins', sans-serif",
                 fontWeight: 500,
-                fontSize: "clamp(2rem, 3.4vw, 3.4rem)",
-                lineHeight: 1.2,
-                letterSpacing: "-0.01em",
+                fontSize: "clamp(2.4rem, 4.2vw, 4.2rem)",
+                lineHeight: 1.15,
+                letterSpacing: "-0.015em",
               }}
             >
               Можна інакше. Один ланцюг — від першого контакту до повторного

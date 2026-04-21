@@ -113,7 +113,7 @@ One deep seven-slide narrative replaces the original three-case-study slot. Thro
 | 16  | **Case · Тепер (After)**      | All deliverables composed together. Silhouette upright, pointing at card / shirt / site as each caption reveals. `fragments: 3`.                                                             | ~20s     |
 | 17  | **Case · Візитка 3D**         | Fullscreen interactive business card. Real front/back artwork; hover tilts, drag spins with inertia, keyboard fallback (←/→/Space). Presenter-paced, 5–10 s ambient demo.                   | ~10s     |
 | 18  | **Case · Punchline**          | _"Ми не робимо сайти. Ми робимо компанії видимими."_ — second line in cyan-400 with glow pulse. `fragments: 1`.                                                                              | ~10s     |
-| 19  | **Case · CTA**                | Persistent Webspirio logo + one line: _"Один партнер. Повний пакет. Один дзвінок."_ Contact chip: `webspirio.de`.                                                                           | ~5s      |
+| 19  | **Case · CTA**                | Persistent Webspirio logo + one line: _"Один партнер. Повний пакет. Один дзвінок."_ Contact chip: `webspirio.com`.                                                                           | ~5s      |
 
 **Shared case anatomy (this sequence):** cinematic cuts · dark cyan-950 stage · Unbounded display for hero beats · one strong motion per slide · recurring question-bubble + silhouette motifs. Rebuilt hand-rolled SVG/CSS mockups (browser chrome, business card, t-shirt, Korvo chat) live under `src/components/mockups/`. Registry lives in `src/App.tsx`; components at `src/slides/12-CaseHook.tsx`..`19-CaseCta.tsx`.
 

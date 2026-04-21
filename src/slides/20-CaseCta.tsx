@@ -103,7 +103,7 @@ export function CaseCtaSlide({ isActive }: SlideProps) {
               className="inline-block h-1.5 w-1.5 rounded-full"
               style={{ background: '#53eafd' }}
             />
-            webspirio.de
+            webspirio.com
           </span>
           <span
             className="uppercase tracking-[0.4em]"

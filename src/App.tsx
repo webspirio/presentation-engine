@@ -28,6 +28,7 @@ import { LrFunnelInteractiveSlide } from '@/slides/27-LrFunnelInteractive'
 import { OfferSlide } from '@/slides/28-Offer'
 import { ThanksSlide } from '@/slides/29-Thanks'
 import { TeamSlide } from '@/slides/30-Team'
+import { VoiceAiShowcaseSlide } from '@/slides/31-VoiceAiShowcase'
 
 // 24-slide consultative sales deck — see docs/PROJECT_PLAN.md for the canonical spec.
 // Only slides that have been authored are registered here; batches 2-9 add the rest.
@@ -431,6 +432,24 @@ const columns: ColumnConfig[] = [
           'Ключ: один партнер робить усе — не треба координувати пʼять фрілансерів.',
         ].join('\n'),
         background: 'transparent',
+      },
+      {
+        id: 'voice-ai',
+        component: VoiceAiShowcaseSlide,
+        title: 'Voice AI',
+        fragments: 3,
+        showCenterLogo: false,
+        background: 'transparent',
+        notes: [
+          'Appendix до Акту 4 — реальний приклад AI-агента, якого вже можна зібрати сьогодні.',
+          'Автор демо — Denis Volosov (instagram.com/volosovdenis). Це не наш агент — це посилання на клас можливостей. Чесно кажемо: «таких будуємо».',
+          'Контекст ролика: голосова асистентка «Ліра» автономно обдзвонює три грумінг-салони в Києві. Представляється іменем Дениса, запитує про комплекс, ціну, вільні місця.',
+          'Fr 0: відео + заголовок + підзаголовок. Автопрогравання muted. Клік — unmute.',
+          'Fr 1: «Дзвонить самостійно».',
+          'Fr 2: «Ставить уточнення з контексту» — підкреслити, що про вагу песика вона запитала без промпту.',
+          'Fr 3: «Звітує з порівнянням» — 3 салони, ціни, найближчі місця, рекомендація.',
+          'Voice-over: «Це не наше демо — це показує, що вже роблять. Ми будуємо саме таких агентів — щоб не ви дзвонили клієнтам, а вам дзвонили ваші клієнти, а агент обробляв рутину». Закінчити на Денисовій лінії: «це майбутнє».',
+        ].join('\n'),
       },
       {
         id: 'team',
